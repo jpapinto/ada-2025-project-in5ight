@@ -1,4 +1,6 @@
 import pandas as pd
+import gzip
+import json
 
 def load_data(path, nrows=None, compression=None):
     df = pd.read_csv(path, sep='\t', nrows=nrows, engine='c', compression=compression)
@@ -11,9 +13,9 @@ def load_feather(path):
 def load_metadata_json(path, nrows=None):
     videos_list = []
 
-    with gzip.open(file_path, 'rt', encoding='utf-8') as f:
+    with gzip.open(path, 'rt', encoding='utf-8') as f:
         for i, line in enumerate(f):
-            if sample_size and i >= sample_size:
+            if nrows and i >= nrows:
                 break
             try:
                 video = json.loads(line)
