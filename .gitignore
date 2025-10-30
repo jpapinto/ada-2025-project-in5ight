@@ -1,0 +1,24 @@
+# ------------------------------------
+# Data Files
+data_files/
+
+# ------------------------------------
+# Python and IDE Artifacts
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyd
+*.so
+
+# Jupyter Notebook Artifacts
+.ipynb_checkpoints/
+
+# Environments (if you use venv or conda envs inside the project root)
+venv/
+env/
+.conda/
+
+# Operating System and Editor Files
+.DS_Store
+.vscode/
+.idea/
