@@ -49,7 +49,8 @@ def timeseries_preprocessing(timeseries_df):
 
 
 def videos_preprocessing(videos_df):
-    # NOTE: should be valid both for .feather file which omits descriptions, titles and tags, so if add some preprocessing for those columns - check if it exists
+    # NOTE: should be valid both for .feather file which omits descriptions, titles and tags,
+    # so if add some preprocessing for those columns - check if it exists
 
     # Remove duplicates
     videos_df = videos_df.drop_duplicates(subset=['display_id'])
@@ -110,7 +111,8 @@ def complete_data_preprocessing(channels_df, videos_metadata_df, timeseries_df=N
         timeseries_df = timeseries_df.merge(
             channels_df, on='channel', how='left')
 
-    # videos metadata original dataset is quite large and heavy, as it includes descriptions, titles and tags
+    # videos metadata original dataset is quite large and heavy,
+    # as it includes descriptions, titles and tags
 
     if videos_num_comments_df is not None:
         videos_num_comments_df = num_comments_preprocessing(

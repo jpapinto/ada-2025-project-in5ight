@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 
+
 def check_missing_values(df):
     """Report missing values in the dataset."""
     missing = df.isnull().sum()
@@ -15,6 +16,7 @@ def check_missing_values(df):
         'Percentage', ascending=False
     )
 
+
 def check_duplicates(df, subset=None):
     """Check for duplicate rows."""
     duplicates = df.duplicated(subset=subset).sum()
@@ -22,6 +24,7 @@ def check_duplicates(df, subset=None):
         'total_duplicates': duplicates,
         'percentage': 100 * duplicates / len(df)
     }
+
 
 def check_data_types(df):
     """Report data types of all columns."""
@@ -31,6 +34,7 @@ def check_data_types(df):
         'Non_Null_Count': df.count().values,
         'Unique_Values': [df[col].nunique() for col in df.columns]
     })
+
 
 def detect_outliers(df, column, method='iqr', threshold=1.5):
     """Detect outliers in a numeric column."""
@@ -59,6 +63,7 @@ def detect_outliers(df, column, method='iqr', threshold=1.5):
         'percentage': 100 * len(outliers) / len(data),
         'outlier_values': outliers.describe()
     }
+
 
 def generate_report(df):
     """Generate comprehensive data quality report."""
