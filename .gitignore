@@ -1,0 +1,37 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.so
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.log
+*.sqlite3
+
+# --- Virtual Environments ---
+venv/
+.env/
+.env.bak/
+.venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# --- IDE / Editors ---
+.idea/
+*.iml
+
+# VSCode
+.vscode/
+.history/
+
+#Data
+# Ignore all data files recursively
+data/**/*.csv
+data/**/*.gz
+data/**/*.feather
