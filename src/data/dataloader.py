@@ -74,7 +74,8 @@ def load_video_metadata(subset_size=None, compressed_videos=False):
 
 def iterate_videos_metadata_stream(window_size=100_000, start_line=0):
     """
-    Efficiently stream through a .jsonl.gz file line-by-line without restarting gzip each time.
+    Iteratively read chunks from video_metadata.
+
     """
     videos_list = []
     total_rows = 0
@@ -98,7 +99,9 @@ def iterate_videos_metadata_stream(window_size=100_000, start_line=0):
                 df_chunk = pd.DataFrame(videos_list)
                 videos_list.clear()
                 total_rows = i + 1
-                yield df_chunk
+
+                yield df_chunk #Returns a chunk temporarily
+
                 print(f"++ Chunk {chunk_index:03d}: lines {i+1-window_size:,}–{i+1:,} | total={total_rows:,}")
                 chunk_index += 1
 
