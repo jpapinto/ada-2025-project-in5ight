@@ -65,6 +65,9 @@ def videos_preprocessing(videos_df):
             videos_df[col] = pd.to_numeric(
                 videos_df[col], errors='coerce').fillna(0)
 
+    if 'num_comms' not in videos_df.columns:
+        videos_df['num_comms'] = 0
+
     # Create engagement features: here we can add whatever we want actually
     if 'like_count' in videos_df.columns and 'dislike_count' in videos_df.columns:
         total_reactions = videos_df['like_count'] + videos_df['dislike_count']
