@@ -21,6 +21,7 @@ ENV/
 env/
 env.bak/
 venv.bak/
+ada_project/
 
 # --- IDE / Editors ---
 .idea/
