@@ -4,7 +4,7 @@ import json
 import pyarrow.dataset as ds
 from pathlib import Path
 
-from src.utils.paths import DATASET_CHANNELS, DATASET_TIMESERIES, DATASET_VIDEO_METADATA, DATASET_VIDEO_METADATA_LIGHT
+from src.utils.paths import DATASET_CHANNELS, DATASET_TIMESERIES, DATASET_VIDEO_METADATA, DATASET_VIDEO_LIGHT
 from src.utils.paths import (
     RAW_DATASET_CHANNELS,
     RAW_DATASET_TIMESERIES,
@@ -79,15 +79,15 @@ def load_metadata_json(path, nrows=None):
 
 def load_video_metadata(subset_size=None, compressed_videos=False):
     if compressed_videos:
-        videos_df = load_feather(DATASET_VIDEO_METADATA_LIGHT)
+        videos_df = load_feather(RAW_DATASET_VIDEO_METADATA_LIGHT)
         return videos_df
     videos_df = load_metadata_json(DATASET_VIDEO_METADATA, nrows=subset_size)
     return videos_df
 
 def load_all_datasets(subset_size=None, compressed_videos=False):
-    channels_df = load_data(DATASET_CHANNELS, nrows=subset_size)
+    channels_df = load_data(RAW_DATASET_CHANNELS, nrows=subset_size)
     if compressed_videos:
-        videos_df = load_feather(DATASET_VIDEO_METADATA_LIGHT)
+        videos_df = load_feather(RAW_DATASET_VIDEO_METADATA_LIGHT)
     else:
         videos_df = load_metadata_json(
             DATASET_VIDEO_METADATA, nrows=subset_size)
@@ -163,3 +163,44 @@ def iterate_videos_light_stream(path, window_size, start_chunk=0):
         total_chunks += 1
         yield df_chunk
         print(f"++ Chunk {i:03d} | rows={len(df_chunk):,} | cumulative={i * window_size + len(df_chunk):,}")
+
+
+
+def iterate_parquet_stream(path, window_size=20_000_000, start_line=0):
+    """
+    Iteratively read chunks from a Parquet file as pandas DataFrames.
+
+    """
+    videos_list = []
+    total_rows = 0
+    chunk_index = start_line // window_size
+
+    dataset = ds.dataset(path, format="parquet")
+    scanner = dataset.scanner()
+
+    buffered_rows = 0
+
+    for batch in scanner.to_batches():
+        df_batch = batch.to_pandas()
+        videos_list.append(df_batch)
+        buffered_rows += len(df_batch)
+
+        # Once we reach a full chunk, yield it
+        if buffered_rows >= window_size:
+            df_chunk = pd.concat(videos_list, ignore_index=True)
+            videos_list.clear()
+            total_rows += buffered_rows
+
+            yield df_chunk  # Returns a chunk temporarily
+
+            print(f"++ Chunk {chunk_index:03d}: rows {total_rows - buffered_rows:,}-{total_rows:,} | total={total_rows:,}")
+            chunk_index += 1
+            buffered_rows = 0
+
+    # Yield last partial chunk
+    if videos_list:
+        df_chunk = pd.concat(videos_list, ignore_index=True)
+        total_rows += buffered_rows
+        yield df_chunk
+        print(
+            f"++ Final chunk: rows {total_rows - buffered_rows:,}-{total_rows:,} | rows={buffered_rows:,} | total={total_rows:,}")
