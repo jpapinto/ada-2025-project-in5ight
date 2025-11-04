@@ -15,14 +15,21 @@ We aim to define and detect such channels, then compare their engagement efficie
   
 ## Methods
 
-Here’s a concise summary of the methods we use:
+Our analysis combines statistical modeling and tests, clustering, and time-series analysis to identify and explain YouTube channels that achieve unusually high engagement relative to their size. Each research question builds on a standardized dataset where engagement efficiency is defined as *(likes + comments) / views* and normalized for channel size through regression-based bias correction. Channels with large positive residuals are labeled as *quiet outperformers*.
 
-- Statistical normalization and outlier detection
-- Regression modeling (OLS and logistic regression)
-- Tag-based and category-based clustering (K-Means / Embedding-based)
-- Propensity Score Matching
-- Time-series volatility analysis (coefficient of variation)
-- Statistical significance tests (t-test, Mann–Whitney U test, Chi-square test)
+**RQ1 – Detection of Quiet Outperformers**  
+We first construct a size-adjusted efficiency measure to control for the natural relationship between engagement and subscriber base. This is done using a log–log OLS regression between engagement efficiency and subscriber count, where residuals capture deviation from the expected engagement level. Channels with high residuals are classified as quiet outperformers. 
+
+**RQ2 – Category Concentration and Engagement Patterns**  
+We test whether outperformers are concentrated in specific content types or show distinct engagement distributions across categories. Content categories are derived either from YouTube’s default 15 labels or from data-driven clustering based on video tags using Latent Dirichlet Allocation. Topics will be interpreted based on their most probable keywords, and summarized using a Large Language Model for clearer labeling. Each channel is assigned to its dominant topic or category, and we compare engagement efficiency distributions using Kruskal–Wallis and Chi-square tests to identify significant category-level differences.
+
+**RQ3 – Structural and Creative Factors**  
+We then analyze which content and strategy variables, such as video duration, posting frequency and consistency, are statistically associated with higher engagement efficiency within each size tier. Regression models (OLS for continuous outcomes, logistic for outperformer status) will estimate these relationships, and statistical significance will be assessed through t-tests and Wald tests on model coefficients. Interaction terms will test whether the effects differ between short-form and long-form channels, defined by average video duration.
+
+**RQ4 – Sustainability and Stability of Success**  
+Finally, we examine whether quiet outperformers maintain consistent growth in weekly views and subscribers compared to similar non-outperforming channels. Time-series volatility is quantified using the Coefficient of Variation for weekly changes. To mitigate selection bias, we apply Propensity Score Matching to pair each outperformer with a comparable control channel. Non-parametric tests such as the Mann-Whitney U test are used to compare stability across groups.
+
+
 
 ## Proposed Timeline
 
