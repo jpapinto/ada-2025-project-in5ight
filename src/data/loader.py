@@ -2,6 +2,7 @@ import pandas as pd
 import gzip
 import json
 import pyarrow.dataset as ds
+from pathlib import Path
 
 from src.utils.paths import DATASET_CHANNELS, DATASET_TIMESERIES, DATASET_VIDEO_METADATA, DATASET_VIDEO_METADATA_LIGHT, DATASET_NUM_COMMENTS
 from src.utils.paths import (
@@ -27,7 +28,7 @@ def load_feather(path, nrows=None):
     else:
         dataset = ds.dataset(path, format="feather")
 
-        scanner = dataset.scanner(batch_size=100_000)  # tune batch_size if needed
+        scanner = dataset.scanner(batch_size=100_000)
         batches = []
         rows_read = 0
 
@@ -109,7 +110,7 @@ def load_all_raw_datasets(nrows=None):
 
 
 
-def iterate_videos_metadata_stream(window_size=100_000, start_line=0):
+def iterate_videos_metadata_stream(path, window_size=100_000, start_line=0):
     """
     Iteratively read chunks from video_metadata.
 
@@ -117,7 +118,6 @@ def iterate_videos_metadata_stream(window_size=100_000, start_line=0):
     videos_list = []
     total_rows = 0
     chunk_index = start_line // window_size
-    path = DATASET_VIDEO_METADATA
 
     with gzip.open(path, 'rt', encoding='utf-8') as f:
         # Skip until start_line
@@ -147,3 +147,20 @@ def iterate_videos_metadata_stream(window_size=100_000, start_line=0):
             df_chunk = pd.DataFrame(videos_list)
             yield df_chunk
             print(f"++ Final chunk: lines {total_rows:,}–EOF | rows={len(df_chunk):,}")
+
+
+def iterate_videos_light_stream(path, window_size, start_chunk=0):
+
+    path = Path(path)
+    dataset = ds.dataset(path, format="feather")
+    scanner = dataset.scanner(batch_size=window_size)
+
+    total_chunks = 0
+    for i, chunk in enumerate(scanner.to_batches()):
+        if i < start_chunk:
+            continue  # skip until desired chunk index
+
+        df_chunk = chunk.to_pandas()
+        total_chunks += 1
+        yield df_chunk
+        print(f"++ Chunk {i:03d} | rows={len(df_chunk):,} | cumulative={i * window_size + len(df_chunk):,}")

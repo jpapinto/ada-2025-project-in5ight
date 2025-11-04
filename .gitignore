@@ -35,3 +35,4 @@ venv.bak/
 data/**/*.csv
 data/**/*.gz
 data/**/*.feather
+data/**/*.parquet
