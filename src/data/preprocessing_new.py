@@ -151,6 +151,9 @@ def channels_preprocessing(channels_df, videos_light_processed_path):
         'efficiency_count': 0,
         'views_sum': 0.0,
         'duration_sum': 0.0,
+        'like_count_sum': 0.0,
+        'dislike_count_sum': 0.0,
+        'num_comms_sum': 0.0,
         'video_count': 0
     })
     
@@ -165,7 +168,10 @@ def channels_preprocessing(channels_df, videos_light_processed_path):
             grouped = chunk_df.groupby('channel_id').agg({
                 'engagement_efficiency': ['sum', 'count'],
                 'view_count': 'sum',
-                'duration': 'sum'
+                'duration': 'sum',
+                'like_count': 'sum',
+                'dislike_count': 'sum',
+                'num_comms': 'sum'
             })
             
             for ch_id in grouped.index:
@@ -174,6 +180,9 @@ def channels_preprocessing(channels_df, videos_light_processed_path):
                 stats['efficiency_count'] += grouped.loc[ch_id, ('engagement_efficiency', 'count')]
                 stats['views_sum'] += grouped.loc[ch_id, ('view_count', 'sum')]
                 stats['duration_sum'] += grouped.loc[ch_id, ('duration', 'sum')]
+                stats['like_count_sum'] += grouped.loc[ch_id, ('like_count', 'sum')]
+                stats['dislike_count_sum'] += grouped.loc[ch_id, ('dislike_count', 'sum')]
+                stats['num_comms_sum'] += grouped.loc[ch_id, ('num_comms', 'sum')]
                 stats['video_count'] += grouped.loc[ch_id, ('engagement_efficiency', 'count')]
         
         del chunk_df
@@ -186,6 +195,9 @@ def channels_preprocessing(channels_df, videos_light_processed_path):
             'avg_engagement_efficiency': stats['efficiency_sum'] / stats['efficiency_count'] if stats['efficiency_count'] > 0 else 0,
             'total_views': stats['views_sum'],
             'total_duration': stats['duration_sum'],
+            'total_like_count': stats['like_count_sum'],
+            'total_dislike_count': stats['dislike_count_sum'],
+            'total_num_comms': stats['num_comms_sum'],
             'video_count_processed': stats['video_count']
         }
         for ch_id, stats in channel_stats.items()
@@ -197,6 +209,9 @@ def channels_preprocessing(channels_df, videos_light_processed_path):
     channels_df['avg_engagement_efficiency'] = channels_df['avg_engagement_efficiency'].fillna(0)
     channels_df['total_views'] = channels_df['total_views'].fillna(0)
     channels_df['total_duration'] = channels_df['total_duration'].fillna(0)
+    channels_df['total_like_count'] = channels_df['total_like_count'].fillna(0)
+    channels_df['total_dislike_count'] = channels_df['total_dislike_count'].fillna(0)
+    channels_df['total_num_comms'] = channels_df['total_num_comms'].fillna(0)
     channels_df['video_count_processed'] = channels_df['video_count_processed'].fillna(0)
 
     # Save to parquet in data/processed/
