@@ -4,13 +4,12 @@ import json
 import pyarrow.dataset as ds
 from pathlib import Path
 
-from src.utils.paths import DATASET_CHANNELS, DATASET_TIMESERIES, DATASET_VIDEO_METADATA, DATASET_VIDEO_METADATA_LIGHT, DATASET_NUM_COMMENTS
+from src.utils.paths import DATASET_CHANNELS, DATASET_TIMESERIES, DATASET_VIDEO_METADATA, DATASET_VIDEO_METADATA_LIGHT
 from src.utils.paths import (
     RAW_DATASET_CHANNELS,
     RAW_DATASET_TIMESERIES,
     RAW_DATASET_VIDEO_METADATA,
     RAW_DATASET_VIDEO_METADATA_LIGHT,
-    RAW_DATASET_COMMENTS,
     RAW_DATASET_NUM_COMMENTS
 )
 
@@ -93,8 +92,8 @@ def load_all_datasets(subset_size=None, compressed_videos=False):
         videos_df = load_metadata_json(
             DATASET_VIDEO_METADATA, nrows=subset_size)
     timeseries_df = load_data(DATASET_TIMESERIES, nrows=subset_size)
-    num_comments_df = load_data(DATASET_NUM_COMMENTS, nrows=subset_size)
-    return channels_df, videos_df, timeseries_df, num_comments_df
+    # num_comments_df = load_data(DATASET_NUM_COMMENTS, nrows=subset_size)
+    return channels_df, videos_df, timeseries_df
 
 
 def load_all_raw_datasets(nrows=None):
