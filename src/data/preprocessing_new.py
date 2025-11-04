@@ -154,6 +154,8 @@ def channels_preprocessing(channels_df, videos_light_processed_path):
         'like_count_sum': 0.0,
         'dislike_count_sum': 0.0,
         'num_comms_sum': 0.0,
+        'like_ratio_sum': 0.0,
+        'like_ratio_count': 0,
         'video_count': 0
     })
     
@@ -171,7 +173,8 @@ def channels_preprocessing(channels_df, videos_light_processed_path):
                 'duration': 'sum',
                 'like_count': 'sum',
                 'dislike_count': 'sum',
-                'num_comms': 'sum'
+                'num_comms': 'sum',
+                'like_ratio': ['sum', 'count']
             })
             
             for ch_id in grouped.index:
@@ -183,6 +186,8 @@ def channels_preprocessing(channels_df, videos_light_processed_path):
                 stats['like_count_sum'] += grouped.loc[ch_id, ('like_count', 'sum')]
                 stats['dislike_count_sum'] += grouped.loc[ch_id, ('dislike_count', 'sum')]
                 stats['num_comms_sum'] += grouped.loc[ch_id, ('num_comms', 'sum')]
+                stats['like_ratio_sum'] += grouped.loc[ch_id, ('like_ratio', 'sum')]
+                stats['like_ratio_count'] += grouped.loc[ch_id, ('like_ratio', 'count')]
                 stats['video_count'] += grouped.loc[ch_id, ('engagement_efficiency', 'count')]
         
         del chunk_df
@@ -198,6 +203,7 @@ def channels_preprocessing(channels_df, videos_light_processed_path):
             'total_like_count': stats['like_count_sum'],
             'total_dislike_count': stats['dislike_count_sum'],
             'total_num_comms': stats['num_comms_sum'],
+            'avg_video_like_ratio': stats['like_ratio_sum'] / stats['like_ratio_count'] if stats['like_ratio_count'] > 0 else 0,
             'video_count_processed': stats['video_count']
         }
         for ch_id, stats in channel_stats.items()
@@ -212,6 +218,7 @@ def channels_preprocessing(channels_df, videos_light_processed_path):
     channels_df['total_like_count'] = channels_df['total_like_count'].fillna(0)
     channels_df['total_dislike_count'] = channels_df['total_dislike_count'].fillna(0)
     channels_df['total_num_comms'] = channels_df['total_num_comms'].fillna(0)
+    channels_df['avg_video_like_ratio'] = channels_df['avg_video_like_ratio'].fillna(0)
     channels_df['video_count_processed'] = channels_df['video_count_processed'].fillna(0)
 
     # Save to parquet in data/processed/
@@ -270,7 +277,16 @@ def timeseries_preprocessing(timeseries_df, channels_df):
 
 
 
-def video_metadata_preprocessing(num_comments_df=None):
+def video_metadata_preprocessing():
+
+    CHANGES:
+
+          SAVE INTO TWO DATASETS
+            - THe original video_metadata
+            - New df
+
+
+
     """
     Preprocess video metadata (full dataset with titles, descriptions, tags).
     
@@ -540,11 +556,15 @@ def video_light_preprocessing(num_comments_df):
         raise
 
 
+def create_new_tag_data(video_metadata_processing):
+    """
+    Makes a new dataset that has just video_id, channel_id, and tags
 
+    :param video_metadata_processing:
+    :return:
+    """
 
-
-
-
+    pass
 
 
 def num_comments_preprocessing(num_comments_df):
@@ -566,13 +586,11 @@ def num_comments_preprocessing(num_comments_df):
     return num_comments_df
 
 
-def create_new_tag_data(video_metadata_processing):
-    # TODO: Not implemented yet - will be done in future iteration
-    pass
 
-def create_new_channel_tag_data(channels_df, tags_df):
-    # TODO: Not implemented yet - will be done in future iteration
-    pass
+
+
+
+
 
 
 if __name__ == "__main__":
