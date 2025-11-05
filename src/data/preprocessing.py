@@ -769,4 +769,4 @@ def num_comments_preprocessing(num_comments_df):
 
 if __name__ == "__main__":
     # Run the data processing pipeline
-    processed_paths = apply_data_processing(skip_comments=True)
+    processed_paths = apply_data_processing(skip_comments=False)

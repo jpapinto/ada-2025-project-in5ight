@@ -212,14 +212,14 @@ def iterate_videos_metadata_stream(path, window_size=100_000, start_line=0):
 
                 yield df_chunk #Returns a chunk temporarily
 
-                print(f"++ Chunk {chunk_index:03d}: lines {i+1-window_size:,}–{i+1:,} | total={total_rows:,}")
+                #print(f"++ Chunk {chunk_index:03d}: lines {i+1-window_size:,}–{i+1:,} | total={total_rows:,}")
                 chunk_index += 1
 
         # Yield last partial chunk
         if videos_list:
             df_chunk = pd.DataFrame(videos_list)
             yield df_chunk
-            print(f"++ Final chunk: lines {total_rows:,}–EOF | rows={len(df_chunk):,}")
+            #print(f"++ Final chunk: lines {total_rows:,}–EOF | rows={len(df_chunk):,}")
 
 
 def iterate_videos_light_stream(path, window_size, start_chunk=0):
@@ -284,7 +284,7 @@ def iterate_parquet_stream(path, window_size=20_000_000, start_line=0):
 
             yield df_chunk  # Returns a chunk temporarily
 
-            print(f"++ Chunk {chunk_index:03d}: rows {total_rows - buffered_rows:,}-{total_rows:,} | total={total_rows:,}")
+            #print(f"++ Chunk {chunk_index:03d}: rows {total_rows - buffered_rows:,}-{total_rows:,} | total={total_rows:,}")
             chunk_index += 1
             buffered_rows = 0
 
