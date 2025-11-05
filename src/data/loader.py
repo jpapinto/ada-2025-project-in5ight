@@ -14,13 +14,33 @@ from src.utils.paths import (
 )
 
 def load_data(path, nrows=None, compression='infer'):
+    """
+    Load a dataset from a file into a pandas DataFrame.
+
+    Args:
+        path (str): Path to the dataset file.
+        nrows (int, optional): Number of rows to read. Defaults to None (read all rows).
+        compression (str, optional): Compression type. Defaults to 'infer'.
+
+    Returns:
+        pd.DataFrame: Loaded dataset.
+    """
     df = pd.read_csv(path, sep='\t', nrows=nrows,
                      engine='c', compression=compression)
     return df
 
 
 def load_feather(path, nrows=None):
+    """
+    Load a Feather dataset into a pandas DataFrame.
 
+    Args:
+        path (str): Path to the Feather file.
+        nrows (int, optional): Number of rows to read. Defaults to None (read all rows).
+
+    Returns:
+        pd.DataFrame: Loaded dataset.
+    """
     if not nrows:
         df = pd.read_feather(path)
         return df
@@ -51,6 +71,17 @@ def load_feather(path, nrows=None):
 
 
 def load_metadata_json_chunk(path, start_line, end_line):
+    """
+    Load a chunk of metadata from a JSON file.
+
+    Args:
+        path (str): Path to the JSON file.
+        start_line (int): Starting line number.
+        end_line (int, optional): Ending line number. Defaults to None (read till end).
+
+    Returns:
+        pd.DataFrame: Loaded metadata as a DataFrame.
+    """
     videos_list = []
 
     with gzip.open(path, 'rt', encoding='utf-8') as f:
@@ -73,11 +104,31 @@ def load_metadata_json_chunk(path, start_line, end_line):
 
 
 def load_metadata_json(path, nrows=None):
+    """
+    Load metadata from a JSON file.
+
+    Args:
+        path (str): Path to the JSON file.
+        nrows (int, optional): Number of rows to read. Defaults to None (read all rows).
+
+    Returns:
+        pd.DataFrame: Loaded metadata as a DataFrame.
+    """
     return load_metadata_json_chunk(path, start_line=0, end_line=nrows)
 
 
 
 def load_video_metadata(subset_size=None, compressed_videos=False):
+    """
+    Load video metadata.
+
+    Args:
+        subset_size (int, optional): Number of rows to read. Defaults to None (read all rows).
+        compressed_videos (bool, optional): Whether to load compressed videos. Defaults to False.
+
+    Returns:
+        pd.DataFrame: Loaded video metadata.
+    """
     if compressed_videos:
         videos_df = load_feather(RAW_DATASET_VIDEO_METADATA_LIGHT)
         return videos_df
@@ -85,6 +136,16 @@ def load_video_metadata(subset_size=None, compressed_videos=False):
     return videos_df
 
 def load_all_datasets(subset_size=None, compressed_videos=False):
+    """
+    Load all datasets.
+
+    Args:
+        subset_size (int, optional): Number of rows to read. Defaults to None (read all rows).
+        compressed_videos (bool, optional): Whether to load compressed videos. Defaults to False.
+
+    Returns:
+        tuple: Tuple containing channels, videos, and timeseries DataFrames.
+    """
     channels_df = load_data(RAW_DATASET_CHANNELS, nrows=subset_size)
     if compressed_videos:
         videos_df = load_feather(RAW_DATASET_VIDEO_METADATA_LIGHT)
@@ -92,13 +153,19 @@ def load_all_datasets(subset_size=None, compressed_videos=False):
         videos_df = load_metadata_json(
             DATASET_VIDEO_METADATA, nrows=subset_size)
     timeseries_df = load_data(DATASET_TIMESERIES, nrows=subset_size)
-    # num_comments_df = load_data(DATASET_NUM_COMMENTS, nrows=subset_size)
     return channels_df, videos_df, timeseries_df
 
 
 def load_all_raw_datasets(nrows=None):
+    """
+    Load all raw datasets (unprocessed originals).
 
-    """Load all RAW datasets (unprocessed originals)."""
+    Args:
+        nrows (int, optional): Number of rows to read. Defaults to None (read all rows).
+
+    Returns:
+        tuple: Tuple containing channels, videos, videos_light, timeseries, and num_comments DataFrames.
+    """
     channels_df = load_data(RAW_DATASET_CHANNELS, nrows=nrows)
     videos_df = load_feather(RAW_DATASET_VIDEO_METADATA_LIGHT, nrows=nrows)
     videos_light_df = load_metadata_json(RAW_DATASET_VIDEO_METADATA, nrows=nrows)
@@ -111,8 +178,15 @@ def load_all_raw_datasets(nrows=None):
 
 def iterate_videos_metadata_stream(path, window_size=100_000, start_line=0):
     """
-    Iteratively read chunks from video_metadata.
+    Iteratively read chunks from video metadata.
 
+    Args:
+        path (str): Path to the metadata file.
+        window_size (int, optional): Number of rows per chunk. Defaults to 100,000.
+        start_line (int, optional): Starting line number. Defaults to 0.
+
+    Yields:
+        pd.DataFrame: Chunk of video metadata.
     """
     videos_list = []
     total_rows = 0
@@ -149,7 +223,17 @@ def iterate_videos_metadata_stream(path, window_size=100_000, start_line=0):
 
 
 def iterate_videos_light_stream(path, window_size, start_chunk=0):
+    """
+    Iteratively read chunks from a Feather file.
 
+    Args:
+        path (str): Path to the Feather file.
+        window_size (int): Number of rows per chunk.
+        start_chunk (int, optional): Starting chunk index. Defaults to 0.
+
+    Yields:
+        pd.DataFrame: Chunk of data.
+    """
     path = Path(path)
     dataset = ds.dataset(path, format="feather")
     scanner = dataset.scanner(batch_size=window_size)
@@ -170,6 +254,13 @@ def iterate_parquet_stream(path, window_size=20_000_000, start_line=0):
     """
     Iteratively read chunks from a Parquet file as pandas DataFrames.
 
+    Args:
+        path (str): Path to the Parquet file.
+        window_size (int, optional): Number of rows per chunk. Defaults to 20,000,000.
+        start_line (int, optional): Starting line number. Defaults to 0.
+
+    Yields:
+        pd.DataFrame: Chunk of data.
     """
     videos_list = []
     total_rows = 0

@@ -2,7 +2,15 @@ import pandas as pd
 import numpy as np
 
 def check_missing_values(df):
-    """Return a styled table of missing values."""
+    """
+    Return a styled table of missing values in the DataFrame.
+
+    Args:
+        df (pd.DataFrame): The input DataFrame to check for missing values.
+
+    Returns:
+        pd.io.formats.style.Styler: A styled DataFrame showing missing counts and percentages.
+    """
     missing = df.isnull().sum()
     missing_pct = 100 * missing / len(df)
     missing_df = (
@@ -16,7 +24,16 @@ def check_missing_values(df):
 
 
 def check_duplicates(df, subset=None):
-    """Return a small summary DataFrame of duplicates."""
+    """
+    Return a summary of duplicate rows in the DataFrame.
+
+    Args:
+        df (pd.DataFrame): The input DataFrame to check for duplicates.
+        subset (list, optional): Columns to consider when identifying duplicates. Defaults to None (all columns).
+
+    Returns:
+        pd.io.formats.style.Styler: A styled DataFrame summarizing duplicate counts and percentages.
+    """
     total_dup = df.duplicated(subset=subset).sum()
     pct_dup = 100 * total_dup / len(df)
     summary = pd.DataFrame({
@@ -28,7 +45,15 @@ def check_duplicates(df, subset=None):
 
 
 def check_data_types(df):
-    """Summarize column types, non-null counts, and unique values."""
+    """
+    Summarize column data types, non-null counts, and unique values.
+
+    Args:
+        df (pd.DataFrame): The input DataFrame to summarize.
+
+    Returns:
+        pd.io.formats.style.Styler: A styled DataFrame summarizing column types, non-null counts, and unique values.
+    """
     summary = pd.DataFrame({
         'Column': df.columns,
         'Data Type': df.dtypes.astype(str).values,
@@ -39,7 +64,21 @@ def check_data_types(df):
 
 
 def detect_outliers(df, column, method='iqr', threshold=1.5):
-    """Detect outliers in a numeric column."""
+    """
+    Detect outliers in a numeric column using the IQR or Z-score method.
+
+    Args:
+        df (pd.DataFrame): The input DataFrame.
+        column (str): The column to check for outliers.
+        method (str, optional): The method to use ('iqr' or 'zscore'). Defaults to 'iqr'.
+        threshold (float, optional): The threshold for detecting outliers. Defaults to 1.5.
+
+    Returns:
+        pd.DataFrame: A summary DataFrame with outlier statistics.
+
+    Raises:
+        ValueError: If the column is not found or the method is invalid.
+    """
     if column not in df.columns:
         raise ValueError(f"Column {column} not found")
 
@@ -65,33 +104,112 @@ def detect_outliers(df, column, method='iqr', threshold=1.5):
         'Upper Bound': [upper]
     }).style.format({'Outlier %': '{:.2f}%'})
 
+
 def get_numeric_cols_count(df):
+    """
+    Get the count of numeric columns in the DataFrame.
+
+    Args:
+        df (pd.DataFrame): The input DataFrame.
+
+    Returns:
+        int: The number of numeric columns.
+    """
     return len(df.select_dtypes(include=[np.number]).columns)
 
+
 def get_categorical_cols_count(df):
+    """
+    Get the count of categorical columns in the DataFrame.
+
+    Args:
+        df (pd.DataFrame): The input DataFrame.
+
+    Returns:
+        int: The number of categorical columns.
+    """
     return len(df.select_dtypes(exclude=[np.number]).columns)
 
+
 def get_avg_row_size_bytes(df):
+    """
+    Calculate the average memory usage per row in bytes.
+
+    Args:
+        df (pd.DataFrame): The input DataFrame.
+
+    Returns:
+        float: The average memory usage per row in bytes.
+    """
     mem_bytes = int(df.memory_usage(deep=True).sum())
     return round(mem_bytes / max(len(df), 1), 1)
 
+
 def get_nonnull_pct_avg(df):
+    """
+    Calculate the average percentage of non-null values across all columns.
+
+    Args:
+        df (pd.DataFrame): The input DataFrame.
+
+    Returns:
+        float: The average percentage of non-null values.
+    """
     return round(df.notnull().mean().mean() * 100, 2)
 
+
 def get_unique_pct_avg(df):
+    """
+    Calculate the average percentage of unique values per column.
+
+    Args:
+        df (pd.DataFrame): The input DataFrame.
+
+    Returns:
+        float: The average percentage of unique values per column.
+    """
     n = len(df)
     return round(df.nunique().mean() / n * 100, 2) if n else 0
 
+
 def get_min_numeric(df):
+    """
+    Get the minimum value among all numeric columns.
+
+    Args:
+        df (pd.DataFrame): The input DataFrame.
+
+    Returns:
+        float or None: The minimum numeric value, or None if no numeric columns exist.
+    """
     num = df.select_dtypes(include=[np.number])
     return num.min().min() if not num.empty else None
 
+
 def get_max_numeric(df):
+    """
+    Get the maximum value among all numeric columns.
+
+    Args:
+        df (pd.DataFrame): The input DataFrame.
+
+    Returns:
+        float or None: The maximum numeric value, or None if no numeric columns exist.
+    """
     num = df.select_dtypes(include=[np.number])
     return num.max().max() if not num.empty else None
 
+
 def generate_report(df):
-    """Generate a compact summary DataFrame of the dataset."""
+    """
+    Generate a compact summary report of the dataset.
+
+    Args:
+        df (pd.DataFrame): The input DataFrame.
+
+    Returns:
+        pd.io.formats.style.Styler: A styled DataFrame summarizing dataset statistics.
+    """
     info = {
         'Rows': len(df),
         'Columns': df.shape[1],
@@ -110,7 +228,16 @@ def generate_report(df):
 
 
 def check_data_quality_on_datasets(df_list, names=None):
-    """Compare overall data quality across multiple datasets."""
+    """
+    Compare overall data quality across multiple datasets.
+
+    Args:
+        df_list (list): List of DataFrames to compare.
+        names (list, optional): List of dataset names. Defaults to None.
+
+    Returns:
+        pd.DataFrame: A DataFrame summarizing data quality metrics for each dataset.
+    """
     reports = []
     for i, df in enumerate(df_list):
         name = names[i] if names and i < len(names) else f"Dataset_{i+1}"
