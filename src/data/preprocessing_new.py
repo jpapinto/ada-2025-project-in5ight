@@ -316,7 +316,7 @@ def timeseries_preprocessing(timeseries_df, videos_light_processed_path):
     parquet_file = pq.ParquetFile(videos_light_processed_path)
     batch_count = 0
     
-    for batch in tqdm(parquet_file.iter_batches(batch_size=5_000_000), 
+    for batch in tqdm(parquet_file.iter_batches(batch_size=4_000_000),
                       desc="Processing video batches", 
                       unit="batch",
                       bar_format='{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}]'):
