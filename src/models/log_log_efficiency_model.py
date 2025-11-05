@@ -8,7 +8,6 @@ def linear_log_log_model(
     x_col,
     y_col,
     weight_col=None,
-    gamma_z=2.0,
     log_base=10,
     verbose=True,
 ):
@@ -26,8 +25,6 @@ def linear_log_log_model(
         Column name for the dependent variable (e.g. efficiency).
     weight_col : str or None
         Optional column with sample weights.
-    gamma_z : float
-        Z-score threshold for labeling positive outliers.
     log_base : int
         Logarithm base to use (default 10).
     verbose : bool
@@ -37,16 +34,15 @@ def linear_log_log_model(
     -------
     data : pd.DataFrame
         Copy of df with added columns:
-            - log_x
-            - log_y
-            - pred_log_y
-            - residual
-            - zscore
-            - is_outlier (bool)
-        Model parameters in data.attrs["model"] = {"a": a, "b": b}.
-    """
+        - log_x
+        - log_y
+        - pred_log_y
+        - residual
+        - zscore
 
-    # Filter valid values
+        Model parameters stored in:
+        data.attrs["model"] = {"a": a, "b": b}
+    """
     mask = (df[x_col] > 0) & (df[y_col] > 0)
     data = df.loc[mask].copy()
 
@@ -57,21 +53,16 @@ def linear_log_log_model(
     y = data["log_y"].values
     weights = data[weight_col].values if weight_col and weight_col in data.columns else None
 
-    # Fit the linear regression
     model = LinearRegression()
     model.fit(X, y, sample_weight=weights)
     a, b = model.intercept_, model.coef_[0]
 
-    # Predictions and diagnostics
     data["pred_log_y"] = model.predict(X)
     data["residual"] = data["log_y"] - data["pred_log_y"]
     data["zscore"] = (data["residual"] - data["residual"].mean()) / data["residual"].std()
-    data["is_outlier"] = data["zscore"] > gamma_z
 
     if verbose:
-        n_out = data["is_outlier"].sum()
-        print(f" log–log model fitted: log(y) = {a:.4f} + {b:.4f} * log(x)")
-        print(f"   Outliers (z>{gamma_z}): {n_out}/{len(data)} ({n_out/len(data):.2%})")
+        print(f"log–log model fitted: log(y) = {a:.4f} + {b:.4f} * log(x)")
 
     data.attrs["model"] = {"a": a, "b": b}
     return data
