@@ -17,16 +17,16 @@ We aim to define and detect such channels, then compare their engagement efficie
 
 Our analysis combines statistical modeling and tests, clustering, and time-series analysis to identify and explain YouTube channels that achieve unusually high engagement relative to their size. Each research question builds on a standardized dataset where engagement efficiency is defined as *(likes + dislikes + comments) / views* and normalized for channel size through regression-based bias correction. Channels with large positive residuals are labeled as *quiet outperformers*.
 
-**RQ1 – Detection of Quiet Outperformers**  
+**RQ1 - Detection of Quiet Outperformers**  
 We first construct a size-adjusted efficiency measure to control for the natural relationship between engagement and subscriber base. This is done using a log–log OLS regression between engagement efficiency and subscriber count, where residuals capture deviation from the expected engagement level. Channels with high residuals are classified as quiet outperformers. 
 
-**RQ2 – Category Concentration and Engagement Patterns**  
+**RQ2 - Category Concentration and Engagement Patterns**  
 We test whether outperformers are concentrated in specific content types or show distinct engagement distributions across categories. Content categories are derived either from YouTube's default 15 labels or from data-driven clustering based on video tags using Latent Dirichlet Allocation. Topics will be interpreted based on their most probable keywords, and summarized using a Large Language Model for clearer labeling. Each channel is assigned to its dominant topic or category, and we compare engagement efficiency distributions using Kruskal–Wallis and Chi-square tests to identify significant category-level differences.
 
-**RQ3 – Structural and Creative Factors**  
+**RQ3 - Structural and Creative Factors**  
 We analyze whether video duration, posting frequency, and posting consistency are associated with size-adjusted engagement efficiency within each size tier. Efficiency is residualized from subscriber count using a log–log regression, and we estimate within-tier weighted least squares models with category fixed effects and basic controls. Regressions are weighted by each channel's video count, with HC3 robust standard errors. Statistical significance is assessed via p-values, and effect sizes are reported as predicted 25th-to-75th percentile changes in efficiency. Interaction terms test whether these relationships differ between short-form and long-form channels, defined by their average video duration.
 
-**RQ4 – Sustainability and Stability of Success**  
+**RQ4 - Sustainability and Stability of Success**  
 Finally, we examine whether quiet outperformers maintain consistent growth in weekly views and subscribers compared to similar non-outperforming channels. Time-series volatility is quantified using the Coefficient of Variation for weekly changes. To mitigate selection bias, we apply Propensity Score Matching to pair each outperformer with a comparable control channel. Non-parametric tests such as the Mann-Whitney U test are used to compare stability across groups.
 
 
@@ -51,7 +51,7 @@ Finally, we examine whether quiet outperformers maintain consistent growth in we
 | **Fedor & Zhuo** | Tag cleaning, LDA topic modeling, and content-cluster analysis (RQ2) | Produce validated clusters and statistical tests by *Week 2–3* |
 | **Yusif** | Structural and creative factor analysis (RQ3): regression models and interaction testing | Deliver association and significance results by *Week 2-3* |
 | **Jon & João** | Sustainability analysis (RQ4): volatility metrics, PSM matching, and visualization | Finalize stability analysis and comparison plots by *Week 2-3* |
-| **All Members** | Refine and cross check | by *week 4* |
+| **All Members** | Refine and cross check | by *Week 4* |
 | **All Members** | Integration of results | Combine findings and prepare complete data story before *Milestone 3* |
 
 
