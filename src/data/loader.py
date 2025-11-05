@@ -4,8 +4,8 @@ import json
 import pyarrow.dataset as ds
 from pathlib import Path
 
-from src.utils.paths import DATASET_CHANNELS, DATASET_TIMESERIES, DATASET_VIDEO_METADATA, DATASET_VIDEO_LIGHT
-from src.utils.paths import (
+from config import DATASET_CHANNELS, DATASET_TIMESERIES, DATASET_VIDEO_METADATA, DATASET_VIDEO_LIGHT
+from config import (
     RAW_DATASET_CHANNELS,
     RAW_DATASET_TIMESERIES,
     RAW_DATASET_VIDEO_METADATA,
