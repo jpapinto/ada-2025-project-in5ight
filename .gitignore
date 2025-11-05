@@ -25,6 +25,7 @@ venv.bak/
 # --- IDE / Editors ---
 .idea/
 *.iml
+.DS_Store
 
 # VSCode
 .vscode/
