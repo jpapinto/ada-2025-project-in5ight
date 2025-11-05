@@ -6,7 +6,7 @@ import gc
 import pyarrow as pa
 import pyarrow.parquet as pq
 import pyarrow.ipc as ipc
-from src.utils.paths import (
+from config import (
     PROCESSED_DATA_DIR,
     RAW_DATASET_CHANNELS,
     RAW_DATASET_TIMESERIES,
