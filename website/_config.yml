@@ -1,0 +1,11 @@
+theme: jekyll-theme-minimal
+title: ADA Template Website
+description: A template website for ADA
+baseurl: "/ada-2025-project-in5ight" # the subpath of your site, e.g. /blog
+url: "https://epfl-ada.github.io"
+show_downloads: True
+navigation:
+  - title: Home
+    url: /
+  - title: Example
+    url: example
