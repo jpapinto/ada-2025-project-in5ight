@@ -116,7 +116,7 @@ But finding them wasn't as simple as sorting a spreadsheet. I had to build a mod
 
 <div style="width:100%; height:700px;">
   <iframe 
-      src="/assets/plots/outperformers_plot.html"
+      src="assets/plots/outperformers_plot.html"
       style="width:100%; height:100%; border:none;">
   </iframe>
 </div>
