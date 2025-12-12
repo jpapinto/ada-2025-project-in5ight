@@ -34,18 +34,14 @@ mathjax: true
 
 **Marcus**: Ghosts? Alex, please tell me you didn't stay up all night just to crack jokes. And where do you get your data anyway?
 
-**Alex**: I’m serious. I 
-
-//
-  Talk about the Dataset YouNiverse
-//
+**Alex**: I’m serious. I built this on **[YouNiverse](https://arxiv.org/abs/2012.10378)** — one of the *largest publicly available academic datasets* ever released on YouTube.  
+We’re talking **136,000+ English-speaking channels**, **almost 73 million videos**, and multi-year histories of views, subscribers, and audience interaction.
 
 I’ve been staring at the data for the past week. Something with our engagement just wasn't adding up. Those subscribers, those views... for the big channels, they were just an illusion. We need to put our money into **Outperformers**. They will give us the most engagement for every dollar spent.
 
 **Leo**: Ourperformers? What are those? 
 
-
-# RQ1 placeholder
+## _What are Outperformers_?
 
 **Alex**: While analyzing the YouNiverse data, I found something very interesting. There exists a massive group of channels with low subscriber counts but engagement way above what they should have. And there are plenty of them! If we put our money here, we can get a lot more of these small-to-mid-sized channels, and they will get us way more **Engagement Efficiency**.
 
@@ -116,23 +112,17 @@ But finding them wasn't as simple as sorting a spreadsheet. I had to build a mod
 
 <div style="width:100%; height:700px;">
   <iframe 
-      src="assets/plots/outperformers_plot.html"
+      src="/assets/plots/outperformers_plot.html"
       style="width:100%; height:100%; border:none;">
   </iframe>
 </div>
 
-
-
-
-
-Every dot you see in that top cluster is a channel punching above its weight class. You can even hover on one of them to see his name, subscribers and efficency. By applying this method, I decided that top 3% is the right amount of outperformers for us and I identified exactly 2,831 of these Outperformers.
+Every dot you see in that top cluster is a channel punching above its weight class. You can even hover over individual points to see the channel name and subscriber count. What becomes immediately clear is that these Outperformers are far more prevalent among smaller channels, while becoming increasingly rare as subscriber counts grow. By applying this method, I set the threshold at the top 3% and identified exactly 2,831 such Outperformers.
 
 **Leo**: "2,800... that's a goldmine. But do they actually deliver?"
 
 
-
-
-They do. Let me show you one of them. This is a channel called 'GamingWithJoy' (Anonymized Example). Look at his metrics over time compared to the average Gaming channel.
+**Alex**: They do. Let me show you one of them. This is a channel called 'GamingWithJoy' (Anonymized Example). Look at his metrics over time compared to the average Gaming channel.
 
 The grey line is the average channel in his category. The blue line is him. He isn't just winning once; he is winning consistently, week over week, for years. He has fewer followers, but his audience shows up every single time.
 
