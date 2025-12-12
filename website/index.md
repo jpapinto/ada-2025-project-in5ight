@@ -20,13 +20,7 @@ mathjax: true
 * Leo (Head of Content): The Strategist. Energetic and trendy. He wants to know the "secret sauce" of why videos go viral so he can replicate it.
 
 
-
-# Data & Methods // Cexplaining data and 
-
-
-
 # Story starts
-
 
 > Friday, 4:00 PM. The executives gather in the boardroom. The mood is grim; even the air conditioner sounds stressed. On the main screen, Diana is presenting the company’s latest financial report. No one is smiling.
 
@@ -38,9 +32,15 @@ mathjax: true
 
 **Alex**: (Bursting into the room, looking tired as if he hasn't slept all night) Wait! Let’s not kill the program yet. We just need to change who we are paying. It’s not the market, and it’s not the product. It’s the ghosts.
 
-**Marcus**: Ghosts? Alex, please tell me you didn't stay up all night just to crack jokes.
+**Marcus**: Ghosts? Alex, please tell me you didn't stay up all night just to crack jokes. And where do you get your data anyway?
 
-**Alex**: I’m serious. I’ve been staring at the data for the past week. Something with our engagement just wasn't adding up. Those subscribers, those views... for the big channels, they were just an illusion. We need to put our money into **Outperformers**. They will give us the most engagement for every dollar spent.
+**Alex**: I’m serious. I 
+
+//
+  Talk about the Dataset YouNiverse
+//
+
+I’ve been staring at the data for the past week. Something with our engagement just wasn't adding up. Those subscribers, those views... for the big channels, they were just an illusion. We need to put our money into **Outperformers**. They will give us the most engagement for every dollar spent.
 
 **Leo**: Ourperformers? What are those? 
 
@@ -114,14 +114,23 @@ But finding them wasn't as simple as sorting a spreadsheet. I had to build a mod
 
 
 
+<div style="width:100%; height:700px;">
+  <iframe 
+      src="/assets/plots/outperformers_plot.html"
+      style="width:100%; height:100%; border:none;">
+  </iframe>
+</div>
 
-<div class="flourish-embed flourish-scatter" data-src="visualisation/26769334"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26769334/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
 
 
 
-Every dot you see in that top cluster is a channel punching above its weight class. By applying this method, I identified exactly 2,831 of these Outperformers.
+
+Every dot you see in that top cluster is a channel punching above its weight class. You can even hover on one of them to see his name, subscribers and efficency. By applying this method, I decided that top 3% is the right amount of outperformers for us and I identified exactly 2,831 of these Outperformers.
 
 **Leo**: "2,800... that's a goldmine. But do they actually deliver?"
+
+
+
 
 They do. Let me show you one of them. This is a channel called 'GamingWithJoy' (Anonymized Example). Look at his metrics over time compared to the average Gaming channel.
 
@@ -132,6 +141,14 @@ The grey line is the average channel in his category. The blue line is him. He i
 Alex: "That brings me to Categorization."
 
 I proceeded to looking at small to mid sized channels, I filtered to only have less than 100k subscribers but still more than 10k. This will avoid these mega channels that wasted our money.
+
+
+
+
+
+
+
+
 
 // Explain the Log modeling linear regression.
 // I think its related to the Poseidon distribution
