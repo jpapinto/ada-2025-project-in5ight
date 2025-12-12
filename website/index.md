@@ -119,7 +119,50 @@ But finding them wasn't as simple as sorting a spreadsheet. I had to build a mod
 
 Every dot you see in that top cluster is a channel punching above its weight class. You can even hover over individual points to see the channel name and subscriber count. What becomes immediately clear is that these Outperformers are far more prevalent among smaller channels, while becoming increasingly rare as subscriber counts grow. By applying this method, I set the threshold at the top 3% and identified exactly 2,831 such Outperformers.
 
-**Leo**: "2,800... that's a goldmine. But do they actually deliver?"
+**Leo**: "2,800... that's a goldmine."
+
+**Alex**: I also wanted to see what was happening over time.
+I have some of the Outperformers right here, and I analyzed how their engagement efficiency evolves over time from 2005 to 2019.  
+Against the baseline, it’s clear they perform much better.
+
+<div style="border-left: 3px solid #432750; padding-left: 20px; font-size: 18px; margin-top: 10px;">
+  <details>
+    <summary style="font-size: 18px; cursor: pointer;"><b>Rolling Reaction Efficiency</b></summary>
+
+    <b>Reaction efficiency:</b><br>
+    At each time step, engagement efficiency is computed as the ratio between
+    accumulated audience reactions and accumulated views:
+
+    <br><br>
+
+    \[
+      E(t) = \frac{\text{reactions}(t)}{\text{views}(t)}
+    \]
+
+    <br>
+
+    <b>Smoothing over time:</b><br>
+    Because uploads and reactions are irregular, I apply a short trailing average
+    to this signal to reduce noise caused by upload timing.
+
+    <br><br>
+
+    All values are computed from data frozen in 2019.
+    The rolling average only smooths the visualization and is not used to identify Outperformers.
+  </details>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 **Alex**: They do. Let me show you one of them. This is a channel called 'GamingWithJoy' (Anonymized Example). Look at his metrics over time compared to the average Gaming channel.
