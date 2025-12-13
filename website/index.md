@@ -34,18 +34,14 @@ mathjax: true
 
 **Marcus**: Ghosts? Alex, please tell me you didn't stay up all night just to crack jokes. And where do you get your data anyway?
 
-**Alex**: I’m serious. I 
-
-//
-  Talk about the Dataset YouNiverse
-//
+**Alex**: I’m serious. I built this on **[YouNiverse](https://arxiv.org/abs/2012.10378)** — one of the *largest publicly available academic datasets* ever released on YouTube.  
+We’re talking **136,000+ English-speaking channels**, **almost 73 million videos**, and multi-year histories of views, subscribers, and audience interaction.
 
 I’ve been staring at the data for the past week. Something with our engagement just wasn't adding up. Those subscribers, those views... for the big channels, they were just an illusion. We need to put our money into **Outperformers**. They will give us the most engagement for every dollar spent.
 
 **Leo**: Ourperformers? What are those? 
 
-
-# RQ1 placeholder
+## _What are Outperformers_?
 
 **Alex**: While analyzing the YouNiverse data, I found something very interesting. There exists a massive group of channels with low subscriber counts but engagement way above what they should have. And there are plenty of them! If we put our money here, we can get a lot more of these small-to-mid-sized channels, and they will get us way more **Engagement Efficiency**.
 
@@ -55,7 +51,7 @@ I’ve been staring at the data for the past week. Something with our engagement
 
 
 <div style="border-left: 3px solid #432750; padding-left: 20px; font-size: 18px; margin-top: 2;">
-  <details open> 
+  <details> 
     <summary style="font-size: 18px; cursor: pointer;"><b>Engagement Efficiency</b></summary>     
 
     <b>Why did I define this?</b>  
@@ -116,32 +112,65 @@ But finding them wasn't as simple as sorting a spreadsheet. I had to build a mod
 
 <div style="width:100%; height:700px;">
   <iframe 
-      src="assets/plots/outperformers_plot.html"
+      src="/assets/plots/outperformers_plot.html"
       style="width:100%; height:100%; border:none;">
   </iframe>
 </div>
 
+Every dot you see in that top cluster is a channel punching above its weight class. You can even hover over individual points to see the channel name and subscriber count. What becomes immediately clear is that these Outperformers are far more prevalent among smaller channels, while becoming increasingly rare as subscriber counts grow. By applying this method, I set the threshold at the top 3% and identified exactly 2,831 such Outperformers.
+
+**Leo**: "2,800... that's a goldmine."
+
+**Alex**: I also wanted to see what was happening over time.
+I have some of the Outperformers right here, and I analyzed how their engagement efficiency evolves over time from 2005 to 2019.  
+
+
+<div style="border-left: 3px solid #432750; padding-left: 20px; font-size: 18px; margin-top: 10px;">
+  <details>
+    <summary style="font-size: 18px; cursor: pointer;"><b>Rolling Reaction Efficiency</b></summary>
+
+    <b>Reaction efficiency:</b><br>
+    At each time step, engagement efficiency is computed as the ratio between
+    accumulated audience reactions and accumulated views:
+
+    <br><br>
+
+    \[
+      E(t) = \frac{\text{reactions}(t)}{\text{views}(t)}
+    \]
+
+    <br>
+
+    <b>Smoothing over time:</b><br>
+    Because uploads and reactions are irregular, I apply a short trailing average
+    to this signal to reduce noise caused by upload timing.
+
+    <br><br>
+
+    All values are computed from data frozen in 2019.
+    The rolling average only smooths the visualization and is not used to identify Outperformers.
+  </details>
+</div>
+
+
+{% include card-carousel.html %}
 
 
 
-
-Every dot you see in that top cluster is a channel punching above its weight class. You can even hover on one of them to see his name, subscribers and efficency. By applying this method, I decided that top 3% is the right amount of outperformers for us and I identified exactly 2,831 of these Outperformers.
-
-**Leo**: "2,800... that's a goldmine. But do they actually deliver?"
+**Alex**: Against their expected baseline, it’s clear they perform much better.
+And not just once. Some spike, sure — but many of these channels sustain high efficiency for years.
 
 
+**Marcus**: (Leaning back, looking less skeptical) Okay, but there’s a problem. We can’t sponsor every category on YouTube. Even if these Outperformers exist, we still have to pick where to spend. How do we know they’re active in categories that actually make sense for our product?
 
 
-They do. Let me show you one of them. This is a channel called 'GamingWithJoy' (Anonymized Example). Look at his metrics over time compared to the average Gaming channel.
 
-The grey line is the average channel in his category. The blue line is him. He isn't just winning once; he is winning consistently, week over week, for years. He has fewer followers, but his audience shows up every single time.
+**Alex**: That’s exactly why I looked at categories next. I started with YouTube’s own category system — just to get a baseline.
+But those labels are broad, and often misleading.
 
-**Marcus**: (Leaning back, looking less skeptical) "Okay... the consistency is impressive. But 2,800 channels is a mess to manage. And more importantly, who are they? If we start sponsoring random gamers, we're going to get burned."
 
-Alex: "That brings me to Categorization."
 
-I proceeded to looking at small to mid sized channels, I filtered to only have less than 100k subscribers but still more than 10k. This will avoid these mega channels that wasted our money.
-
+### RQ2 - first a plot with the normal youtube categories, then the LDA
 
 
 
@@ -166,25 +195,11 @@ I proceeded to looking at small to mid sized channels, I filtered to only have l
 
 
 
-
-
-
 ```
 Long, single-line code blocks should not wrap.
 demonstrate this.
 ```
 
-
-
-
-# RQ1 placeholder
-
-
-
-
-
-
-# RQ2 Placeholder
 
 
 

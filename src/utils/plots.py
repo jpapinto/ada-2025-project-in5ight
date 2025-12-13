@@ -141,34 +141,33 @@ def plot_category_bubble(
 ):
     """
     Plot a bubble chart for category-level data.
-
-    Args:
-        dataframe (pd.DataFrame): DataFrame containing the data.
-        size_column (str): Column name for bubble sizes.
-        value_column (str): Column name for bubble values.
-        category_column (str): Column name for categories.
-        color_column (str, optional): Column name for bubble colors. Defaults to None.
-        size_scaling_factor (int, optional): Scaling factor for bubble sizes. Defaults to 25.
-        use_log_scale_x (bool, optional): Whether to use a log scale for the x-axis. Defaults to True.
-        plot_title (str, optional): Plot title. Defaults to "Category-Level Bubble Chart".
-        x_axis_label (str, optional): X-axis label. Defaults to "Average Size (log scale)".
-        y_axis_label (str, optional): Y-axis label. Defaults to "Average Value".
-        color_map (str, optional): Color map for bubbles. Defaults to "coolwarm".
-
-    Returns:
-        None
     """
+    # Compute group averages
     grouped_data = (
         dataframe.groupby(category_column)
         .agg(
             avg_value=(value_column, "mean"),
             avg_size=(size_column, "mean"),
-            color_metric=(color_column if color_column else size_column, "mean"),
             count=(category_column, "count"),
         )
         .reset_index()
     )
 
+    # Handle color metric
+    if color_column:
+        # If numeric or boolean → take mean; if categorical → take mode
+        if np.issubdtype(dataframe[color_column].dtype, np.number) or dataframe[color_column].dtype == bool:
+            grouped_data["color_metric"] = dataframe.groupby(category_column)[color_column].mean().values
+        else:
+            grouped_data["color_metric"] = (
+                dataframe.groupby(category_column)[color_column]
+                .agg(lambda x: x.mode().iloc[0] if not x.mode().empty else np.nan)
+                .values
+            )
+    else:
+        grouped_data["color_metric"] = grouped_data["avg_size"]
+
+    # Bubble sizes scaled by sqrt(count)
     bubble_sizes = np.sqrt(grouped_data["count"]) * size_scaling_factor
 
     plt.figure(figsize=(10, 6))
@@ -177,7 +176,7 @@ def plot_category_bubble(
         grouped_data["avg_value"],
         s=bubble_sizes,
         c=grouped_data["color_metric"],
-        cmap=color_map,
+        cmap=color_map if np.issubdtype(grouped_data["color_metric"].dtype, np.number) else None,
         alpha=0.8,
         edgecolor="black",
         linewidth=0.7,
@@ -186,7 +185,7 @@ def plot_category_bubble(
     if use_log_scale_x:
         plt.xscale("log")
 
-    # Annotate each bubble with its category name
+    # Annotate category names
     for _, row in grouped_data.iterrows():
         plt.text(
             row["avg_size"], row["avg_value"], row[category_column],
@@ -195,8 +194,10 @@ def plot_category_bubble(
             path_effects=[patheffects.withStroke(linewidth=0.8, foreground="black", alpha=0.8)]
         )
 
-    colorbar = plt.colorbar(scatter_plot)
-    colorbar.set_label(color_column if color_column else size_column, rotation=270, labelpad=15)
+    # Add colorbar only if numeric
+    if np.issubdtype(grouped_data["color_metric"].dtype, np.number):
+        colorbar = plt.colorbar(scatter_plot)
+        colorbar.set_label(color_column or size_column, rotation=270, labelpad=15)
 
     plt.title(plot_title, fontsize=14, weight="bold")
     plt.xlabel(x_axis_label)
