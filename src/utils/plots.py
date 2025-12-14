@@ -333,3 +333,93 @@ def plot_channel_comparison(
     plt.legend(frameon=False, loc="upper left")
     plt.tight_layout()
     plt.show()
+
+def plot_comparison_boxplot(
+    data, 
+    x_col, 
+    y_col, 
+    hue_col=None, 
+    title="Group Comparison", 
+    xlabel="Group", 
+    ylabel="Value", 
+    palette=['skyblue', 'seagreen'], 
+    showfliers=False,
+    figsize=(10, 6),
+    xticklabels=None
+):
+    """
+    Plots a boxplot to compare distributions between groups.
+    """
+    plt.figure(figsize=figsize)
+    ax = sns.boxplot(
+        data=data,
+        x=x_col,
+        y=y_col,
+        hue=hue_col,
+        palette=palette,
+        showfliers=showfliers,
+        legend=False
+    )
+    
+    plt.title(title, weight='bold')
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.grid(True, axis='y', alpha=0.3)
+    
+    if xticklabels:
+        ax.set_xticks(range(len(xticklabels)))
+        ax.set_xticklabels(xticklabels)
+        
+    plt.show()
+
+def plot_dual_metric_boxplot(
+    data, 
+    x_col, 
+    metric1, 
+    metric2, 
+    titles, 
+    ylabels, 
+    xticklabels=None, 
+    palette=['skyblue', 'seagreen'], 
+    figsize=(16, 6)
+):
+    """
+    Plots two boxplots side-by-side for dual-metric analysis.
+    
+    Args:
+        data (pd.DataFrame): The dataset.
+        x_col (str): Grouping column.
+        metric1 (str): Column name for left plot.
+        metric2 (str): Column name for right plot.
+        titles (list): [Title 1, Title 2].
+        ylabels (list): [Y-label 1, Y-label 2].
+        xticklabels (list, optional): Custom labels for x-axis.
+    """
+    fig, axes = plt.subplots(1, 2, figsize=figsize)
+
+    # Plot 1
+    sns.boxplot(
+        data=data, x=x_col, y=metric1, hue=x_col, 
+        palette=palette, showfliers=False, ax=axes[0], legend=False
+    )
+    axes[0].set_title(titles[0], weight='bold')
+    axes[0].set_ylabel(ylabels[0])
+    axes[0].grid(True, axis='y', alpha=0.3)
+    if xticklabels:
+        axes[0].set_xticks(range(len(xticklabels)))
+        axes[0].set_xticklabels(xticklabels)
+
+    # Plot 2
+    sns.boxplot(
+        data=data, x=x_col, y=metric2, hue=x_col, 
+        palette=palette, showfliers=False, ax=axes[1], legend=False
+    )
+    axes[1].set_title(titles[1], weight='bold')
+    axes[1].set_ylabel(ylabels[1])
+    axes[1].grid(True, axis='y', alpha=0.3)
+    if xticklabels:
+        axes[1].set_xticks(range(len(xticklabels)))
+        axes[1].set_xticklabels(xticklabels)
+
+    plt.tight_layout()
+    plt.show()

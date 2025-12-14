@@ -1,5 +1,5 @@
 import numpy as np
-
+from scipy.stats import mannwhitneyu
 
 def weighted_percentiles(values, weights, percentiles=(50, 90)):
     """
@@ -89,3 +89,59 @@ def select_gamma_threshold(residuals, method="zscore", top_frac=0.05, verbose=Tr
         print(f" Selected gamma={gamma:.4f} using method='{method}'")
 
     return gamma
+
+def calculate_smd(df, treat_col, covariate):
+    """
+    Calculates Standardized Mean Difference (SMD) to check balance between groups.
+    
+    Args:
+        df (pd.DataFrame): Dataframe containing the data.
+        treat_col (str): Column name for the treatment indicator (0/1 or False/True).
+        covariate (str): Column name for the variable to compare.
+        
+    Returns:
+        float: The SMD value.
+    """
+    treated = df[df[treat_col] == 1][covariate]
+    control = df[df[treat_col] == 0][covariate]
+    
+    if len(treated) == 0 or len(control) == 0:
+        return 0.0
+        
+    mean_diff = treated.mean() - control.mean()
+    std_pool = np.sqrt((treated.var() + control.var()) / 2)
+    
+    return mean_diff / std_pool if std_pool > 0 else 0.0
+
+def perform_mannwhitney_test(df, group_col, metric_col, alternative='greater', group1_label="Group 1", group2_label="Group 2"):
+    """
+    Performs a Mann-Whitney U test and prints a formatted summary.
+    
+    Args:
+        df (pd.DataFrame): The dataframe.
+        group_col (str): The binary column defining the groups (1 vs 0).
+        metric_col (str): The metric to test.
+        alternative (str): 'greater', 'less', or 'two-sided'.
+        group1_label (str): Label for group=1 (e.g., 'Outperformers').
+        group2_label (str): Label for group=0 (e.g., 'Control').
+    
+    Returns:
+        tuple: (statistic, p_value)
+    """
+    group1 = df[df[group_col] == 1][metric_col].dropna()
+    group2 = df[df[group_col] == 0][metric_col].dropna()
+    
+    stat, p_value = mannwhitneyu(group1, group2, alternative=alternative)
+    
+    print(f"\n--- Mann-Whitney U Test: {metric_col} ---")
+    print(f"Hypothesis: {group1_label} is {alternative} than {group2_label}")
+    print(f"{group1_label} (Mean): {group1.mean():.2f}")
+    print(f"{group2_label} (Mean): {group2.mean():.2f}")
+    print(f"Statistic: {stat:.1f}, P-Value: {p_value:.4e}")
+    
+    if p_value < 0.05:
+        print("Result: Statistically Significant.")
+    else:
+        print("Result: Not Statistically Significant.")
+        
+    return stat, p_value
