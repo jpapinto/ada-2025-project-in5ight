@@ -1,10 +1,11 @@
 ---
 layout: default
 mathjax: true
+
 ---
 
 
-![Branching](assets/img/Gemini_Generated_Image_z8pdanz8pdanz8pd.png)
+![Branching](assets/img/front_image.png)
 
 # Introduction
 
@@ -43,9 +44,18 @@ I’ve been staring at the data for the past week. Something with our engagement
 
 ## _What are Outperformers_?
 
-**Alex**: While analyzing the YouNiverse data, I found something very interesting. There exists a massive group of channels with low subscriber counts but engagement way above what they should have. And there are plenty of them! If we put our money here, we can get a lot more of these small-to-mid-sized channels, and they will get us way more **Engagement Efficiency**.
 
-**Marcus**: (Squinting at the screen) Wait. 'Engagement Efficiency'? Is that a real industry term, Alex, or did you just make it up?
+<div style="display: flex; align-items: center;">
+  <p style="flex: 1; margin-right: 20px;">
+    <strong>Alex</strong>: While analyzing the YouNiverse data, I found something very interesting. There exists a massive group of channels with low subscriber counts but engagement way above what they should have. And there are plenty of them! If we put our money here, we can get a lot more of these small-to-mid-sized channels, and they will get us way more <strong>Engagement Efficiency</strong>.
+    <br>
+    <br>
+    <br>
+    <strong>Marcus</strong>(Squinting at the screen) Wait. 'Engagement Efficiency'? Is that a real industry term, Alex, or did you just make it up?
+  </p>
+  <img src="assets/img/alex_1.png" alt="Description of image" style="width: 260px; height:auto; margin-right: 20px;">
+</div>
+
 
 **Alex**: It’s a metric I created because the industry terms were lying to us. Essentially, for every single view, this tells us how many people cared enough to actually do something. The Mega-Stars get views, but nobody touches the keyboard. These Outperformers? Their audience is glued to it.
 
