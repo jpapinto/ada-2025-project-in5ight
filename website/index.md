@@ -112,7 +112,7 @@ But finding them wasn't as simple as sorting a spreadsheet. I had to build a mod
 
 <div style="width:100%; height:700px;">
   <iframe 
-      src="/assets/plots/outperformers_plot.html"
+      src="assets/plots/outperformers_plot.html"
       style="width:100%; height:100%; border:none;">
   </iframe>
 </div>
@@ -167,6 +167,8 @@ And not just once. Some spike, sure — but many of these channels sustain high 
 
 **Alex**: That’s exactly why I looked at categories next. I started with YouTube’s own category system — just to get a baseline.
 But those labels are broad, and often misleading.
+
+
 
 
 
