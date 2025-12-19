@@ -81,7 +81,8 @@ I’ve been staring at the data for the past week. Something with our engagement
   </details>
 </div>
 
-But finding them wasn't as simple as sorting a spreadsheet. I had to build a model to see which channels were statistically ignoring the laws of gravity. That's where the Log-Log _Linear Regression_ came in.
+But finding them wasn't as simple as sorting a spreadsheet. Engagement efficiency naturally changes with channel size, smaller channels tend to look “better” simply because they’re small.
+To separate real Outperformers from this size effect, I needed a model that captures what level of efficiency is expected at each scale. That’s where the log–log linear regression came in.
 
 
 <div style="border-left: 3px solid #275043; padding-left: 20px; font-size: 18px; margin-top: 10px;">
@@ -115,6 +116,9 @@ But finding them wasn't as simple as sorting a spreadsheet. I had to build a mod
 
 
 
+Every dot in the upper cluster represents a channel performing well above its expected engagement for its size, punching above its weight. You can hover over individual points to see the channel name and subscriber count. The background density contours represent the distribution of all other channels, showing where typical performance lies; against this backdrop, it becomes clear that Outperformers are far more prevalent among smaller channels and increasingly rare as subscriber counts grow. Using this distribution, I set a threshold at the top 3% and identified 2,831 Quiet Outperformers.
+
+
 <div style="width:100%; height:700px;">
   <iframe 
       src="assets/plots/outperformers_plot.html"
@@ -122,7 +126,7 @@ But finding them wasn't as simple as sorting a spreadsheet. I had to build a mod
   </iframe>
 </div>
 
-Every dot you see in that top cluster is a channel punching above its weight class. You can even hover over individual points to see the channel name and subscriber count. What becomes immediately clear is that these Outperformers are far more prevalent among smaller channels, while becoming increasingly rare as subscriber counts grow. By applying this method, I set the threshold at the top 3% and identified exactly 2,831 such Outperformers.
+
 
 **Leo**: "2,800... that's a goldmine."
 
@@ -163,7 +167,7 @@ I have some of the Outperformers right here, and I analyzed how their engagement
 
 
 **Alex**: Against their expected baseline, it’s clear they perform much better.
-And not just once. Some spike, sure — but many of these channels sustain high efficiency for years.
+And not just once. Some spike, sure, but many of these channels sustain high efficiency for years.
 
 
 **Marcus**: (Leaning back, looking less skeptical) Okay, but there’s a problem. We can’t sponsor every category on YouTube. Even if these Outperformers exist, we still have to pick where to spend. How do we know they’re active in categories that actually make sense for our product?
