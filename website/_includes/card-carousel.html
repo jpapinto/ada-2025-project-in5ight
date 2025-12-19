@@ -88,6 +88,7 @@ no category_cc	join_date	channel	name_cc	subscribers_cc	videos_cc	subscriber_ran
   display: flex;
   gap: 22px;
   overflow-x: auto;
+  padding-top: 8px;
   padding-bottom: 18px;
   scroll-behavior: smooth;
 }
@@ -119,6 +120,8 @@ no category_cc	join_date	channel	name_cc	subscribers_cc	videos_cc	subscriber_ran
   flex-direction: column;
   overflow: hidden;
   cursor: pointer;
+  position: relative;
+  z-index: 1;
 
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -128,6 +131,7 @@ no category_cc	join_date	channel	name_cc	subscribers_cc	videos_cc	subscriber_ran
   box-shadow:
     0 10px 28px rgba(0,0,0,0.1),
     0 4px 10px rgba(0,0,0,0.06);
+  z-index: 10;
 }
 
 /* ===== Image ===== */
@@ -164,10 +168,11 @@ no category_cc	join_date	channel	name_cc	subscribers_cc	videos_cc	subscriber_ran
 
 /* ===== Active card state ===== */
 .overperformer-card.active {
-  border: 2px solid #4a90e2;
+  border: 2px solid #44AA99;
   box-shadow:
-    0 6px 20px rgba(74, 144, 226, 0.2),
-    0 2px 6px rgba(74, 144, 226, 0.15);
+    0 6px 20px rgba(68, 170, 153, 0.2),
+    0 2px 6px rgba(68, 170, 153, 0.15);
+  z-index: 5;
 }
 
 /* ===== Graph container ===== */

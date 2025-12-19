@@ -5,25 +5,20 @@ mathjax: true
 ---
 
 
-![Branching](assets/img/front_image.png)
 
-# Introduction
-
-
-## Our experts
+{% include _intro_image.html %}
 
 
-## Cast of our characters //Not final just as a reference
-* Alex (The Analyst): The protagonist. Logical, data-driven, and has stayed up all night finding a solution to the company's crisis.
-* Diana (The CFO): The "Final Boss." Cold, logical, and focused strictly on ROI. She controls the budget and is ready to shut the marketing program down.
-* Marcus (VP of Marketing): The Traditionalist. He authorized the failed "Mega-Star" campaign. He is defensive, proud, and prefers big celebrity names over data.
-* Sarah (Chief Brand Officer): The Guardian. Risk-averse. She doesn't care about views; she cares about safety. She is terrified of controversy.
-* Leo (Head of Content): The Strategist. Energetic and trendy. He wants to know the "secret sauce" of why videos go viral so he can replicate it.
 
 
-# Story starts
+{% include _characters_start.html %}
 
-> Friday, 4:00 PM. The executives gather in the boardroom. The mood is grim; even the air conditioner sounds stressed. On the main screen, Diana is presenting the company’s latest financial report. No one is smiling.
+
+
+
+# _On a late Friday_
+
+> The executives gather in the boardroom. The mood is grim; even the air conditioner sounds stressed. On the main screen, Diana is presenting the company’s latest financial report. No one is smiling.
 
 **Diana**: Okay everyone, let's not sugarcoat this. Our marketing campaign has taken a massive hit. We poured money into the biggest YouTubers on the platform, and instead of growth, we’re down 15%. The board wants to shut the influencer program down on Monday.
 
