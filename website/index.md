@@ -206,8 +206,6 @@ demonstrate this.
 
 # RQ3 Placeholder
 
-
-
 # RQ4: The "Quiet" Growth Opportunity
 
 **Alex**: I knew you’d be worried about longevity, Diana. So I looked at the history. I tracked the weekly subscriber growth for every single one of these 'Outperformers' over their lifetimes.
@@ -229,7 +227,7 @@ demonstrate this.
 
 <div style="border-left: 3px solid #275043; padding-left: 20px; font-size: 18px; margin-top: 10px;">
   <details>
-    <summary style="font-size: 18px; cursor: pointer;"><b>Methodology: Propensity Score Matching isdfujoifwep (PSM)</b></summary>
+    <summary style="font-size: 18px; cursor: pointer;"><b>Methodology: Propensity Score Matching (PSM)</b></summary>
     <br>
     
     <p><b>The Challenge: Confounding Bias</b><br>
@@ -249,9 +247,7 @@ demonstrate this.
             <br>
             We estimated this using a regularized <b>Logistic Regression</b>. Continuous covariates (Subscriber Count, Channel Age, Video Volume) were log-transformed to mitigate skew:
             <br><br>
-            $$
-            \text{logit}(e(X)) = \beta_0 + \beta_1 \cdot \log(\text{channel_age_days}) + \beta_2 \cdot \log(\text{videos_cc}) + \dots
-            $$
+            $$\text{logit}(e(X)) = \beta_0 + \beta_1 \cdot \log(\text{subscribers_cc}) + \beta_2 \cdot \log(\text{channel_age_days}) + \beta_3 \cdot \log(\text{videos_cc}) + C(\text{category_cc})$$
             <br>
         </li>
         <li><b>Exact Matching:</b> We enforced an exact match on <b>Content Category</b> to eliminate industry-specific bias (e.g., a "Gaming" Outperformer is only matched with a "Gaming" control).</li>
@@ -265,7 +261,7 @@ demonstrate this.
     \text{SMD} = \frac{\bar{X}_{\text{Treated}} - \bar{X}_{\text{Control}}}{\sqrt{\frac{S_{\text{Treated}}^2 + S_{\text{Control}}^2}{2}}}
     $$
     <br>
-    Post-matching, all covariates achieved an \( |\text{SMD}| < 0.1 \), confirming that the groups are statistically comparable. This allows us to attribute differences in growth specifically to <i>Efficiency</i>, rather than size or history.</p>
+    Post-matching, all covariates achieved an \( |\text{SMD}| < 0.1 \), confirming that the groups are statistically comparable. This allows us to attribute differences in growth specifically to <i>Efficiency</i>, rather than size or category.</p>
   </details>
 </div>
 
@@ -286,12 +282,12 @@ demonstrate this.
   </iframe>
 </div>
 
-**Alex**: First, look at the **Views** on the left. The Outperformers (in Green) actually get **significantly fewer views** than their twins.
+**Alex**: First, look at the **Views** on the right. The Outperformers actually get **significantly fewer views** than their twins.
 
 **Marcus**: Wait. You want us to sponsor channels that get *fewer* views? That sounds like a bad deal.
 
 **Alex**: It’s actually the *best* deal. Remember, **we pay per impression** (CPM).
-The 'Control' channels are chasing viral hits—getting tons of passive, low-quality views from the algorithm. We pay for those views, but those people don't click. They don't care. It's wasted budget.
+The 'Control' channels are chasing viral hits, getting tons of passive views but very little engagement. We pay for those views, but those people don't click. They don't care. It's wasted budget.
 
 **Diana**: (Leaning in) Go on.
 
@@ -311,24 +307,69 @@ They aren't reaching everyone; they are reaching the *right* people. They conver
 </div>
 
 **Alex**: The data shows that the median Outperformer posts **more frequently** than the typical channel. They are disciplined. They show up to work.
-The 'Control' group is skewed by spammers throwing mud at the wall. Our Outperformers are 'Community Builders'.
+The 'Control' group is skewed by spammers throwing mud at the wall. Our outperformers are consistent creators.
+
+**Diana**: Okay, they work hard. But does that work actually pay off over time? Or are they just running on a treadmill?
+
+**Alex**: It pays off. But not immediately. Because they rely on community rather than viral hits, their growth needs time to compound.
+
+*(Alex clicks a final button. A line graph appears, tracking two diverging paths over time.)*
+
+<div style="width:100%; height:600px;">
+<iframe
+src="assets/plots/rq4_growth_trajectory.html"
+style="width:100%; height:100%; border:none;">
+</iframe>
+</div>
+
+**Alex**: This is the **Median Cumulative Growth** over the first three years. It shows the total subscribers gained by a typical channel in each group.
+
+**Marcus**: Hold on. How are you comparing them over time? Some of these channels started in 2015, some in 2017...
+
+**Alex**: I standardized the timeline. The X-axis is **relative time**, not calendar dates. I aligned every single channel to start at their own 'Week 0'. And remember, because of the 'Twin' matching I did earlier, every Outperformer starts this race with the exact same age, size, and video count as their Control counterpart.
+
+**Diana**: So it's a fair start. And what happens next?
+
+**Alex**: For the first two years? Almost nothing. Notice how the lines overlap? Statistically, there is **no difference** between the groups in Year 1 or Year 2. They are grinding, but they aren't winning yet.
+
+**Marcus**: Aha! See? They’re just treading water. No growth. This is pointless.
+
+**Alex**: It’s not stagnation, Marcus. It’s compounding, look at Week 160, about three years in.
+The difference between the two groups becomes statistically significant at this moment. "Outperformer Status" wasn't an inherent advantage they were born with. It was an advantage they earned through 3 years of consistency and engagement.
+
+<div style="border-left: 3px solid #275043; padding-left: 20px; font-size: 18px; margin-top: 10px;">
+  <details>
+    <summary style="font-size: 18px; cursor: pointer;"><b>Statistical Validation: Mann-Whitney U Test</b></summary>
+    <br>
+    
+    <p><b>Hypothesis:</b><br>
+    We tested the null hypothesis (H<sub>0</sub>) that the median cumulative subscriber count for Outperformers is less than or equal to that of the Control group at specific time intervals.</p>
+
+    <p><b>Results:</b><br>
+    We performed a one-sided Mann-Whitney U test at three annual checkpoints. The results confirm that the performance gap only becomes statistically meaningful in the long term.</p>
+    
+    <ul>
+        <li><b>Year 1 (Week 52):</b> <i>p</i> = 0.4714 (Not Significant) – No detectable advantage.</li>
+        <li><b>Year 2 (Week 104):</b> <i>p</i> = 0.1121 (Not Significant) – The gap begins to widen but could still be due to chance.</li>
+        <li><b>Year 3 (Week 160):</b> <i>p</i> = 0.0426 (Significant, <i>p</i> < 0.05) – We reject H<sub>0</sub>. Outperformers have achieved a statistically significant lead in total audience size.</li>
+    </ul>
+  </details>
+</div>
 
 ## The Verdict
 
-**Diana**: (Slowly caps her pen, looking at the screen). So, let me get this straight. You're telling me we've been chasing the wrong metric. The 'Mega-Stars' are playing a viral lottery—chasing massive view counts with low connection. But these 'Quiet Outperformers'...
+**Diana**: (Slowly caps her pen, looking at the screen). So, let me get this straight. You're telling me we've been chasing the wrong metric. The 'Mega-Stars' are playing a viral lottery, chasing massive view counts with low connection. But these 'Quiet Outperformers'...
 
 **Alex**: ...Are **Community Builders**. Exactly. They reject the viral lottery entirely.
 
-**Diana**: Right. They maintain a disciplined schedule, posting more often than average, but they don't get the algorithmic freebies. That explains the 'stagnation' periods you showed us—they don't have passive traffic to smooth out the gaps.
+**Diana**: Right. They maintain a disciplined schedule, posting more often than average, but they don't get the algorithmic freebies.
 
-**Alex**: Correct. But because they focus on high-efficiency content, every time they *do* post, they convert viewers into loyal fans at an exceptional rate. That is why their long-term subscriber growth is 33% higher, even with fewer views.
+**Alex**: Correct. But because they focus on high-efficiency content, every time they *do* post, they convert viewers into loyal fans at an exceptional rate. That is why their long-term subscriber growth is higher, even with fewer views.
 
 **Diana**: So we stop paying for empty 'Eyeballs' and start paying for 'Trust'.
 
 **Alex**: Precisely. We trade reach for loyalty.
 
 **Diana**: Approved. Shift 40% of the Q4 budget to the Outperformer portfolio. And Alex? Get some sleep.
-
-<div class="flourish-embed flourish-hierarchy" data-src="visualisation/26902144"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26902144/thumbnail" width="100%" alt="hierarchy visualization" /></noscript></div>
 
 # Conclusions and stuff

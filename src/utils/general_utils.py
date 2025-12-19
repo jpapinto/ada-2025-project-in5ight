@@ -145,3 +145,37 @@ def perform_mannwhitney_test(df, group_col, metric_col, alternative='greater', g
         print("Result: Not Statistically Significant.")
         
     return stat, p_value
+
+# Add this to src/utils/general_utils.py
+
+def check_growth_milestones(df, milestones, group_col='is_outperformer', time_col='week_num', metric_col='cum_subs', alternative='greater'):
+    """
+    Checks statistical significance at specific time milestones (weeks).
+    
+    Args:
+        df (pd.DataFrame): Time-series dataframe aligned to relative time.
+        milestones (list): List of week numbers to check (e.g. [52, 104]).
+        group_col (str): Column identifying the groups.
+        time_col (str): Column identifying the relative week.
+        metric_col (str): The cumulative metric to test.
+        alternative (str): Direction of the test ('greater' or 'less').
+    """
+    print(f"\n--- Statistical Checkpoints ({metric_col}) ---")
+    
+    for week in milestones:
+        # Filter for the specific week
+        week_data = df[df[time_col] == week]
+        
+        if week_data.empty:
+            print(f"\nCheckpoint: Week {week} - No data available.")
+            continue
+            
+        print(f"\nCheckpoint: Week {week}")
+        perform_mannwhitney_test(
+            df=week_data,
+            group_col=group_col,
+            metric_col=metric_col,
+            alternative=alternative,
+            group1_label='Outperformer',
+            group2_label='Control'
+        )

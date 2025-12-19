@@ -423,3 +423,57 @@ def plot_dual_metric_boxplot(
 
     plt.tight_layout()
     plt.show()
+
+
+def plot_growth_trajectory(
+    trajectory_df,
+    x_col='week_num',
+    y_col='cum_subs',
+    hue_col='is_outperformer',
+    title="Cumulative Growth Trajectory",
+    xlabel="Weeks Relative to Start",
+    ylabel="Cumulative Subscriber Gain",
+    palette=['#332288', '#CC6677'], # Default: [Control, Outperformer]
+    figsize=(12, 6)
+):
+    """
+    Plots the median cumulative growth trajectory for two groups using Seaborn.
+    
+    Args:
+        trajectory_df (pd.DataFrame): Dataframe containing the aggregated trajectory data.
+        x_col (str): Column for relative time (x-axis).
+        y_col (str): Column for the metric (y-axis).
+        hue_col (str): Column defining the groups (Control vs Outperformer).
+        palette (list): Colors for [Group 0, Group 1].
+    """
+    plt.figure(figsize=figsize)
+    
+    # Plot Lines
+    sns.lineplot(
+        data=trajectory_df,
+        x=x_col,
+        y=y_col,
+        hue=hue_col,
+        palette=palette,
+        linewidth=3,
+        legend=False # We will add a custom legend or rely on context
+    )
+    
+    # Add custom legend manually to ensure correct labels
+    from matplotlib.lines import Line2D
+    custom_lines = [
+        Line2D([0], [0], color=palette[0], lw=3),
+        Line2D([0], [0], color=palette[1], lw=3)
+    ]
+    plt.legend(custom_lines, ['Control (Median)', 'Outperformer (Median)'], loc='upper left', frameon=False)
+
+    plt.title(title, weight='bold', fontsize=14)
+    plt.xlabel(xlabel, fontsize=12)
+    plt.ylabel(ylabel, fontsize=12)
+    plt.grid(True, linestyle='--', alpha=0.5)
+    
+    # Optional: Add a subtle annotation for the "Breakaway" point if desired
+    # plt.axvline(x=160, color='gray', linestyle=':', alpha=0.5)
+    
+    plt.tight_layout()
+    plt.show()
