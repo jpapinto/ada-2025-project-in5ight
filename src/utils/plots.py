@@ -3,6 +3,7 @@ import seaborn as sns
 import numpy as np
 import pandas as pd
 import matplotlib.patheffects as patheffects
+from matplotlib.lines import Line2D
 
 def plot_correlation_matrices(dataframes, dataframe_names, figsize=(16, 16), colormap="coolwarm"):
     """
@@ -342,7 +343,7 @@ def plot_comparison_boxplot(
     title="Group Comparison", 
     xlabel="Group", 
     ylabel="Value", 
-    palette=['skyblue', 'seagreen'], 
+    palette=['#332288', '#CC6677'],
     showfliers=False,
     figsize=(10, 6),
     xticklabels=None
@@ -380,7 +381,7 @@ def plot_dual_metric_boxplot(
     titles, 
     ylabels, 
     xticklabels=None, 
-    palette=['skyblue', 'seagreen'], 
+    palette=['#332288', '#CC6677'],
     figsize=(16, 6)
 ):
     """
@@ -460,7 +461,6 @@ def plot_growth_trajectory(
     )
     
     # Add custom legend manually to ensure correct labels
-    from matplotlib.lines import Line2D
     custom_lines = [
         Line2D([0], [0], color=palette[0], lw=3),
         Line2D([0], [0], color=palette[1], lw=3)
@@ -471,9 +471,8 @@ def plot_growth_trajectory(
     plt.xlabel(xlabel, fontsize=12)
     plt.ylabel(ylabel, fontsize=12)
     plt.grid(True, linestyle='--', alpha=0.5)
-    
-    # Optional: Add a subtle annotation for the "Breakaway" point if desired
-    # plt.axvline(x=160, color='gray', linestyle=':', alpha=0.5)
+    # Small annotation to identify the break-even point
+    plt.axvline(x=160, color='gray', linestyle=':', alpha=0.5)
     
     plt.tight_layout()
     plt.show()

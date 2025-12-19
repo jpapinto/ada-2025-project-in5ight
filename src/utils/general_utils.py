@@ -146,7 +146,6 @@ def perform_mannwhitney_test(df, group_col, metric_col, alternative='greater', g
         
     return stat, p_value
 
-# Add this to src/utils/general_utils.py
 
 def check_growth_milestones(df, milestones, group_col='is_outperformer', time_col='week_num', metric_col='cum_subs', alternative='greater'):
     """
