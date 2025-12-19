@@ -457,7 +457,7 @@ def plot_growth_trajectory(
         hue=hue_col,
         palette=palette,
         linewidth=3,
-        legend=False # We will add a custom legend or rely on context
+        legend=False
     )
     
     # Add custom legend manually to ensure correct labels
