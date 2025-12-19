@@ -1,0 +1,13 @@
+/* Scroll-aware navbar styles */
+.navbar-custom {
+  transition: transform 0.3s ease-in-out;
+  will-change: transform;
+}
+
+.navbar-custom.navbar-visible {
+  transform: translateY(0);
+}
+
+.navbar-custom.navbar-hidden {
+  transform: translateY(-100%);
+}
