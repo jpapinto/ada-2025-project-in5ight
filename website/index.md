@@ -229,11 +229,11 @@ demonstrate this.
 
 <div style="border-left: 3px solid #275043; padding-left: 20px; font-size: 18px; margin-top: 10px;">
   <details>
-    <summary style="font-size: 18px; cursor: pointer;"><b>Methodology: Propensity Score Matching (PSM)</b></summary>
+    <summary style="font-size: 18px; cursor: pointer;"><b>Methodology: Propensity Score Matching isdfujoifwep (PSM)</b></summary>
     <br>
     
     <p><b>The Challenge: Confounding Bias</b><br>
-    Directly comparing Outperformers to the general population introduces selection bias. Observed differences in growth could be artifacts of confounding factors—for instance, older channels naturally accumulate more subscribers, and certain categories (e.g., Gaming) have inherently higher activity levels.</p>
+    Directly comparing Outperformers to the general population introduces selection bias. Observed differences in growth could be artifacts of confounding factors, for instance, older channels naturally accumulate more subscribers, and certain categories (e.g., Gaming) have inherently higher activity levels.</p>
 
     <p><b>The Solution: Causal Inference via PSM</b><br>
     We employed <b>Propensity Score Matching (PSM)</b> to construct a synthetic control group that is statistically identical to the Outperformer cohort across all observable pre-treatment characteristics.</p>
@@ -328,5 +328,7 @@ The 'Control' group is skewed by spammers throwing mud at the wall. Our Outperfo
 **Alex**: Precisely. We trade reach for loyalty.
 
 **Diana**: Approved. Shift 40% of the Q4 budget to the Outperformer portfolio. And Alex? Get some sleep.
+
+<div class="flourish-embed flourish-hierarchy" data-src="visualisation/26902144"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26902144/thumbnail" width="100%" alt="hierarchy visualization" /></noscript></div>
 
 # Conclusions and stuff
