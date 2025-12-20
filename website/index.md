@@ -221,6 +221,8 @@ demonstrate this.
 
 # RQ4: The "Quiet" Growth Opportunity
 
+**Diana**: This is all fine in theory, Alex. Engagement is nice. But my stakeholders don't pay bills with 'likes.' They pay with growth. If these channels are so 'efficient' why haven't I heard of them? Do they actually scale, or are they just small, happy little hobbies that will disappear in a year?
+
 **Alex**: I knew you’d be worried about longevity, Diana. So I looked at the history. I tracked the weekly subscriber growth for every single one of these 'Outperformers' over their lifetimes.
 
 *(Alex clicks a button. A boxplot appears on the screen.)*
