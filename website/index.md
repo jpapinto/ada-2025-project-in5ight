@@ -44,7 +44,7 @@ I’ve been staring at the data for the past week. Something with our engagement
     <br>
     <br>
     <br>
-    <strong>Marcus</strong>(Squinting at the screen) Wait. 'Engagement Efficiency'? Is that a real industry term, Alex, or did you just make it up?
+    <strong>Marcus: </strong>(Squinting at the screen) Wait. 'Engagement Efficiency'? Is that a real industry term, Alex, or did you just make it up?
   </p>
   <img src="assets/img/alex_1.png" alt="Description of image" style="width: 260px; height:auto; margin-right: 20px;">
 </div>
