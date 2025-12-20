@@ -9,8 +9,6 @@ mathjax: true
 {% include _intro_image.html %}
 
 
-
-
 {% include _characters_start.html %}
 
 
@@ -285,11 +283,13 @@ demonstrate this.
 
 {% include _rq3_game.html %}
 
-# RQ4: The "Quiet" Growth Opportunity
+
 
 **Diana**: This is all fine in theory, Alex. Engagement is nice. But my stakeholders don't pay bills with 'likes'. They pay with growth. If these channels are so 'efficient' why haven't I heard of them? Do they actually scale, or are they just small, happy little hobbies that will disappear in a year?
 
 **Alex**: I knew you’d be worried about longevity, Diana. So I looked at the history. I tracked the weekly subscriber growth for every single one of these 'Outperformers' over their lifetimes.
+
+# _What is the outperformers's longevity_?
 
 *(Alex clicks a button. A boxplot appears on the screen.)*
 
@@ -300,11 +300,25 @@ demonstrate this.
   </iframe>
 </div>
 
-**Alex**: The results were immediate. In the raw data, our 'Quiet Outperformers' aren't just engaging, they are growing. On average, they gain subscribers **33% faster** than the average channel.
+**Alex**: The results were immediate. In the raw data, our 'Quiet Outperformers' aren't just engaging, they are growing. On average, they gain subscribers 33% faster than the average channel.
 
-**Marcus**: (Scoffs, crossing his arms) Come on, Alex. That’s basic stats. You’re probably just picking channels that are slightly bigger or in booming categories like Gaming. Of course they grow faster; they have an advantage. You're comparing apples to oranges.
 
-**Alex**: I thought you might say that, Marcus. So I ran a **Propensity Score Matching (PSM)** analysis to fix it.
+<div style="display: flex; align-items: center;">
+  <img src="assets/img/sarah_2.png" alt="Description of image" style="width: 180px; height:auto; margin-right: 50px; margin-bottom:20px; ">
+  <p style="flex: 1; margin-right: 20px; margin-left:20px; margin-top:30px;">
+    <strong>Sarah</strong>: (Scoffs, crossing hes arms) Come on, Alex. That’s basic stats. You’re probably just picking channels that are slightly bigger or in booming categories like Gaming. Of course they grow faster; they have an advantage. You're comparing apples to oranges.
+    <br>
+
+    <br>
+    <strong>Alex</strong>: I thought you might say that. So I ran a Propensity Score Matching (PSM) analysis to fix it.
+    <br>
+    <br>
+    <br>
+  </p>
+
+</div>
+
+
 
 <div style="border-left: 3px solid #275043; padding-left: 20px; font-size: 18px; margin-top: 10px;">
   <details>
@@ -346,9 +360,9 @@ demonstrate this.
   </details>
 </div>
 
-<br>
 
-**Alex**: Essentially, I found a 'Twin' for every single Outperformer. Standard channels that were the **exact same age**, posted the **exact same number of videos**, and were in the **exact same category**. The only difference? One was efficient, the other wasn't.
+
+**Alex**: Essentially, I found a 'Twin' for every single Outperformer. Standard channels that were the exact same age, posted the exact same number of videos, and were in the exact same category. The only difference? One was efficient, the other wasn't.
 
 **Diana**: And? Did the 'Twins' look the same?
 
@@ -363,24 +377,24 @@ demonstrate this.
   </iframe>
 </div>
 
-**Alex**: Let's walk through this from left to right. First, look at **Subscriber Gain** in the first column. 'Outperformers' grow their subscriber base significantly faster than their twins, just as we saw in the unmatched plot earlier.
+**Alex**: Let's walk through this from left to right. First, look at *Subscriber Gain* in the first column. 'Outperformers' grow their subscriber base significantly faster than their twins, just as we saw in the unmatched plot earlier.
 
-**Marcus**: Wait, but look at the second column. **Views**. They get fewer views than the control group? That sounds like a bad deal.
+**Marcus**: Wait, but look at the second column. Views. They get fewer views than the control group? That sounds like a bad deal.
 
-**Alex**: It’s actually the *best* deal. Remember, **we pay per impression** (CPM).
+**Alex**: It’s actually the *best* deal. Remember, *we pay per impression* (CPM).
 The 'Control' channels are chasing viral hits, high views (Column 2) but low subscriber conversion (Column 1). We pay for those views, but they don't stick.
 
 **Diana**: (Leaning in) Okay, so they convert better. But are they stable?
 
 **Alex**: That's the second half of the dashboard. 
 
-**Sarah**: Wait, look at the third column. **Stagnation Rate**. The Outperformers have more weeks with zero growth than the control group? That looks like instability to me.
+**Sarah**: Wait, look at the third column. *Stagnation Rate*. The Outperformers have more weeks with zero growth than the control group? That looks like instability to me.
 
-**Alex**: It’s not instability, Sarah. It’s **organic behavior**. Low stagnation in the Control group usually means they are getting a constant, passive trickle of views from the algorithm. The Outperformers grow in **bursts**. They post, the community rushes in, they grow, and then it goes quiet until the next video. They aren't riding an algorithmic wave; they are driving their own traffic.
+**Alex**: It’s not instability, Sarah. It’s *organic behavior*. Low stagnation in the Control group usually means they are getting a constant, passive trickle of views from the algorithm. The Outperformers grow in *bursts*. They post, the community rushes in, they grow, and then it goes quiet until the next video. They aren't riding an algorithmic wave; they are driving their own traffic.
 
 **Diana**: So they own their audience, instead of renting it from YouTube's homepage.
 
-**Alex**: Exactly. And look at the final column: **Posting Frequency**. The median Outperformer shows up to work **more frequently** (1.38 videos/week) than the typical channel (0.98 videos/week). They are disciplined, not lucky.
+**Alex**: Exactly. And look at the final column: Posting Frequency. The median Outperformer shows up to work more frequently (1.38 videos/week) than the typical channel (0.98 videos/week). They are disciplined, not lucky.
 
 **Sarah**: So fewer viral spikes, but more consistent daily work?
 
@@ -399,15 +413,15 @@ style="width:100%; height:100%; border:none;">
 </iframe>
 </div>
 
-**Alex**: This is the **Median Cumulative Growth** over the first three years. It shows the total subscribers gained by a typical channel in each group.
+**Alex**: This is the Median Cumulative Growth over the first three years. It shows the total subscribers gained by a typical channel in each group.
 
 **Marcus**: Hold on. How are you comparing them over time? Some of these channels started in 2015, some in 2017...
 
-**Alex**: I standardized the timeline. The X-axis is **relative time**, not calendar dates. I aligned every single channel to start at their own 'Week 0'. And remember, because of the 'Twin' matching I did earlier, every Outperformer starts this race with the exact same age, size, and video count as their Control counterpart.
+**Alex**: I standardized the timeline. The X-axis is *relative time*, not calendar dates. I aligned every single channel to start at their own 'Week 0'. And remember, because of the 'Twin' matching I did earlier, every Outperformer starts this race with the exact same age, size, and video count as their Control counterpart.
 
 **Diana**: So it's a fair start. And what happens next?
 
-**Alex**: For the first two years? Almost nothing. Notice how the lines overlap? Statistically, there is **no difference** between the groups in Year 1 or Year 2. They are grinding, but they aren't winning yet.
+**Alex**: For the first two years? Almost nothing. Notice how the lines overlap? Statistically, there is *no difference* between the groups in Year 1 or Year 2. They are grinding, but they aren't winning yet.
 
 **Marcus**: Aha! See? They’re just treading water. No growth. This is pointless.
 
@@ -433,7 +447,12 @@ The difference between the two groups becomes statistically significant at this 
   </details>
 </div>
 
-## The Verdict
+## _The Verdict_
+
+<br>
+<div>
+<img src="assets/img/last_picture.png"/>
+</div>
 
 **Diana**: (Slowly caps her pen, looking at the screen). So, let me get this straight. You're telling me we've been chasing the wrong metric. The 'Mega-Stars' are playing a viral lottery, chasing massive view counts with low connection. But these 'Quiet Outperformers'...
 
@@ -447,9 +466,44 @@ The difference between the two groups becomes statistically significant at this 
 
 **Alex**: Precisely. We trade reach for loyalty.
 
-**Diana**: Approved. Shift 40% of the Q4 budget to the Outperformer portfolio. And Alex? Get some sleep.
+**Diana**: That was… genuinely insightful. These Outperformers challenge a lot of our assumptions. Excellent work, Alex, your analysis was precise and thoughtfully argued. We’ll take this under consideration and revisit the decision once we’ve reflected on it. And Alex ... get some sleep.
+
+...
+
+_(In influencer marketing, the loudest numbers aren’t always the smartest ones. Tonight, the board learns to listen for signal instead of noise.)_
+
+<br>
+
+
+<hr>
+
+
+# _Meet our Team_
+
+<br>
+
+
+{% include _team_members.html %}
+
+<br>
+
+<hr>
+
+# _Outperformers Hall of Fame_
+
+After traveling to the future in 2025 the outperformers we one know are now grown, lets hear their success story.
 
 
 
+{% include _outperformers_2025.html %}
 
-# Conclusions and stuff
+
+#### *And many more successful channels ...*
+
+
+<hr>
+
+# References
+
+- Youniverse Dataset
+- Here some references like Gemini AI
