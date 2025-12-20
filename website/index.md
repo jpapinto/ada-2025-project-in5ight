@@ -218,8 +218,6 @@ demonstrate this.
 # RQ3 Placeholder
 
 
-{% include _rq3_game.html %}
-
 
 # RQ4: The "Quiet" Growth Opportunity
 
@@ -386,5 +384,8 @@ The difference between the two groups becomes statistically significant at this 
 **Alex**: Precisely. We trade reach for loyalty.
 
 **Diana**: Approved. Shift 40% of the Q4 budget to the Outperformer portfolio. And Alex? Get some sleep.
+
+
+
 
 # Conclusions and stuff
