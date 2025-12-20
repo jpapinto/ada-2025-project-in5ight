@@ -58,7 +58,7 @@ I’ve been staring at the data for the past week. Something with our engagement
     <summary style="font-size: 18px; cursor: pointer;"><b>Engagement Efficiency</b></summary>     
 
     <b>Why did I define this?</b>  
-    When I started comparing channels in the YouNiverse dataset, it became obvious that raw metrics—views, likes, subscribers—were misleading.  
+    When I started comparing channels in the YouNiverse dataset, it became obvious that raw metrics, views, likes, subscribers, were misleading.  
     Big channels collect views almost automatically, but that doesn’t mean their audience is actually engaged.  
     Smaller channels, on the other hand, often have fewer viewers, but those viewers interact far more intensely.
 
@@ -88,7 +88,7 @@ To separate real Outperformers from this size effect, I needed a model that capt
     <summary style="font-size: 18px; cursor: pointer;"><b>Log-Log Linear Regression Model</b></summary>
 
     <b>Why a regression model?</b><br>
-    Engagement scales with channel size — big channels get more interactions simply because they’re big.  
+    Engagement scales with channel size, big channels get more interactions simply because they’re big.  
     To spot true Outperformers, I needed to know how much engagement a channel is "expected" to get for its size.
 
     <br><br>
@@ -107,7 +107,7 @@ To separate real Outperformers from this size effect, I needed a model that capt
 
     <b>Identifying Outperformers:</b><br>
     The residuals (\(\epsilon\)) show how far above or below expectation a channel is.  
-    Channels with large positive residuals — the top few percent — are the <b>Outperformers</b>.
+    Channels with large positive residuals, the top few percent, are the <b>Outperformers</b>.
   </details>
 </div>
 
