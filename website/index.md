@@ -449,6 +449,11 @@ The difference between the two groups becomes statistically significant at this 
 
 ## _The Verdict_
 
+<br>
+<div>
+<img src="assets/img/last_picture.png"/>
+</div>
+
 **Diana**: (Slowly caps her pen, looking at the screen). So, let me get this straight. You're telling me we've been chasing the wrong metric. The 'Mega-Stars' are playing a viral lottery, chasing massive view counts with low connection. But these 'Quiet Outperformers'...
 
 **Alex**: ...Are **Community Builders**. Exactly. They reject the viral lottery entirely.
@@ -463,7 +468,42 @@ The difference between the two groups becomes statistically significant at this 
 
 **Diana**: That was… genuinely insightful. These Outperformers challenge a lot of our assumptions. Excellent work, Alex, your analysis was precise and thoughtfully argued. We’ll take this under consideration and revisit the decision once we’ve reflected on it. And Alex ... get some sleep.
 
+...
+
+_(In influencer marketing, the loudest numbers aren’t always the smartest ones. Tonight, the board learns to listen for signal instead of noise.)_
+
+<br>
+
+
+<hr>
+
+
+# _Meet our Team_
+
+<br>
+
+
+{% include _team_members.html %}
+
+<br>
+
+<hr>
+
+# _Outperformers Hall of Fame_
+
+After traveling to the future in 2025 the outperformers we one know are now grown, lets hear their success story.
 
 
 
-# Conclusions and stuff
+{% include _outperformers_2025.html %}
+
+
+#### *And many more successful channels ...*
+
+
+<hr>
+
+# References
+
+- Youniverse Dataset
+- Here some references like Gemini AI

@@ -1,0 +1,132 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<div class="hall-of-fame">
+
+  <!-- 1. RaineyTV -->
+  <div class="hof-row">
+    <div class="hof-text">
+      <div class="hof-rank">1</div>
+      <p>
+        RaineyTV was identified as an Outperformer when the channel was still small, standing out through
+        consistency, genuine humor, and a strong connection with viewers rather than raw size.
+        By 2025, that early signal proved accurate, with the channel growing past 200K subscribers
+        while maintaining the same energy that originally drew audiences in.
+      </p>
+    </div>
+    <div class="hof-image">
+      <img src="assets/img/2025_rainey_tv.png" alt="RaineyTV">
+    </div>
+  </div>
+
+  <!-- 2. Ellen’s Homemade Delights -->
+  <div class="hof-row reverse">
+    <div class="hof-text">
+      <div class="hof-rank">2</div>
+      <p>
+        Ellen’s Homemade Delights was never driven by trends, even when the channel had around
+        10,000 subscribers, focusing instead on clarity, warmth, and practical recipes people
+        actually used. That steady approach carried forward, and by 2025 the channel has grown
+        to nearly 50,000 subscribers through trust and long-term audience loyalty.
+      </p>
+    </div>
+    <div class="hof-image">
+      <img src="assets/img/2025_ellen.png" alt="Ellen’s Homemade Delights">
+    </div>
+  </div>
+
+  <!-- 3. Super RC -->
+  <div class="hof-row">
+    <div class="hof-text">
+      <div class="hof-rank">3</div>
+      <p>
+        Super RC emerged early as an Outperformer thanks to focused content, deliberate uploads,
+        and strong viewer engagement despite a modest subscriber base at the time.
+        In 2025, the channel has grown beyond 70,000 subscribers, showing that a clear niche
+        and consistent signal can scale without changing the core formula.
+      </p>
+    </div>
+    <div class="hof-image">
+      <img src="assets/img/2025_super_rc.png" alt="Super RC">
+    </div>
+  </div>
+
+</div>
+
+
+
+
+<style>
+  .hall-of-fame {
+    font-family: 'Inter', sans-serif;
+    background: #ffffff;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 1rem;
+  }
+
+  .hof-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .hof-row.reverse {
+    direction: rtl;
+  }
+
+  .hof-row.reverse > * {
+    direction: ltr;
+  }
+
+  .hof-text {
+    color: #404040;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    padding: 1rem 1rem 1rem 1rem;
+  }
+
+  .hof-rank {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #404040;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+  }
+
+  .hof-text p {
+    margin-bottom: 1rem;
+  }
+
+  .hof-image {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hof-image img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border-radius: 10px;
+  }
+
+  @media (max-width: 768px) {
+    .hof-row {
+      grid-template-columns: 1fr;
+    }
+    .hof-row.reverse {
+      direction: ltr;
+    }
+  }
+</style>
