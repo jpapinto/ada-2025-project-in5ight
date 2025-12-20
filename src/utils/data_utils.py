@@ -65,3 +65,20 @@ def compute_weekly_efficiency(weekly_df: pd.DataFrame, window_weeks: int = 4) ->
     )
     
     return weekly_df[['channel_id', 'week_start', 'efficiency_4week', 'efficiency_4week_filled']]
+
+def calculate_stagnation_rate(series):
+    """
+    Calculates the percentage of weeks with zero or negative growth.
+    
+    Note: Consistent with preprocessing, we treat <= 0 as 'Non-Growth'
+    to conservatively estimate stagnation versus decline.
+    
+    Args:
+        series (pd.Series): Time-series of deltas (subs or views).
+        
+    Returns:
+        float: Fraction of weeks with <= 0 growth.
+    """
+    stagnant_weeks = (series <= 0).sum()
+    total_weeks = len(series)
+    return stagnant_weeks / total_weeks if total_weeks > 0 else 0.0

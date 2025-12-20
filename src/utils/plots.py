@@ -3,6 +3,7 @@ import seaborn as sns
 import numpy as np
 import pandas as pd
 import matplotlib.patheffects as patheffects
+from matplotlib.lines import Line2D
 
 def plot_correlation_matrices(dataframes, dataframe_names, figsize=(16, 16), colormap="coolwarm"):
     """
@@ -331,5 +332,147 @@ def plot_channel_comparison(
     plt.xlabel("Week")
     plt.ylabel("4-Week Engagement Efficiency (log scale)")
     plt.legend(frameon=False, loc="upper left")
+    plt.tight_layout()
+    plt.show()
+
+def plot_comparison_boxplot(
+    data, 
+    x_col, 
+    y_col, 
+    hue_col=None, 
+    title="Group Comparison", 
+    xlabel="Group", 
+    ylabel="Value", 
+    palette=['#332288', '#CC6677'],
+    showfliers=False,
+    figsize=(10, 6),
+    xticklabels=None
+):
+    """
+    Plots a boxplot to compare distributions between groups.
+    """
+    plt.figure(figsize=figsize)
+    ax = sns.boxplot(
+        data=data,
+        x=x_col,
+        y=y_col,
+        hue=hue_col,
+        palette=palette,
+        showfliers=showfliers,
+        legend=False
+    )
+    
+    plt.title(title, weight='bold')
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.grid(True, axis='y', alpha=0.3)
+    
+    if xticklabels:
+        ax.set_xticks(range(len(xticklabels)))
+        ax.set_xticklabels(xticklabels)
+        
+    plt.show()
+
+def plot_dual_metric_boxplot(
+    data, 
+    x_col, 
+    metric1, 
+    metric2, 
+    titles, 
+    ylabels, 
+    xticklabels=None, 
+    palette=['#332288', '#CC6677'],
+    figsize=(16, 6)
+):
+    """
+    Plots two boxplots side-by-side for dual-metric analysis.
+    
+    Args:
+        data (pd.DataFrame): The dataset.
+        x_col (str): Grouping column.
+        metric1 (str): Column name for left plot.
+        metric2 (str): Column name for right plot.
+        titles (list): [Title 1, Title 2].
+        ylabels (list): [Y-label 1, Y-label 2].
+        xticklabels (list, optional): Custom labels for x-axis.
+    """
+    fig, axes = plt.subplots(1, 2, figsize=figsize)
+
+    # Plot 1
+    sns.boxplot(
+        data=data, x=x_col, y=metric1, hue=x_col, 
+        palette=palette, showfliers=False, ax=axes[0], legend=False
+    )
+    axes[0].set_title(titles[0], weight='bold')
+    axes[0].set_ylabel(ylabels[0])
+    axes[0].grid(True, axis='y', alpha=0.3)
+    if xticklabels:
+        axes[0].set_xticks(range(len(xticklabels)))
+        axes[0].set_xticklabels(xticklabels)
+
+    # Plot 2
+    sns.boxplot(
+        data=data, x=x_col, y=metric2, hue=x_col, 
+        palette=palette, showfliers=False, ax=axes[1], legend=False
+    )
+    axes[1].set_title(titles[1], weight='bold')
+    axes[1].set_ylabel(ylabels[1])
+    axes[1].grid(True, axis='y', alpha=0.3)
+    if xticklabels:
+        axes[1].set_xticks(range(len(xticklabels)))
+        axes[1].set_xticklabels(xticklabels)
+
+    plt.tight_layout()
+    plt.show()
+
+
+def plot_growth_trajectory(
+    trajectory_df,
+    x_col='week_num',
+    y_col='cum_subs',
+    hue_col='is_outperformer',
+    title="Cumulative Growth Trajectory",
+    xlabel="Weeks Relative to Start",
+    ylabel="Cumulative Subscriber Gain",
+    palette=['#332288', '#CC6677'], # Default: [Control, Outperformer]
+    figsize=(12, 6)
+):
+    """
+    Plots the median cumulative growth trajectory for two groups using Seaborn.
+    
+    Args:
+        trajectory_df (pd.DataFrame): Dataframe containing the aggregated trajectory data.
+        x_col (str): Column for relative time (x-axis).
+        y_col (str): Column for the metric (y-axis).
+        hue_col (str): Column defining the groups (Control vs Outperformer).
+        palette (list): Colors for [Group 0, Group 1].
+    """
+    plt.figure(figsize=figsize)
+    
+    # Plot Lines
+    sns.lineplot(
+        data=trajectory_df,
+        x=x_col,
+        y=y_col,
+        hue=hue_col,
+        palette=palette,
+        linewidth=3,
+        legend=False # We will add a custom legend or rely on context
+    )
+    
+    # Add custom legend manually to ensure correct labels
+    custom_lines = [
+        Line2D([0], [0], color=palette[0], lw=3),
+        Line2D([0], [0], color=palette[1], lw=3)
+    ]
+    plt.legend(custom_lines, ['Control (Median)', 'Outperformer (Median)'], loc='upper left', frameon=False)
+
+    plt.title(title, weight='bold', fontsize=14)
+    plt.xlabel(xlabel, fontsize=12)
+    plt.ylabel(ylabel, fontsize=12)
+    plt.grid(True, linestyle='--', alpha=0.5)
+    # Small annotation to identify the break-even point
+    plt.axvline(x=160, color='gray', linestyle=':', alpha=0.5)
+    
     plt.tight_layout()
     plt.show()
