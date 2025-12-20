@@ -169,22 +169,88 @@ I have some of the Outperformers right here, and I analyzed how their engagement
 **Alex**: Against their expected baseline, it’s clear they perform much better.
 And not just once. Some spike, sure, but many of these channels sustain high efficiency for years.
 
+**Marcus**: (Leaning back, looking less skeptical) Okay, Alex. I see the math. These 'Outperformers' have great engagement stats. But we can't just throw darts at a list of 2,000 random channels. 
 
-**Marcus**: (Leaning back, looking less skeptical) Okay, but there’s a problem. We can’t sponsor every category on YouTube. Even if these Outperformers exist, we still have to pick where to spend. How do we know they’re active in categories that actually make sense for our product?
+**Diana**: Exactly. Even if we believe in Outperformers, we still need to know where to look. What if we accidentally sponsor a flat-earth theorist or a channel that has nothing to do with our audience? We need control.
 
+**Alex**: That’s the right question. And it turns out… categories matter more than we thought.
 
+## _Where the Outperformers Live and Why It Matters_?
 
-**Alex**: That’s exactly why I looked at categories next. I started with YouTube’s own category system — just to get a baseline.
-But those labels are broad, and often misleading.
+**Alex**:  I started where everyone starts: YouTube’s official category system. Fifteen labels. “Gaming.” “Entertainment.” “People & Blogs.” They look neat. They’re also terrible. “People & Blogs” is a junk drawer. “Entertainment” mixes movie trailers, late-night clips, and personal vlogs. Two channels in the same category can behave completely differently.
 
+So I ignored the labels YouTube gives us. Instead, I looked at the tags - the actual keywords creators use to describe their own videos. I processed millions of tags from our dataset and used a technique called Latent Dirichlet Allocation.
 
+**Diana**: (Raising an eyebrow) In English, Alex.
 
+**Alex**: Think of it as reverse-engineering the communities. I let the data tell me which videos belong together based on the words they use. Instead of 15 broad buckets, the model discovered 30 distinct micro-communities.
 
+*[Alex clicks next. The screen displays the LDA Topic Cluster Map.]*
 
-### RQ2 - first a plot with the normal youtube categories, then the LDA
+(Fedor needs to put the plot here)
 
+**Alex**: Once we had these communities, I asked a simple question: Is engagement efficiency the same everywhere? If attention behaves similarly across topics, categories wouldn’t matter.
 
+*[Alex points to a plot on the screen]*
 
+<iframe src="assets/plots/rq2_efficiency_by_topic.html" style="width:100%; height:820px; border:none;"> </iframe>
+
+**Alex**: Statistically, the answer is a clear no. Some communities naturally produce far more engagement per view than others. The baseline is different. An average channel in one community can outperform a strong channel in another, even before we talk about Outperformers.
+
+**Diana**: So the category sets the floor.
+
+**Alex**: Exactly! Outperformers raise you above the floor, but the floor still matters.
+
+ So at this point, you might think the strategy is obvious.
+ Just take the communities with the highest baseline engagement and pour the budget there.
+
+*(He pauses)*
+
+That would work, if performance were the only thing that mattered.
+But in the real world, performance attracts attention. And attention attracts competition.
+When a community consistently delivers strong engagement, brands notice. Budgets pile in. Creators raise their rates.
+
+**Diana**: So high engagement doesn’t stay cheap for long.
+
+**Alex**: Exactly. Efficiency creates value, but competition sets the price.
+
+That’s why I asked a second question.
+If Outperformers were just random accidents, we’d find them scattered evenly across all communities.
+In that case, categories wouldn’t constrain us — we could hunt anywhere and expect similar odds.
+But that’s not what the data shows.
+
+*(He clicked to show the next slide)*
+
+<iframe src="assets/plots/rq2_outperformer_proportion_by_topic.html" style="width:100%; height:820px; border:none;"> </iframe>
+
+**Alex**: Outperformers cluster. Some communities produce exceptional channels again and again Others almost never do — no matter how hard creators try.
+
+**Marcus**: So this isn’t just about where engagement is high. It’s about where excellence is repeatable.
+
+**Alex**: Exactly. If the market were already perfectly efficient, these two rankings would line up exactly. The most engaging communities would also be the ones packed with Outperformers.
+
+**Diana**: *(clicking the drop down menu with different sorting criterion)*
+But they don’t.
+
+**Alex**: No, and that mismatch is where the strategy lives.
+It gives us two paths, not one.
+
+*(He clicked the next slide and a strategy matrix pops up)*
+
+<iframe src="assets/plots/rq2_strategy_matrix.html" style="width:100%; height:800px; border:none;"> </iframe>
+
+**Alex**: First, the *Verified Winners*. Communities that rank high on engagement and are already dense with Outperformers. For example “Game & Gameplay” and “Comedy Vlogs”
+These are reliable. Predictable. But crowded — and therefore more expensive.
+
+**Marcus**: And the others?Like the  “Sports & Music”
+
+**Alex**: That’s the *Opportunity Gap*. Communities where engagement is strong, but Outperformers are still relatively rare. Less competition. Lower prices. More uncertainty — but far more upside.
+
+*(Alex looks around the room.)*
+
+**Alex**: There isn’t a single “best” strategy here. One path buys us stability. The other buys us leverage. The mistake isn’t choosing one over the other — it’s pretending they’re the same.
+
+*(The room is quiet. This time, thoughtful.)*
 
 
 
