@@ -217,7 +217,7 @@ demonstrate this.
 
 # RQ3 Placeholder
 
-
+{% include _rq3_game.html %}
 
 # RQ4: The "Quiet" Growth Opportunity
 

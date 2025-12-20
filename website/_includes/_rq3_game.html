@@ -1,23 +1,177 @@
+<div id="yt-game">
+  <div id="top-line"></div>
+  <div id="inside">
+    <div id="progress-bar">
+        <div class="segment" data-step="0"></div>
+        <div class="segment" data-step="1"></div>
+        <div class="segment" data-step="2"></div>
+        <div class="segment" data-step="3"></div>
+        <div class="segment" data-step="4"></div>
+    </div>
 
-
-
-<div >
-Hello
-
-
-
-
-
+    <div id="content">
+        <h2 id="question"></h2>
+        <div id="input-area"></div>
+        <div style="text-align: right;">
+        <button id="next">Next</button>
+        <button id="try-again" style="display:none;">Try Again</button>
+        </div>
+    </div>
+    </div>
+  <div id="bottom-line"></div>
 </div>
 
-<script>
+<style>
+#yt-game {
+  width: 100%;
+  margin: 40px 0;
+  font-family: 'Inter', sans-serif;
+}
 
-model_data = {
+#inside{
+    /* Reserve enough height so the page doesn't shift between steps */
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+#top-line, #bottom-line {
+  width: 100%;
+  height: 1.5px;
+  background: #404040;
+  margin: 0;
+}
+
+#progress-bar {
+  display: flex;
+  gap: 8px;
+  padding: 20px 0;
+}
+
+.segment {
+  flex: 1;
+  height: 3px;
+  background: #e0e0e0;
+  transition: background 0.3s ease;
+}
+
+.segment.active {
+  background: #999933;
+}
+
+#content {
+  padding: 40px 0 20px 0;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  /* Keep layout stable inside the fixed-height container */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#question {
+  font-size: 1.75rem;
+  margin-bottom: 24px;
+  margin-top: -10px;
+  color: #222;
+  font-weight: 500;
+}
+
+#input-area {
+  margin-bottom: 16px;
+  /* Prevent layout jumps when inputs vary in height */
+  min-height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+#next, #try-again {
+  padding: 10px 24px;
+  border: none;
+  background: #117733;
+  color: white;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-family: 'Inter', sans-serif;
+}
+
+#next:hover, #try-again:hover {
+  background: #0d5c28;
+}
+
+select, input[type="range"] {
+  max-width: 400px;
+  width: 100%;
+  padding: 10px;
+  font-size: 1.05rem;
+  font-family: 'Inter', sans-serif;
+  margin: 0 auto;
+  display: block;
+}
+
+#input-area > div {
+  font-size: 1rem;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.input-group input[type="number"],
+.input-group select {
+  width: 195px;
+  flex: 0 0 195px;
+  margin: 0;
+  padding: 10px;
+  font-size: 1.05rem;
+  font-family: 'Inter', sans-serif;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input[list] {
+  max-width: 400px;
+  width: 100%;
+  padding: 10px;
+  font-size: 1.05rem;
+  font-family: 'Inter', sans-serif;
+  margin: 0 auto;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+}
+</style>
+
+<script>
+const model_data = {
   "coef": {
     "intercept": -4.9799487441005965,
-    "videos_per_day_x": -0.42575035282018, 
-    "log_duration": 0.16792472514381912,  //Duration is in seconds
-    "log_channel_age_days": -0.39973411232087247 
+    "videos_per_day_x": -0.42575035282018,
+    "log_duration": 0.16792472514381912, // In seconds
+    "log_channel_age_days": -0.39973411232087247
+  },
+  "standardization": {
+    "videos_per_day_x": {
+      "mean": 0.3167359854608122,
+      "std": 2.0779140105819747
+    },
+    "log_duration": {
+      "mean": 6.076965961640056,
+      "std": 0.8833879231932649
+    },
+    "log_channel_age_days": {
+      "mean": 7.606421705829563,
+      "std": 0.6266289643184376
+    }
   },
   "category_coef": {
     "Comedy": 1.3249459937081944,
@@ -37,6 +191,206 @@ model_data = {
     "Travel & Events": 0.5879780621729421
   },
   "reference_category": "BASE"
+};
+
+// -------------------- GAME SETUP --------------------
+
+const questions = [
+  {
+    key: "intro",
+    text: "Is this Channel an outperformer?",
+    render: () => `
+      <p style="font-size:1.1rem;color:#666;margin-top:20px;">
+        Answer a few questions to find out!
+      </p>
+    `
+  },
+  {
+    key: "channel_created",
+    text: "When was the channel created?",
+    render: () => {
+      const currentYear = 2019;
+      const startYear = 2006;
+      const years = [];
+      for (let y = currentYear; y >= startYear; y--) {
+        years.push(y);
+      }
+      const months = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+      ];
+      return `
+        <div class="input-group">
+          <select id="input-month">
+            ${months.map((m, i) => `<option value="${i}">${m}</option>`).join('')}
+          </select>
+          <select id="input-year">
+            ${years.map(y => `<option value="${y}">${y}</option>`).join('')}
+          </select>
+        </div>
+      `;
+    }
+  },
+  {
+    key: "upload_frequency",
+    text: "How often does the channel upload videos?",
+    render: () => `
+      <div class="input-group">
+        <input id="input-number" type="number" min="1" max="365" value="1" step="1">
+        <select id="input-unit">
+          <option value="day">per day</option>
+          <option value="month" selected>per month</option>
+          <option value="year">per year</option>
+        </select>
+      </div>
+    `
+  },
+  {
+    key: "avg_duration",
+    text: "What is the typical length of the channel's videos videos?",
+    render: () => `
+      <select id="input">
+        <option value="120">Short (< 3 min)</option>
+        <option value="330">Medium (3 - 8 min)</option>
+        <option value="690">Medium-Long (8 - 15 min)</option>
+        <option value="1350">Long (15 - 30 min)</option>
+        <option value="2400">Very Long (> 30 min)</option>
+      </select>
+    `
+  },
+  {
+    key: "category",
+    text: "What category iof youtube is the channel registered?",
+    render: () => `
+      <input id="input" list="categories" placeholder="Select or type category...">
+      <datalist id="categories">
+        ${Object.keys(model_data.category_coef).map(c =>
+          `<option value="${c}">`
+        ).join("")}
+      </datalist>
+    `
+  }
+];
+
+let step = 0;
+const answers = {};
+
+const qEl = document.getElementById("question");
+const inputArea = document.getElementById("input-area");
+const nextBtn = document.getElementById("next");
+const tryAgainBtn = document.getElementById("try-again");
+const segments = document.querySelectorAll(".segment");
+
+function sigmoid(x) {
+  return 1 / (1 + Math.exp(-x));
 }
 
+function updateProgress() {
+  segments.forEach((segment, i) => {
+    if (i < step) {
+      segment.classList.add("active");
+    } else {
+      segment.classList.remove("active");
+    }
+  });
+}
+
+function render() {
+  const q = questions[step];
+  qEl.textContent = q.text;
+  inputArea.innerHTML = q.render();
+  updateProgress();
+}
+
+nextBtn.onclick = () => {
+  const q = questions[step];
+  
+  // Skip data collection for intro step
+  if (q.key !== "intro") {
+    let val;
+    
+    if (q.key === "channel_created") {
+    const month = parseInt(document.getElementById("input-month").value);
+    const year = parseInt(document.getElementById("input-year").value);
+    const createdDate = new Date(year, month, 1);
+    const now = new Date(2019, 0, 31); // January 31, 2019 (dataset end date)
+    const diffTime = Math.abs(now - createdDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    val = diffDays;
+  } else if (q.key === "upload_frequency") {
+    const number = parseFloat(document.getElementById("input-number").value);
+    const unit = document.getElementById("input-unit").value;
+    if (unit === "day") {
+      val = number;
+    } else if (unit === "month") {
+      val = number / 30;
+    } else if (unit === "year") {
+      val = number / 365;
+    }
+    } else {
+      val = document.getElementById("input").value;
+    }
+    
+    answers[q.key] = val;
+  }
+  
+  step++;
+
+  if (step < questions.length) {
+    render();
+  } else {
+    showResult();
+  }
+};
+
+tryAgainBtn.onclick = () => {
+  step = 0;
+  Object.keys(answers).forEach(key => delete answers[key]);
+  nextBtn.style.display = "inline-block";
+  tryAgainBtn.style.display = "none";
+  render();
+};
+
+function showResult() {
+  updateProgress();
+
+  // Transform data for model input
+  const videos_per_day = parseFloat(answers.upload_frequency); // Already in videos per day
+  const duration_seconds = parseFloat(answers.avg_duration); // Already in seconds
+  const channel_age_days = parseFloat(answers.channel_created); // Already in days
+  const category = answers.category;
+  
+  // Apply log transformations where needed
+  const log_duration = Math.log(duration_seconds);
+  const log_channel_age_days = Math.log(channel_age_days + 1);
+  
+  // Standardize features using training data statistics
+  const videos_per_day_std = (videos_per_day - model_data.standardization.videos_per_day_x.mean) / model_data.standardization.videos_per_day_x.std;
+  const log_duration_std = (log_duration - model_data.standardization.log_duration.mean) / model_data.standardization.log_duration.std;
+  const log_channel_age_days_std = (log_channel_age_days - model_data.standardization.log_channel_age_days.mean) / model_data.standardization.log_channel_age_days.std;
+  
+  // Calculate logit score
+  const z =
+    model_data.coef.intercept +
+    model_data.coef.videos_per_day_x * videos_per_day_std +
+    model_data.coef.log_duration * log_duration_std +
+    model_data.coef.log_channel_age_days * log_channel_age_days_std +
+    (model_data.category_coef[category] || 0);
+
+  const p = sigmoid(z);
+
+  qEl.textContent = "Result";
+  inputArea.innerHTML = `
+    <p style="font-size:1.05rem;line-height:1.4;">
+      Based on these choices, there is a
+      <strong>${(p * 100).toFixed(2)}%</strong>
+      chance that this channel is a <em>Quiet Outperformer</em>.
+    </p>
+  `;
+
+  nextBtn.style.display = "none";
+  tryAgainBtn.style.display = "inline-block";
+}
+
+render();
 </script>
