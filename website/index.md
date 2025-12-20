@@ -191,7 +191,7 @@ So I ignored the labels YouTube gives us. Instead, I looked at the tags - the ac
 
 *[Alex points to a plot on the screen]*
 
-<iframe src="assets/plots/rq2_efficiency_by_topic.html" style="width:100%; height:820px; border:none;"> </iframe>
+<iframe src="assets/plots/rq2_efficiency_by_topic.html" style="width:850px; height:820px; border:none;"> </iframe>
 
 **Alex**: Statistically, the answer is a clear no. Some communities naturally produce far more engagement per view than others. The baseline is different. An average channel in one community can outperform a strong channel in another, even before we talk about Outperformers.
 
@@ -214,14 +214,14 @@ When a community consistently delivers strong engagement, brands notice. Budgets
 
 That’s why I asked a second question.
 If Outperformers were just random accidents, we’d find them scattered evenly across all communities.
-In that case, categories wouldn’t constrain us — we could hunt anywhere and expect similar odds.
+In that case, categories wouldn’t constrain us. We could hunt anywhere and expect similar odds.
 But that’s not what the data shows.
 
 *(He clicked to show the next slide)*
 
-<iframe src="assets/plots/rq2_outperformer_proportion_by_topic.html" style="width:100%; height:820px; border:none;"> </iframe>
+<iframe src="assets/plots/rq2_outperformer_proportion_by_topic.html" style="width:850px; height:820px; border:none;"> </iframe>
 
-**Alex**: Outperformers cluster. Some communities produce exceptional channels again and again Others almost never do — no matter how hard creators try.
+**Alex**: Outperformers cluster. Some communities produce exceptional channels again and again Others almost never do, no matter how hard creators try.
 
 **Marcus**: So this isn’t just about where engagement is high. It’s about where excellence is repeatable.
 
@@ -235,14 +235,14 @@ It gives us two paths, not one.
 
 *(He clicked the next slide and a strategy matrix pops up)*
 
-<iframe src="assets/plots/rq2_strategy_matrix.html" style="width:100%; height:800px; border:none;"> </iframe>
+<iframe src="assets/plots/rq2_strategy_matrix.html" style="width:100%; height:650px; border:none;"> </iframe>
 
 **Alex**: First, the *Verified Winners*. Communities that rank high on engagement and are already dense with Outperformers. For example “Game & Gameplay” and “Comedy Vlogs”
-These are reliable. Predictable. But crowded — and therefore more expensive.
+These are reliable. Predictable. But crowded, and therefore more expensive.
 
 **Marcus**: And the others?Like the  “Sports & Music”
 
-**Alex**: That’s the *Opportunity Gap*. Communities where engagement is strong, but Outperformers are still relatively rare. Less competition. Lower prices. More uncertainty — but far more upside.
+**Alex**: That’s the *Opportunity Gap*. Communities where engagement is strong, but Outperformers are still relatively rare. Less competition. Lower prices. More uncertainty, but far more upside.
 
 *(Alex looks around the room.)*
 
