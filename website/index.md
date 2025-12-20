@@ -292,7 +292,7 @@ demonstrate this.
 
 <div style="width:100%; height:600px;">
    <iframe 
-      src="assets/plots/rq4_matched_comparison.html"
+      src="assets/plots/rq4_combined_metrics.html"
       style="width:100%; height:100%; border:none;">
   </iframe>
 </div>
