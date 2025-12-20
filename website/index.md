@@ -287,7 +287,7 @@ demonstrate this.
 
 # RQ4: The "Quiet" Growth Opportunity
 
-**Diana**: This is all fine in theory, Alex. Engagement is nice. But my stakeholders don't pay bills with 'likes.' They pay with growth. If these channels are so 'efficient' why haven't I heard of them? Do they actually scale, or are they just small, happy little hobbies that will disappear in a year?
+**Diana**: This is all fine in theory, Alex. Engagement is nice. But my stakeholders don't pay bills with 'likes'. They pay with growth. If these channels are so 'efficient' why haven't I heard of them? Do they actually scale, or are they just small, happy little hobbies that will disappear in a year?
 
 **Alex**: I knew you’d be worried about longevity, Diana. So I looked at the history. I tracked the weekly subscriber growth for every single one of these 'Outperformers' over their lifetimes.
 
@@ -363,7 +363,7 @@ demonstrate this.
   </iframe>
 </div>
 
-**Alex**: Let's walk through this from left to right. First, look at **Subscriber Gain** in the first column. 'Outperformers' grow their subscriber base significantly faster than their twins.
+**Alex**: Let's walk through this from left to right. First, look at **Subscriber Gain** in the first column. 'Outperformers' grow their subscriber base significantly faster than their twins, just as we saw in the unmatched plot earlier.
 
 **Marcus**: Wait, but look at the second column. **Views**. They get fewer views than the control group? That sounds like a bad deal.
 
@@ -412,7 +412,7 @@ style="width:100%; height:100%; border:none;">
 **Marcus**: Aha! See? They’re just treading water. No growth. This is pointless.
 
 **Alex**: It’s not stagnation, Marcus. It’s compounding, look at Week 160, about three years in.
-The difference between the two groups becomes statistically significant at this moment. "Outperformer Status" wasn't an inherent advantage they were born with. It was an advantage they earned through 3 years of consistency and engagement.
+The difference between the two groups becomes statistically significant at this moment. 'Outperformer Status' wasn't an inherent advantage they were born with. It was an advantage they earned through 3 years of consistency and engagement.
 
 <div style="border-left: 3px solid #275043; padding-left: 20px; font-size: 18px; margin-top: 10px;">
   <details>
