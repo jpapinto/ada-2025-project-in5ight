@@ -314,7 +314,7 @@ The 'Control' channels are chasing viral hits, high views (Column 2) but low sub
 
 **Diana**: So they own their audience, instead of renting it from YouTube's homepage.
 
-**Alex**: Exactly. And look at the final column: **Posting Frequency**. Even with those quiet periods, the median Outperformer shows up to work **more frequently** (1.38 videos/week) than the typical channel. They are disciplined, not lucky.
+**Alex**: Exactly. And look at the final column: **Posting Frequency**. The median Outperformer shows up to work **more frequently** (1.38 videos/week) than the typical channel (0.98 videos/week). They are disciplined, not lucky.
 
 **Sarah**: So fewer viral spikes, but more consistent daily work?
 
