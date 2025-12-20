@@ -1,0 +1,26 @@
+{
+  "coef": {
+    "intercept": -4.9799487441005965,
+    "videos_per_day_x": -0.42575035282018,
+    "log_duration": 0.16792472514381912,
+    "log_channel_age_days": -0.39973411232087247
+  },
+  "category_coef": {
+    "Comedy": 1.3249459937081944,
+    "Education": 0.4355430626624801,
+    "Entertainment": 1.0017503738695535,
+    "Film and Animation": 0.7868771483811312,
+    "Gaming": 1.6218900274598227,
+    "Howto & Style": 1.0848766300070571,
+    "Music": -0.4550190028974748,
+    "News & Politics": 1.9346821979053728,
+    "None": 0.34029181716939927,
+    "Nonprofits & Activism": 0.8229061418701136,
+    "People & Blogs": 1.258098894941112,
+    "Pets & Animals": 0.9119445243121694,
+    "Science & Technology": 0.41662603643799073,
+    "Sports": -0.544878533858006,
+    "Travel & Events": 0.5879780621729421
+  },
+  "reference_category": "BASE"
+}

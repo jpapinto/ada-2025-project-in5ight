@@ -217,6 +217,10 @@ demonstrate this.
 
 # RQ3 Placeholder
 
+
+{% include _rq3_game.html %}
+
+
 # RQ4: The "Quiet" Growth Opportunity
 
 **Alex**: I knew you’d be worried about longevity, Diana. So I looked at the history. I tracked the weekly subscriber growth for every single one of these 'Outperformers' over their lifetimes.
