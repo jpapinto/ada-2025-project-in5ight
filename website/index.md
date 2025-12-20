@@ -491,14 +491,14 @@ _(In influencer marketing, the loudest numbers aren’t always the smartest ones
 
 # _Outperformers Hall of Fame_
 
-After traveling to the future in 2025 the outperformers we one know are now grown, lets hear their success story.
+After traveling to the future in 2025 the outperformers we once knew are now grown, lets hear their success story.
 
 
 
 {% include _outperformers_2025.html %}
 
 
-#### *And many more successful channels ...*
+*And many more successful channels ...*
 
 
 <hr>
