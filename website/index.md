@@ -286,9 +286,9 @@ demonstrate this.
 
 **Diana**: And? Did the 'Twins' look the same?
 
-**Alex**: No. And that’s where it gets interesting.
+**Alex**: No. And that’s where it gets interesting. I built a consolidated dashboard to compare them side-by-side across every key metric.
 
-*(Alex advances the slide to the matched comparison metrics.)*
+*(Alex advances the slide. A wide, four-panel dashboard appears, showing Subscriber Gain, View Gain, Stagnation Rate, and Posting Frequency.)*
 
 <div style="width:100%; height:600px;">
    <iframe 
@@ -297,32 +297,28 @@ demonstrate this.
   </iframe>
 </div>
 
-**Alex**: First, look at the **Views** on the right. The Outperformers actually get **significantly fewer views** than their twins.
+**Alex**: Let's walk through this from left to right. First, look at **Subscriber Gain** in the first column. 'Outperformers' grow their subscriber base significantly faster than their twins.
 
-**Marcus**: Wait. You want us to sponsor channels that get *fewer* views? That sounds like a bad deal.
+**Marcus**: Wait, but look at the second column. **Views**. They get fewer views than the control group? That sounds like a bad deal.
 
 **Alex**: It’s actually the *best* deal. Remember, **we pay per impression** (CPM).
-The 'Control' channels are chasing viral hits, getting tons of passive views but very little engagement. We pay for those views, but those people don't click. They don't care. It's wasted budget.
+The 'Control' channels are chasing viral hits, high views (Column 2) but low subscriber conversion (Column 1). We pay for those views, but they don't stick.
 
-**Diana**: (Leaning in) Go on.
+**Diana**: (Leaning in) Okay, so they convert better. But are they stable?
 
-**Alex**: Now look at the right graph. **Subscribers.**
-Even though the Outperformers get *fewer* views, they still grow their subscriber base **significantly faster**.
-They aren't reaching everyone; they are reaching the *right* people. They convert casual viewers into loyal fans at a rate the 'Mega-Stars' can't touch.
+**Alex**: That's the second half of the dashboard. 
 
-**Sarah**: But are they stable? Or are they just posting like crazy for a month and then burning out?
+**Sarah**: Wait, look at the third column. **Stagnation Rate**. The Outperformers have more weeks with zero growth than the control group? That looks like instability to me.
 
-**Alex**: I checked that too. I analyzed their **Stability and Posting Frequency**.
+**Alex**: It’s not instability, Sarah. It’s **organic behavior**. Low stagnation in the Control group usually means they are getting a constant, passive trickle of views from the algorithm. The Outperformers grow in **bursts**. They post, the community rushes in, they grow, and then it goes quiet until the next video. They aren't riding an algorithmic wave; they are driving their own traffic.
 
-<div style="width:100%; height:600px;">
-  <iframe 
-      src="assets/plots/rq4_stability_metrics.html"
-      style="width:100%; height:100%; border:none;">
-  </iframe>
-</div>
+**Diana**: So they own their audience, instead of renting it from YouTube's homepage.
 
-**Alex**: The data shows that the median Outperformer posts **more frequently** than the typical channel. They are disciplined. They show up to work.
-The 'Control' group is skewed by spammers throwing mud at the wall. Our outperformers are consistent creators.
+**Alex**: Exactly. And look at the final column: **Posting Frequency**. Even with those quiet periods, the median Outperformer shows up to work **more frequently** (1.38 videos/week) than the typical channel. They are disciplined, not lucky.
+
+**Sarah**: So fewer viral spikes, but more consistent daily work?
+
+**Alex**: Exactly. Consistent, high-efficiency work.
 
 **Diana**: Okay, they work hard. But does that work actually pay off over time? Or are they just running on a treadmill?
 
