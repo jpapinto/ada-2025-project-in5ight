@@ -5,6 +5,20 @@ import pandas as pd
 import matplotlib.patheffects as patheffects
 from matplotlib.lines import Line2D
 
+
+
+
+def plot_correlation_matrix(axis, dataframe, title, colormap="coolwarm"):
+        correlation_matrix = dataframe.corr(numeric_only=True)
+        if correlation_matrix.empty:
+            axis.axis("off")
+            axis.text(0.5, 0.5, "No numeric columns", ha="center", va="center")
+            return
+        sns.heatmap(correlation_matrix, annot=True, fmt=".2f", cmap=colormap, cbar=True, ax=axis)
+        axis.set_title(title)
+
+
+
 def plot_correlation_matrices(dataframes, dataframe_names, figsize=(16, 16), colormap="coolwarm"):
     """
     Plot correlation matrices for multiple DataFrames.
@@ -18,14 +32,7 @@ def plot_correlation_matrices(dataframes, dataframe_names, figsize=(16, 16), col
     Returns:
         matplotlib.figure.Figure: The created figure containing the correlation matrices.
     """
-    def _plot_correlation_matrix(axis, dataframe, title):
-        correlation_matrix = dataframe.corr(numeric_only=True)
-        if correlation_matrix.empty:
-            axis.axis("off")
-            axis.text(0.5, 0.5, "No numeric columns", ha="center", va="center")
-            return
-        sns.heatmap(correlation_matrix, annot=True, fmt=".2f", cmap=colormap, cbar=True, ax=axis)
-        axis.set_title(title)
+
 
     num_dataframes = len(dataframes)
     num_columns = 2
@@ -36,13 +43,101 @@ def plot_correlation_matrices(dataframes, dataframe_names, figsize=(16, 16), col
 
     for axis, dataframe, name in zip(axes, dataframes, dataframe_names):
         numeric_columns = dataframe.select_dtypes(include=["float64", "int64"])
-        _plot_correlation_matrix(axis, numeric_columns, f"Correlation Matrix: {name}")
+        plot_correlation_matrix(axis, numeric_columns, f"Correlation Matrix: {name}", colormap=colormap)
 
     for axis in axes[len(dataframes):]:
         axis.axis("off")
 
     plt.tight_layout()
     return figure
+
+
+
+def plot_streamed_correlation(
+    stream_fn,
+    path,
+    nrows=None,
+    stream_kwargs=None,
+    title="Correlation Matrix (streamed)",
+    figsize=(8, 6),
+    colormap="coolwarm",
+):
+    """
+    Compute and plot a correlation matrix from a streamed DataFrame source.
+    Numeric columns are inferred from the first non-empty chunk.
+    """
+    import numpy as np
+    import pandas as pd
+    import matplotlib.pyplot as plt
+
+    stream_kwargs = stream_kwargs or {}
+
+    n = 0
+    mean = None
+    M2 = None
+    numeric_columns = None
+
+    for chunk in stream_fn(path=path, **stream_kwargs):
+        # Infer numeric columns once
+        if numeric_columns is None:
+            numeric_columns = (
+                chunk
+                .select_dtypes(include=["int64", "float64"])
+                .columns
+                .tolist()
+            )
+
+            if not numeric_columns:
+                raise ValueError("No numeric columns found in streamed data")
+
+        chunk = chunk[numeric_columns].dropna()
+        if chunk.empty:
+            continue
+
+        # Respect nrows cap
+        if nrows is not None and n + len(chunk) > nrows:
+            chunk = chunk.iloc[: nrows - n]
+
+        x = chunk.to_numpy(dtype=np.float64)
+        k = x.shape[0]
+
+        if k == 0:
+            break
+
+        if mean is None:
+            mean = x.mean(axis=0)
+            M2 = np.zeros((x.shape[1], x.shape[1]))
+
+        delta = x.mean(axis=0) - mean
+        mean += delta * k / (n + k)
+        M2 += (x - mean).T @ (x - mean)
+        n += k
+
+        if nrows is not None and n >= nrows:
+            break
+
+    if n < 2:
+        raise ValueError("Not enough data to compute correlation")
+
+    cov = M2 / (n - 1)
+    std = np.sqrt(np.diag(cov))
+    corr = cov / np.outer(std, std)
+
+    corr_df = pd.DataFrame(
+        corr,
+        index=numeric_columns,
+        columns=numeric_columns,
+    )
+
+    fig, ax = plt.subplots(figsize=figsize)
+    plot_correlation_matrix(ax, corr_df, title, colormap=colormap)
+    plt.tight_layout()
+
+    return fig
+
+
+
+
 
 def plot_log_histogram(
     dataframe, column_name, percentile_markers=None, figsize=(8, 5),
