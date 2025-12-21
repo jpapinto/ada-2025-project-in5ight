@@ -305,7 +305,20 @@ These are reliable. Predictable. But crowded, and therefore more expensive.
 
 **Marcus**: (leaning back) Wait. Even if we accept that these Quiet Outperformers exist, they're still just the ones who worked yesterday. That doesn't tell us who will still work when budgets scale, prices change, or new channels appear.
 
-**Sarah**: And it gives us nothing to audit or defend.
+
+<div style="display: flex; align-items: center;">
+  <p style="flex: 1; margin-right: 20px;">
+
+    <strong>Marcus</strong>: (leaning back) Wait. Even if we accept that these Quiet Outperformers exist, they're still just the ones who worked yesterday. That doesn't tell us who will still work when budgets scale, prices change, or new channels appear.
+
+    <br><br><br>
+    <strong>Sarah</strong>: And it gives us nothing to audit or defend.
+
+  </p>
+  <img src="assets/img/marcus_2.png" alt="Description of image" style="width: 200px; height:auto; margin-right: 50px; margin-left: 20px;">
+</div>
+
+
 
 **Alex**: Exactly. If engagement efficiency is real, it should leave fingerprints.
 Patterns we can screen for, even before a channel becomes famous.
