@@ -329,28 +329,28 @@ demonstrate this.
     Directly comparing Outperformers to the general population introduces selection bias. Observed differences in growth could be artifacts of confounding factors, for instance, older channels naturally accumulate more subscribers, and certain categories (e.g., Gaming) have inherently higher activity levels.</p>
 
     <p><b>The Solution: Causal Inference via PSM</b><br>
-    We employed <b>Propensity Score Matching (PSM)</b> to construct a synthetic control group that is statistically identical to the Outperformer cohort across all observable pre-treatment characteristics.</p>
+    I employed <b>Propensity Score Matching (PSM)</b> to construct a synthetic control group that is statistically identical to the Outperformer cohort across all observable pre-treatment characteristics.</p>
 
     <p><b>Process:</b></p>
     <ul>
         <li>
-            <b>Propensity Estimation:</b> We modeled the propensity score \( e(X) \), which is the probability of a channel being an Outperformer given its covariates:
+            <b>Propensity Estimation:</b> I modeled the propensity score \( e(X) \), which is the probability of a channel being an Outperformer given its covariates:
             <br><br>
             $$
             e(X) = P(\text{is_outperformer} = 1 \mid X)
             $$
             <br>
-            We estimated this using a regularized <b>Logistic Regression</b>. Continuous covariates (Subscriber Count, Channel Age, Video Volume) were log-transformed to mitigate skew:
+            I estimated this using a regularized <b>Logistic Regression</b>. Continuous covariates (Subscriber Count, Channel Age, Video Volume) were log-transformed to mitigate skew:
             <br><br>
             $$\text{logit}(e(X)) = \beta_0 + \beta_1 \cdot \log(\text{subscribers_cc}) + \beta_2 \cdot \log(\text{channel_age_days}) + \beta_3 \cdot \log(\text{videos_cc}) + C(\text{category_cc})$$
             <br>
         </li>
-        <li><b>Exact Matching:</b> We enforced an exact match on <b>Content Category</b> to eliminate industry-specific bias (e.g., a "Gaming" Outperformer is only matched with a "Gaming" control).</li>
-        <li><b>Nearest Neighbor with Caliper:</b> Within each category, we paired each Outperformer 1:1 with the control unit having the closest propensity score, imposing a strict caliper to ensure high-quality matches.</li>
+        <li><b>Exact Matching:</b> I enforced an exact match on <b>Content Category</b> to eliminate industry-specific bias (e.g., a "Gaming" Outperformer is only matched with a "Gaming" control).</li>
+        <li><b>Nearest Neighbor with Caliper:</b> Within each category, I paired each Outperformer 1:1 with the control unit having the closest propensity score, imposing a strict caliper to ensure high-quality matches.</li>
     </ul>
 
     <p><b>Validation:</b><br>
-    We verified balance using the <b>Standardized Mean Difference (SMD)</b>, which measures the difference in means relative to the pooled standard deviation:
+    I verified balance using the <b>Standardized Mean Difference (SMD)</b>, which measures the difference in means relative to the pooled standard deviation:
     <br><br>
     $$
     \text{SMD} = \frac{\bar{X}_{\text{Treated}} - \bar{X}_{\text{Control}}}{\sqrt{\frac{S_{\text{Treated}}^2 + S_{\text{Control}}^2}{2}}}
@@ -434,15 +434,15 @@ The difference between the two groups becomes statistically significant at this 
     <br>
     
     <p><b>Hypothesis:</b><br>
-    We tested the null hypothesis (H<sub>0</sub>) that the median cumulative subscriber count for Outperformers is less than or equal to that of the Control group at specific time intervals.</p>
+    I tested the null hypothesis (H<sub>0</sub>) that the median cumulative subscriber count for Outperformers is less than or equal to that of the Control group at specific time intervals.</p>
 
     <p><b>Results:</b><br>
-    We performed a one-sided Mann-Whitney U test at three annual checkpoints. The results confirm that the performance gap only becomes statistically meaningful in the long term.</p>
+    I performed a one-sided Mann-Whitney U test at three annual checkpoints. The results confirm that the performance gap only becomes statistically meaningful in the long term.</p>
     
     <ul>
         <li><b>Year 1 (Week 52):</b> <i>p</i> = 0.4714 (Not Significant) – No detectable advantage.</li>
         <li><b>Year 2 (Week 104):</b> <i>p</i> = 0.1121 (Not Significant) – The gap begins to widen but could still be due to chance.</li>
-        <li><b>Year 3 (Week 160):</b> <i>p</i> = 0.0426 (Significant, <i>p</i> < 0.05) – We reject H<sub>0</sub>. Outperformers have achieved a statistically significant lead in total audience size.</li>
+        <li><b>Year 3 (Week 160):</b> <i>p</i> = 0.0426 (Significant, <i>p</i> < 0.05) – Reject H<sub>0</sub>. Outperformers have achieved a statistically significant lead in total audience size.</li>
     </ul>
   </details>
 </div>
