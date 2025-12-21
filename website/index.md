@@ -500,11 +500,56 @@ That's what I looked for next.
 
 **Alex**: Efficiency doesn’t come from shouting more. It comes from showing up the same way, with content that gives viewers time to care.
 
+Using everything we’ve learned from this analysis, I even built a small Outperformer predictor. It’s powered by a trained logistic regression model. You can plug in a channel’s basic stats: age, upload frequency, video length, and category, and it gives an approximate probability of that channel being a Quiet Outperformer.
+
+<div style="border-left: 3px solid #432750; padding-left: 20px; font-size: 18px; margin-top: 10px;"> 
+  <details>
+    <summary style="font-size: 18px; cursor: pointer;"><b>Logistic Regression Prediction</b></summary>
+
+    <b>Model idea:</b><br>
+    The game estimates how likely a channel is to be a <i>Quiet Outperformer</i>
+    using a logistic regression.
+
+    <br><br>
+
+    <b>Linear score:</b><br>
+    Channel features are first transformed and standardized, then combined into
+    a single score:
+
+    <br><br>
+
+    \[
+      z = \beta_0
+        + \beta_1 \cdot \text{videos-per-day}
+        + \beta_2 \cdot \log(\text{duration})
+        + \beta_3 \cdot \log(\text{channel age})
+        + \beta_{\text{category}}
+    \]
+
+    <br>
+
+    <b>From score to probability:</b><br>
+    The score is passed through a sigmoid function to obtain a probability:
+
+    <br><br>
+
+    \[
+      P(\text{Outperformer}) = \frac{1}{1 + e^{-z}}
+    \]
+
+    <br>
+
+    All coefficients and standardization values are fixed from training data
+    frozen in 2019.
+  </details>
+</div>
+
 
 
 {% include _rq3_game.html %}
 
 
+**Leo**: (raising an eyebrow) Seriously, Alex… how do you find the time for this?
 
 **Diana**: This is all fine in theory, Alex. Engagement is nice. But my stakeholders don't pay bills with 'likes'. They pay with growth. If these channels are so 'efficient' why haven't I heard of them? Do they actually scale, or are they just small, happy little hobbies that will disappear in a year?
 
