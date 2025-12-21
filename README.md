@@ -18,7 +18,7 @@ We aim to define and detect such channels, then compare their engagement efficie
 - RQ3 - Which content and strategy choices are statistically associated with higher efficiency within each size tier?
 - RQ4 - Do channels that currently exhibit exceptional engagement also show historically stronger or more stable growth patterns?
   
-## Short description of the  Methods
+## Short description of the methods
 
 Our analysis combines statistical modeling and tests, clustering, and time-series analysis to identify and explain YouTube channels that achieve unusually high engagement relative to their size. Each research question builds on a standardized dataset where engagement efficiency is defined as *(likes + dislikes + comments) / views* and normalized for channel size through regression-based bias correction. Channels with large positive residuals are labeled as *quiet outperformers*.
 
@@ -45,7 +45,7 @@ Finally, the Mann-Whitney U test, a non-parametric test, is used to compare grow
 | **Week 1** | 06.11-12.11 | • Fine-tuned the preprocessing pipeline (missing values, normalization, outlier filtering)  <br> • Verify the quiet-outperformer detection results from log-log regression residuals (RQ1) and finalize the standardized dataset containing `channel_id`, `efficiency_residual`, `is_outperformer`, and core metadata |
 | **Week 2-3** | 13.11-26.11 | **Started parallel analyses:**  <br> • **RQ2:** Performed LDA topic modeling on cleaned tags to form content clusters; compared efficiency distributions across clusters using Kruskal–Wallis and Chi-square tests  <br> • **RQ3:** Modeled associations between efficiency and structural factors using OLS regressions and interaction terms  <br> • **RQ4:** Implemented Propensity Score Matching (PSM) to mitigate selection bias; analyzed differences in growth magnitude, stagnation, and posting frequency using Mann-Whitney U tests |
 | **Week 4** | 27.11-03.12 | • Continued and refined RQ2–RQ4 analyses in parallel  <br> • Visualized key findings (boxplots, regression plots, time-series comparisons, etc.) |
-| **Week 5-6** |  (Pre-Milestone 3) 04.12-17.12| • Integrated all research findings in a single Jupyter notebook presenting the results <br> • Built the data story website <br> • Finalized documentation and prepared final deliverables |
+| **Week 5-6** | (Pre-Milestone 3) 04.12-17.12| • Integrated all research findings in a single Jupyter notebook presenting the results <br> • Built the data story website <br> • Finalized documentation and prepared final deliverables |
 
 
 ## Contribution
@@ -113,7 +113,7 @@ Finally, the Mann-Whitney U test, a non-parametric test, is used to compare grow
 Requirements:
 
 - Python 3.12 (must be installed on your system)
-- uv
+- `uv` (Install via `pip install uv`)
 
 ### 1. Clone the repository
 
