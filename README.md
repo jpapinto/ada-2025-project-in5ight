@@ -118,7 +118,7 @@ Finally, the Mann-Whitney U test, a non-parametric test, is used to compare grow
 
 - Yusif Askari: Research Question 3 in results.ipynb and data story website
 
-- João Pinto: Implemented Section 7 in results.ipynb, addressing Research Question 4 by comparing the growth dynamics of Outperformers versus Non-Outperformers. Authored the corresponding Research Question 4 section for the project website.
+- João Pinto: Implemented Section 7 in results.ipynb, addressing Research Question 4 by comparing the growth dynamics of Outperformers versus Non-Outperformers. Wrote the corresponding Research Question 4 section for the project website.
 
 - Fedor Chikhachev: Initial data loading and preprocessing. Construct the structure of data story website. Assisted with data visualization for final data story.
 
