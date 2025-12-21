@@ -8,6 +8,36 @@ mathjax: true
 
 {% include _intro_image.html %}
 
+#### Trailer
+
+<div class="trailer">
+
+The company's influencer marketing strategy is underperforming: high-budget partnerships with large YouTube channels are delivering reach, but weak engagement and poor conversion.
+
+In response, Alex, the data analyst, proposes a new targeting framework focused on engagement efficiency rather than raw channel size.
+</div>
+
+<div class="trailer">
+The analysis is structured around four research questions:
+</div>
+
+<div class="trailer">
+1. How can quiet outperformers be rigorously defined and identified while controlling for sampling bias and channel size?
+</div>
+<div class="trailer">
+2. Are quiet outperformers concentrated in particular content categories, or do their engagement efficiency patterns vary across categories?
+</div>
+<div class="trailer">
+3. Which content and strategy choices are statistically associated with higher efficiency within each size tier?
+</div>
+<div class="trailer">
+4. Do channels that currently exhibit exceptional engagement also show historically stronger or more stable growth patterns?
+</div>
+
+Now let's walk into the boardroom.
+
+
+
 
 {% include _characters_start.html %}
 
@@ -18,9 +48,9 @@ mathjax: true
 
 > The executives gather in the boardroom. The mood is grim; even the air conditioner sounds stressed. On the main screen, Diana is presenting the company’s latest financial report. No one is smiling.
 
-**Diana**: Okay everyone, let's not sugarcoat this. Our marketing campaign has taken a massive hit. We poured money into the biggest YouTubers on the platform, and instead of growth, we’re down 15%. The board wants to shut the influencer program down on Monday.
+**Diana**: Okay everyone, let's not sugarcoat this. Our marketing campaign has taken a massive hit. We poured money into the biggest YouTubers on the platform, and instead of growth, we're down 15%. The board wants to shut the influencer program down on Monday.
 
-**Marcus**: It’s not the program's fault, Diana. It’s the market. We worked with the biggest names. You don’t get better reach than that.
+**Marcus**: It's not the program's fault, Diana. It's the market. We worked with the biggest names. You don't get better reach than that.
 
 **Diana**: The sales team says people are clicking. They just aren't clicking on us. We are burning cash, Marcus.
 
@@ -28,19 +58,27 @@ mathjax: true
 
 **Marcus**: Ghosts? Alex, please tell me you didn't stay up all night just to crack jokes. And where do you get your data anyway?
 
-**Alex**: I’m serious. I built this on *YouNiverse* — one of the *largest publicly available academic datasets* ever released on YouTube.  
-We’re talking **136,000+ English-speaking channels**, **almost 73 million videos**, and multi-year histories of views, subscribers, and audience interaction.
+**Alex**: I'm serious. I built this on *YouNiverse* — one of the *largest publicly available academic datasets* ever released on YouTube.  
+We're talking about **136,000+ English-speaking channels**, **almost 73 million videos**, and multi-year histories of views, subscribers, and audience interaction.
 
-I’ve been staring at the data for the past week. Something with our engagement just wasn't adding up. Those subscribers, those views... for the big channels, they were just an illusion. We need to put our money into **Outperformers**. They will give us the most engagement for every dollar spent.
+I've been staring at the data for the past week. Something with our engagement just wasn't adding up. Those subscribers, those views... for the big channels, they were just an illusion. We need to put our money into the **Quiet Outperformers**. They will give us the most engagement for every dollar spent.
 
-**Leo**: Ourperformers? What are those? 
+**Leo**: Quiet Ourperformers? What are those? 
 
-## _What are Outperformers_?
+## _What are Quiet Outperformers_?
 
 
 <div style="display: flex; align-items: center;">
   <p style="flex: 1; margin-right: 20px;">
-    <strong>Alex</strong>: While analyzing the YouNiverse data, I found something very interesting. There exists a massive group of channels with low subscriber counts but engagement way above what they should have. And there are plenty of them! If we put our money here, we can get a lot more of these small-to-mid-sized channels, and they will get us way more <strong>Engagement Efficiency</strong>.
+    <strong>Alex</strong>: While analyzing the YouNiverse data, I found something very interesting. There exists a massive group of channels with low subscriber counts but engagement far above what their size would suggest. 
+
+    <br><br>
+
+    To make the comparison fair, I focused on channels below 100,000 subscribers. That cutoff isn't arbitrary. It lines up with YouTube’s Silver Creator milestone, the point where channels start to receive systematic algorithmic and brand advantages. Within this range, engagement reflects genuine audience connection rather than platform momentum. 
+    
+    <br><br>
+
+    And there are plenty of these channels with much higher than expected engagement! If we put our money here, we can get a lot more of these small-to-mid-sized channels, and they will get us way more <strong>Engagement Efficiency</strong>.
     <br>
     <br>
     <br>
@@ -50,7 +88,7 @@ I’ve been staring at the data for the past week. Something with our engagement
 </div>
 
 
-**Alex**: It’s a metric I created because the industry terms were lying to us. Essentially, for every single view, this tells us how many people cared enough to actually do something. The Mega-Stars get views, but nobody touches the keyboard. These Outperformers? Their audience is glued to it.
+**Alex**: It's a metric I created because the industry terms were lying to us. Essentially, for every single view, this tells us how many people cared enough to actually do something. The Mega-Stars get views, but nobody touches the keyboard. These Quiet Outperformers? Their audience is glued to it.
 
 
 <div style="border-left: 3px solid #432750; padding-left: 20px; font-size: 18px; margin-top: 2;">
@@ -59,11 +97,11 @@ I’ve been staring at the data for the past week. Something with our engagement
 
     <b>Why did I define this?</b>  
     When I started comparing channels in the YouNiverse dataset, it became obvious that raw metrics, views, likes, subscribers, were misleading.  
-    Big channels collect views almost automatically, but that doesn’t mean their audience is actually engaged.  
+    Big channels collect views almost automatically, but that doesn't mean their audience is actually engaged.  
     Smaller channels, on the other hand, often have fewer viewers, but those viewers interact far more intensely.
 
     I needed a way to compare channels fairly, regardless of size.  
-    That’s why I introduced <i>engagement efficiency</i>: a metric that measures how actively a channel’s audience reacts to its content.
+    That's why I introduced <i>engagement efficiency</i>: a metric that measures how actively a channel’s audience reacts to its content.
 
     <br><br>
     <b>Definition:</b><br>
@@ -74,7 +112,7 @@ I’ve been staring at the data for the past week. Something with our engagement
     \]
 
     This tells me, per view, how often the audience responds.  
-    A higher value means viewers aren’t just passively watching, they’re participating.  
+    A higher value means viewers aren't just passively watching, they're participating.  
     This was the first clear signal that many small and mid-sized channels were dramatically outperforming the Mega-Stars we paid for.
   </details>
 </div>
@@ -128,8 +166,7 @@ Every dot in the upper cluster represents a channel performing well above its ex
 
 **Leo**: "2,800... that's a goldmine."
 
-**Alex**: I also wanted to see what was happening over time.
-I have some of the Outperformers right here, and I analyzed how their engagement efficiency evolves over time from 2005 to 2019.  
+**Alex**: I also wanted to see how these Outperformers' engagement efficiency develops as their video catalogs grow over time, from 2005 to 2019. 
 
 
 <div style="border-left: 3px solid #432750; padding-left: 20px; font-size: 18px; margin-top: 10px;">
@@ -149,8 +186,7 @@ I have some of the Outperformers right here, and I analyzed how their engagement
     <br>
 
     <b>Smoothing over time:</b><br>
-    Because uploads and reactions are irregular, I apply a short trailing average
-    to this signal to reduce noise caused by upload timing.
+    Because new videos are added irregularly, efficiency changes in discrete steps. I apply a short trailing average to smooth cohort transitions for visualization.
 
     <br><br>
 
@@ -164,7 +200,7 @@ I have some of the Outperformers right here, and I analyzed how their engagement
 
 
 
-**Alex**: Against their expected baseline, it’s clear they perform much better.
+**Alex**: Against their expected baseline, it's clear they perform much better.
 And not just once. Some spike, sure, but many of these channels sustain high efficiency for years.
 
 
@@ -172,8 +208,6 @@ And not just once. Some spike, sure, but many of these channels sustain high eff
 
 
 **Marcus**: (Leaning back, looking less skeptical) Okay, Alex. I see the math. These 'Outperformers' have great engagement stats. But we can't just throw darts at a list of 2,000 random channels. 
-
-**Leo**: Exactly. Even if we believe in Outperformers, we still need to know where to look. What if we accidentally sponsor a flat-earth theorist or a channel that has nothing to do with our audience? We need control.
 
 
 
@@ -185,7 +219,7 @@ And not just once. Some spike, sure, but many of these channels sustain high eff
     <br>
     <br>
     <br>
-    <strong>Alex</strong>: that’s the right question. And it turns out… categories matter more than we thought.
+    <strong>Alex</strong>: That's the right question. And it turns out... categories matter more than we thought.
     
     <br>
     <br>
@@ -197,15 +231,15 @@ And not just once. Some spike, sure, but many of these channels sustain high eff
 
 ## _Where the Outperformers Live and Why It Matters_?
 
-**Alex**:  I started where everyone starts: YouTube’s official category system. There are 15 labels, such as 'Gaming', 'Entertainment' and 'People & Blogs'. They look neat. They’re also terrible. “People & Blogs” is a junk drawer. “Entertainment” mixes movie trailers, late-night clips, and personal vlogs. Two channels in the same category can behave completely differently.
+**Alex**:  I started where everyone starts: YouTube's official category system. There are 15 labels, such as 'Gaming', 'Entertainment' and 'People & Blogs'. They look neat. They're also terrible. 'People & Blogs' is a junk drawer. “Entertainment” mixes movie trailers, late-night clips, and personal vlogs. Two channels in the same category can behave completely differently.
 
-So I ignored the labels YouTube gives us. Instead, I looked at the tags - the actual keywords creators use to describe their own videos. I processed millions of tags from our dataset and used a technique called Latent Dirichlet Allocation.
+So I ignored the labels YouTube gives us. Instead, I looked at the tags: the actual keywords creators use to describe their own videos. I processed millions of tags from our dataset and used a technique called Latent Dirichlet Allocation.
 
 **Leo**: (Raising an eyebrow) In English, Alex.
 
-**Alex**: Think of it as reverse-engineering the communities. I let the data tell me which videos belong together based on the words they use. Instead of 15 broad buckets, the model discovered 30 distinct micro-communities.
+**Alex**: Think of it as reverse-engineering the communities. I let the data tell me which videos belong together by looking for repeated patterns in the tags they use. Instead of 15 broad buckets, the model discovered 30 distinct micro-communities.
 
-*[Alex clicks next. The screen displays the LDA Topic Cluster Map.]*
+*(Alex clicks next. The screen displays the LDA Topic Cluster Map.)*
 
 <iframe src="assets/plots/cluster_map.html" style="width:100%; height:600px; border:none;"> </iframe>
 
@@ -230,11 +264,11 @@ That would work, if performance were the only thing that mattered.
 But in the real world, performance attracts attention. And attention attracts competition.
 When a community consistently delivers strong engagement, brands notice. Budgets pile in. Creators raise their rates.
 
-**Leo**: So high engagement doesn’t stay cheap for long.
+**Leo**: So high engagement doesn't stay cheap for long.
 
 **Alex**: Exactly. Efficiency creates value, but competition sets the price.
 
-That’s why I asked a second question.
+That's why I asked a second question.
 If Outperformers were just random accidents, we’d find them scattered evenly across all communities.
 In that case, categories wouldn’t constrain us. We could hunt anywhere and expect similar odds.
 But that’s not what the data shows.
@@ -259,16 +293,16 @@ It gives us two paths, not one.
 
 <iframe src="assets/plots/rq2_strategy_matrix.html" style="width:100%; height:650px; border:none;"> </iframe>
 
-**Alex**: First, the *Verified Winners*. Communities that rank high on engagement and are already dense with Outperformers. For example “Game & Gameplay” and “Comedy Vlogs”
+**Alex**: First, the *Verified Winners*. Communities that rank high on engagement and are already dense with Outperformers. For example 'Game & Gameplay'and 'Comedy Vlogs'
 These are reliable. Predictable. But crowded, and therefore more expensive.
 
-**Marcus**: And the others? Like “Sports & Music”?
+**Marcus**: And the others? Like 'Sports & Music'?
 
-**Alex**: That’s the *Opportunity Gap*. Communities where engagement is strong, but Outperformers are still relatively rare. Less competition. Lower prices. More uncertainty, but far more upside.
+**Alex**: That's the *Opportunity Gap*. Communities where engagement is strong, but Outperformers are still relatively rare. Less competition. Lower prices. More uncertainty, but far more upside.
 
 *(Alex looks around the room.)*
 
-**Alex**: There isn’t a single “best” strategy here. One path buys us stability. The other buys us leverage. The mistake isn’t choosing one over the other, it’s pretending they’re the same.
+**Alex**: There isn't a single 'best' strategy here. One path buys us stability. The other buys us leverage. The mistake isn't choosing one over the other, it's pretending they're the same.
 
 *(The room is quiet. This time, thoughtful.)*
 
