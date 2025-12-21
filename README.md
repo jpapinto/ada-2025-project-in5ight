@@ -1,5 +1,82 @@
 # Beyond Size: Uncovering the Engagement Efficiency of YouTube's Quiet Outperformers
 
+
+## Getting Started
+
+Requirements:
+
+- Python 3.12 (must be installed on your system)
+- uv
+
+```bash
+# 1. Create a virtual environment with Python 3.12
+uv venv .venv --python 3.12
+
+# 2. Activate it
+# Linux / macOS
+source .venv/bin/activate
+
+# Windows (PowerShell)
+.venv\Scripts\Activate.ps1
+
+# 2. Install dependencies
+uv pip install -r pip_requirements.txt
+```
+
+## Project Data Story
+
+Link to the data story weebsite: [Beyond Size](https://epfl-ada.github.io/ada-2025-project-in5ight/)<br>
+The website is built using *Beautiful Jekyll*.  
+The source code for the data story website is located in the `website/` folder on the `data_story` branch.
+
+
+## Project Structure
+
+```
+├── config.py                          # Configuration settings and parameters
+├── results.ipynb                     # Main analysis notebook with all research questions
+├── requirements.txt                  # Python dependencies
+├── README.md                         # Project documentation
+│
+├── data/                             # Data storage
+│   ├── raw/                          # Raw datasets
+│   ├── processed/                    # Cleaned and processed datasets
+│   └── cached_results/               # Cached analysis results
+│
+├── src/                            
+│   ├── data/                         # Data processing modules
+│   │   ├── loader.py                 # Data loading utilities
+│   │   ├── preprocessing.py          # Main data Preprocessing pipeline
+│   │   └── quality_check.py          # Data quality validation
+│   │
+│   ├── models/                      
+│   │   ├── log_log_efficiency_model.py      # Log-log Linear regression for outperformer detection
+│   │   ├── propensity_matching.py           # Propensity score matching for RQ4
+│   │   └── spec_model.py                    # Specification models for RQ3
+│   │
+│   ├── utils/                       
+│   │   ├── data_utils.py             # General data manipulation utilities
+│   │   ├── evaluation_utils.py       # Evaluation and metrics functions
+│   │   ├── general_utils.py          # General helper functions
+│   │   └── plots.py                  # Visualization utilities
+│   │
+│   ├── notebooks/                    # Analysis notebooks for individual research questions
+│   │   ├── detecting_outperformers.ipynb
+│   │   ├── structural_factors_affect.ipynb
+│   │   ├── sustainability_outperformers_vs_control.ipynb
+│   │   └── sustainability_test_channel.ipynb
+│   │
+│   └── scripts/                      # Standalone scripts
+│
+├── tests/                            # Testing and validation
+│   ├── RQ1_results.ipynb            # RQ1 testing notebook
+│   ├── RQ1_testings.ipynb           # Additional RQ1 tests
+│   └── assets/                       # Test assets and visualizations
+│
+└── website/                          # Data story website code with (Beautiful Jekyll)
+    └── (Located on data_story branch)
+```
+
 ## Abstract
 
 While engagement typically rises with audience size, large YouTube channels often benefit from algorithmic and brand advantages rather than intrinsic content appeal. In contrast, small to mid-tier creators face greater constraints yet sometimes achieve exceptional engagement through strategy and creativity rather than scale. This project investigates these "quiet outperformers": channels whose engagement efficiency, measured by likes and comments per view, significantly exceeds expectations given their subscriber base.
@@ -8,12 +85,12 @@ We aim to define and detect such channels, then compare their engagement efficie
 
 ## Research Questions
 
-- **How do we define and detect quiet outperformers while controlling for sampling bias and channel size?**
-- **Are quiet outperformers concentrated in particular content categories, or do their engagement efficiency patterns vary across categories?**
-- **Which content and strategy choices are statistically associated with higher efficiency within each size tier? Do these effects differ between short-form and long-form channels (based on average video duration)?**
-- **Do quiet outperformers exhibit more stable and consistent growth in weekly views and subscribers compared to non-outperforming channels with similar characteristics?**
+- RQ1 - How do we define and detect quiet outperformers while controlling for sampling bias and channel size?
+- RQ2 - Are quiet outperformers concentrated in particular content categories, or do their engagement efficiency patterns vary across categories?
+- RQ3 - Which content and strategy choices are statistically associated with higher efficiency within each size tier? Do these effects differ between short-form and long-form channels (based on average video duration)?
+- RQ4 - Do quiet outperformers exhibit more stable and consistent growth in weekly views and subscribers compared to non-outperforming channels with similar characteristics?
   
-## Methods
+## Short description of the  Methods
 
 Our analysis combines statistical modeling and tests, clustering, and time-series analysis to identify and explain YouTube channels that achieve unusually high engagement relative to their size. Each research question builds on a standardized dataset where engagement efficiency is defined as *(likes + dislikes + comments) / views* and normalized for channel size through regression-based bias correction. Channels with large positive residuals are labeled as *quiet outperformers*.
 
@@ -32,6 +109,16 @@ We analyze whether video duration, posting frequency, and posting consistency ar
 Finally, we examine whether quiet outperformers maintain consistent growth in weekly views and subscribers compared to similar non-outperforming channels. Time-series volatility is quantified using the Coefficient of Variation for weekly changes. To mitigate selection bias, we apply Propensity Score Matching to pair each outperformer with a comparable control channel. Non-parametric tests such as the Mann-Whitney U test are used to compare stability across groups.
 
 
+## Contribution
+
+- Jon Kuçi: Data loading and data processing pipeline. Sections 1–3 in results.ipynb. Research Question 1 in results.ipynb, along with the coding part of Research Question 2. Overall design and illustrations for the data story, and writing of the Research Question 1 section on the website.
+
+// Put your contributions here
+
+
+
+<br>
+// Might delete this 
 
 ## Proposed Timeline
 
@@ -43,6 +130,8 @@ Finally, we examine whether quiet outperformers maintain consistent growth in we
 | **Week 5-6** |  (Pre-Milestone 3) 04.12-17.12| • Integrate RQ2-RQ4 findings into one unified narrative  <br> • Conduct robustness checks <br> • Finalize statistical tests, figures, and documentation  <br> • Prepare final deliverables|
 
 ---
+
+// Might delete
 
 ## Organization Within the Team 
 
