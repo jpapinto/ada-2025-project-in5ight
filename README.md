@@ -122,8 +122,6 @@ Finally, the Mann-Whitney U test, a non-parametric test, is used to compare grow
 
 - Fedor Chikhachev: Initial data loading and preprocessing. Construct the structure of data story website. Assisted with data visualization for final data story.
 
-<br>
-
 ## Timeline
 
 | Week | Period | Key Objectives |
