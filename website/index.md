@@ -330,17 +330,17 @@ That's what I looked for next.
   </iframe>
 </div>
 
-**Leo**: *(squinting at the screen)* But it's not and that's not random.
+**Leo**: *(squinting at the screen)* But it's not. And it's not random.
 
 **Alex**: No. And it's remarkably similar across small and mid channels. The strongest signal is duration. Efficiency clusters around moderate to longer typical video length, while channels built around very short typical durations show up again and again in the underperforming zone.
 
 **Diana**: So short videos are bad.
 
-**Alex**: Not universally, but channels built around very short median durations tend to land below expectation more often. The second pattern is the danger zone: high pace combined with low consistency. It’s not volume that hurts you, it’s volume without rhythm. High consistency is broadly associated with better residuals, even when pace is moderate to high.
+**Alex**: Not universally, but channels built around very short median durations tend to land below expectation more often. The second pattern is the danger zone: high pace combined with low consistency. It's not volume that hurts you, it's volume without rhythm. High consistency is broadly associated with better residuals, even when pace is moderate to high.
 
 **Marcus**: *(frowning)* But aren’t these things tangled? The disciplined creators probably do everything right at once.
 
-**Alex**: That’s what I expected too, so I checked before trusting any regression.
+**Alex**: That's what I expected too, so I checked before trusting any regression.
 
 <div style="border-left: 3px solid #432750; padding-left: 20px; font-size: 18px; margin-top: 10px;">
   <details>
@@ -358,7 +358,7 @@ That's what I looked for next.
   </details>
 </div>
 
-*(Alex clicking again. A correlation matrix appers for both tiers and a VIF table below it)*
+*(Alex clicking again. A correlation matrix appears for both tiers and a VIF table below it)*
 
 <div style="width:100%; height:450px;">
   <iframe 
