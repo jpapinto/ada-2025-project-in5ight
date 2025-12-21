@@ -191,7 +191,7 @@ So I ignored the labels YouTube gives us. Instead, I looked at the tags - the ac
 
 *[Alex points to a plot on the screen]*
 
-<iframe src="assets/plots/rq2_efficiency_by_topic.html" style="width:850px; height:820px; border:none;"> </iframe>
+<iframe src="assets/plots/rq2_efficiency_by_topic.html" style="width:850px; height:820px; border:none; align:center; padding-bottom: -100px;"> </iframe>
 
 **Alex**: Statistically, the answer is a clear no. Some communities naturally produce far more engagement per view than others. The baseline is different. An average channel in one community can outperform a strong channel in another, even before we talk about Outperformers.
 
