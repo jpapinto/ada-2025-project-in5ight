@@ -20,7 +20,7 @@ source .venv/bin/activate
 .venv\Scripts\Activate.ps1
 
 # 2. Install dependencies
-uv pip install -r pip_requirements.txt
+uv pip install -r requirements.txt
 ```
 
 ## Project Data Story
