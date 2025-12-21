@@ -338,11 +338,28 @@ That's what I looked for next.
 
 *(Alex clicking to the next slide. A heatmap appears showing the effect of pace, consistency and duration on residual for each tier)* 
 
-<div style="width:100%; height:920px;">
-  <iframe 
-      src="assets/plots/rq3_recipe_maps.html"
-      style="width:100%; height:100%; border:none; overflow:hidden;"
-      scrolling="no">
+<style>
+  .frame{
+    width: 100%;
+    height: 830px;
+    overflow: hidden;   /* no scrollbars */
+    position: relative;
+  }
+
+  .frame iframe{
+    width: 125%;        /* 1 / 0.8 */
+    height: 125%;
+    border: 0;
+    display: block;
+    transform: scale(0.9);
+    transform-origin: 0 0;
+  }
+</style>
+
+<div class="frame">
+  <iframe
+    src="assets/plots/rq3_recipe_maps.html"
+    scrolling="no">
   </iframe>
 </div>
 
@@ -366,22 +383,25 @@ That's what I looked for next.
     <br><br>
     <b>VIF (Variance Inflation Factor):</b> checks redundancy in a multivariate sense. It asks whether a predictor can be reconstructed from the others. If it can, its coefficient becomes unstable, standard errors inflate, and interpretation becomes unreliable.
     <br><br>
-    For each predictor \\(x_j\\), regress it on the remaining predictors, compute \\(R_j^2\\), and define:
-    \\[
+    For each predictor \(x_j\), regress it on the remaining predictors, compute \(R_j^2\), and define:
+
+    \[
       VIF_j = \frac{1}{1 - R_j^2}
-    \\]
+    \]
+
     <b>Rule of thumb:</b> VIF near 1 means essentially no redundancy. Larger VIF means stronger overlap and less stable coefficients.
   </details>
 </div>
 
 *(Alex clicking again. A correlation matrix appears for both tiers and a VIF table below it)*
 
-<div style="width:100%; height:450px;">
-  <iframe 
-      src="assets/plots/rq3_correlation_matrices.html"
-      style="width:100%; height:100%; border:none;">
+<div style="width:100%; max-width:1000px; height:450px; margin:0 auto;">
+  <iframe
+    src="assets/plots/rq3_correlation_matrices.html"
+    style="width:100%; height:100%; border:none; display:block;">
   </iframe>
 </div>
+
 
 <div style="text-align:center; font-weight:700; font-size:20px; margin: 12px 0 8px 0;">
   VIF by Tier
@@ -429,16 +449,16 @@ That's what I looked for next.
     <b>Idea:</b> estimate the same regression, but weight channels by how reliable their residual measurement is in the lookback window.
     <br><br>
     <b>Weighted regression:</b>
-    \\[
+    $$
       \epsilon_c \;=\; \beta_0 \;+\; \beta_1\,\text{pace8}_c \;+\; \beta_2\,\text{consistency8}_c \;+\; \beta_3\,\log(\text{duration}_c)
-      \;+\; \text{Category FE} \;+\; \log(\text{channel age})_c \;+\; \text{videos/day}_c \;+\; u_c
-    \\]
+      \;+\; \text{Category FE} \;+\; \log(\text{channel age})_c \;+\; u_c
+    $$
     <br>
     <b>Estimation objective:</b>
-    \\[
+    $$
       \min_{\beta}\sum_{c} w_c\left(\epsilon_c - X_c\beta\right)^2
-    \\]
-    Here \\(w_c\\) increases with how much content we observed for the channel in the window, so higher-volume channels contribute more to the fit.
+    $$
+    Here \(w_c\) increases with how much content we observed for the channel in the window, so higher-volume channels contribute more to the fit.
   </details>
 </div>
 
@@ -450,7 +470,7 @@ That's what I looked for next.
 
 <div style="width:100%; height:450px;">
   <iframe 
-      src="assets/plots/effects.html"
+      src="assets/plots/rq3_effects_8.html"
       style="width:100%; height:100%; border:none;">
   </iframe>
 </div>
@@ -463,7 +483,7 @@ That's what I looked for next.
 
 <div style="width:100%; height:450px;">
   <iframe 
-      src="assets/plots/coefs.html"
+      src="assets/plots/rq3_coefs_8.html"
       style="width:100%; height:100%; border:none;">
   </iframe>
 </div>
@@ -476,18 +496,18 @@ That's what I looked for next.
     <br>
     <b>4-week window:</b>
     <div style="width:100%; height:450px; margin-top:10px;">
-      <iframe src="assets/plots/effects_4.html" style="width:100%; height:100%; border:none;" scrolling="no"></iframe>
+      <iframe src="assets/plots/rq3_effects_4.html" style="width:100%; height:100%; border:none;" scrolling="no"></iframe>
     </div>
     <div style="width:100%; height:450px; margin-top:10px;">
-      <iframe src="assets/plots/coefs_4.html" style="width:100%; height:100%; border:none;" scrolling="no"></iframe>
+      <iframe src="assets/plots/rq3_coefs_4.html" style="width:100%; height:100%; border:none;" scrolling="no"></iframe>
     </div>
     <br>
     <b>12-week window:</b>
     <div style="width:100%; height:450px; margin-top:10px;">
-      <iframe src="assets/plots/effects_12.html" style="width:100%; height:100%; border:none;" scrolling="no"></iframe>
+      <iframe src="assets/plots/rq3_effects_12.html" style="width:100%; height:100%; border:none;" scrolling="no"></iframe>
     </div>
     <div style="width:100%; height:450px; margin-top:10px;">
-      <iframe src="assets/plots/coefs_12.html" style="width:100%; height:100%; border:none;" scrolling="no"></iframe>
+      <iframe src="assets/plots/rq3_coefs_12.html" style="width:100%; height:100%; border:none;" scrolling="no"></iframe>
     </div>
   </details>
 </div>
