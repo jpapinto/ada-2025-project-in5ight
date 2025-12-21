@@ -187,7 +187,7 @@ So I ignored the labels YouTube gives us. Instead, I looked at the tags - the ac
 
 <iframe src="assets/plots/cluster_map.html" style="width:100%; height:600px; border:none;"> </iframe>
 
-**Alex**: Once we had these communities, I asked a simple question: Is engagement efficiency the same everywhere? If attention behaves similarly across topics, categories wouldn’t matter.
+**Alex**: Once we had these communities, I asked a simple question: Is engagement efficiency the same everywhere? If attention behaved similarly across topics, categories wouldn’t matter.
 
 *[Alex points to a plot on the screen]*
 
