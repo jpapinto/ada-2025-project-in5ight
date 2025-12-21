@@ -144,6 +144,17 @@ source .venv/bin/activate
 uv pip install -r requirements.txt
 ```
 
-### 5. Download the [YouNiverse](https://zenodo.org/records/4650046) dataset and place it in the `data/raw/` folder.
+### 5. Download Data
 
-### 6. Run the `results.ipynb` notebook to generate all the results and plots
+Download the [YouNiverse dataset](https://zenodo.org/records/4650046). specifically the **5 files** listed below, and place them inside the `data/raw/` folder:
+
+* `df_channels_en.tsv.gz`
+* `df_timeseries_en.tsv.gz`
+* `num_comments.tsv.gz`
+* `yt_metadata_en.jsonl.gz`
+* `yt_metadata_helper.feather`
+
+### 6. Run the analysis
+
+Run the `results.ipynb` notebook to generate all results and plots.
+
