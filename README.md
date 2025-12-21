@@ -69,15 +69,16 @@ Finally, the Mann-Whitney U test, a non-parametric test, is used to compare grow
 ├── config.py                                        # Configuration settings and parameters
 ├── data                                             # Data storage
 │   ├── cached_results                               # Cached analysis results
+│   │   ├── rq2_video_topic                          # Cached results of RQ2                          
 │   │   ├── dictionary_tags.dict
 │   │   ├── lda_model_tags.model
-│   │   ├── lda_model_tags.model.expElogbeta.npy
-│   │   ├── lda_model_tags.model.id2word
 │   │   └── lda_model_tags.model.state
+│   │
 │   ├── processed                                    # Cleaned and processed datasets
 │   │   └── _processed_datasets_here.txt
 │   └── raw                                          # Raw datasets
 │       └── _raw_datasets_here.txt
+│
 ├── README.md                                        # Project documentation
 ├── requirements.txt                                 # Python dependencies
 ├── results.ipynb                                    # Main analysis notebook with all research questions
@@ -92,8 +93,6 @@ Finally, the Mann-Whitney U test, a non-parametric test, is used to compare grow
 │   │   ├── propensity_matching.py                   # Propensity score matching for RQ4
 │   │   ├── spec_model.py                            # Specification models for RQ3
 │   │   └── topic_labeling.py                        # Use Groq client to get a label
-│   ├── scripts
-│   │   └── _scripts_here.txt
 │   ├── utils
 │   │   ├── data_utils.py                            # General data manipulation utilities
 │   │   ├── general_utils.py                         # General helper functions
