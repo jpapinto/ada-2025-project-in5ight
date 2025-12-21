@@ -724,5 +724,15 @@ After traveling to the future in 2025 the outperformers we once knew are now gro
       </a>
       — Interactive visualization library used to create some of the dynamic plots.
     </li>
+
+    <li style="margin-bottom:0.75rem; line-height:1.5;">
+      <a href="https://echarts.apache.org/en/index.html"
+         target="_blank"
+         rel="noopener noreferrer"
+         style="color:#404040; text-decoration:none; font-weight:500; text-decoration: underline;">
+        Plotly
+      </a>
+      — An open-source JavaScript visualization library used to create some of the dynamic plots.
+    </li>
   </ul>
 </div>
