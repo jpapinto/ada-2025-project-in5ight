@@ -23,7 +23,7 @@ We aim to define and detect such channels, then compare their engagement efficie
 
 Our analysis combines statistical modeling and tests, clustering, and time-series analysis to identify and explain YouTube channels that achieve unusually high engagement relative to their size. Each research question builds on a standardized dataset where engagement efficiency is defined as *(likes + dislikes + comments) / views* and normalized for channel size through regression-based bias correction. Channels with large positive residuals are labeled as *quiet outperformers*.
 
-*Detailed data descriptions, exploratory statistics, and detailed methods with math details can be found in the `results.ipynb` notebook.*
+*Detailed data descriptions, exploratory statistics, and detailed methods can be found in the `results.ipynb` notebook.*
 
 **RQ1 - Detection of Quiet Outperformers**  
 We first construct a size-adjusted efficiency measure to control for the natural relationship between engagement and subscriber base. This is done using a log-log OLS regression between engagement efficiency and subscriber count, where residuals capture deviation from the expected engagement level. Channels with high residuals are classified as quiet outperformers. 
@@ -65,48 +65,54 @@ Finally, the Mann-Whitney U test, a non-parametric test, is used to compare grow
 ## Project Structure
 
 ```
-├── config.py                         # Configuration settings and parameters
-├── results.ipynb                     # Main analysis notebook with all research questions
-├── requirements.txt                  # Python dependencies
-├── README.md                         # Project documentation
-│
-├── data/                             # Data storage
-│   ├── raw/                          # Raw datasets
-│   ├── processed/                    # Cleaned and processed datasets
-│   └── cached_results/               # Cached analysis results
-│
-├── src/                            
-│   ├── data/                         # Data processing modules
-│   │   ├── loader.py                 # Data loading utilities
-│   │   ├── preprocessing.py          # Main data Preprocessing pipeline
-│   │   └── quality_check.py          # Data quality validation
-│   │
-│   ├── models/                      
-│   │   ├── log_log_efficiency_model.py      # Log-log Linear regression for outperformer detection
-│   │   ├── propensity_matching.py           # Propensity score matching for RQ4
-│   │   └── spec_model.py                    # Specification models for RQ3
-│   │
-│   ├── utils/                       
-│   │   ├── data_utils.py             # General data manipulation utilities
-│   │   ├── evaluation_utils.py       # Evaluation and metrics functions
-│   │   ├── general_utils.py          # General helper functions
-│   │   └── plots.py                  # Visualization utilities
-│   │
-│   ├── notebooks/                    # Analysis notebooks for individual research questions
-│   │   ├── detecting_outperformers.ipynb
-│   │   ├── structural_factors_affect.ipynb
-│   │   ├── sustainability_outperformers_vs_control.ipynb
-│   │   └── sustainability_test_channel.ipynb
-│   │
-│   └── scripts/                      # Standalone scripts
-│
-├── tests/                            # Testing and validation
-│   ├── RQ1_results.ipynb            # RQ1 testing notebook
-│   ├── RQ1_testings.ipynb           # Additional RQ1 tests
-│   └── assets/                       # Test assets and visualizations
-│
-└── website/                          # Data story website code with (Beautiful Jekyll)
-    └── (Located on data_story branch)
+.
+├── config.py                                        # Configuration settings and parameters
+├── data                                             # Data storage
+│   ├── cached_results                               # Cached analysis results
+│   │   ├── dictionary_tags.dict
+│   │   ├── lda_model_tags.model
+│   │   ├── lda_model_tags.model.expElogbeta.npy
+│   │   ├── lda_model_tags.model.id2word
+│   │   └── lda_model_tags.model.state
+│   ├── processed                                    # Cleaned and processed datasets
+│   │   └── _processed_datasets_here.txt
+│   └── raw                                          # Raw datasets
+│       └── _raw_datasets_here.txt
+├── README.md                                        # Project documentation
+├── requirements.txt                                 # Python dependencies
+├── results.ipynb                                    # Main analysis notebook with all research questions
+├── src
+│   ├── data                                         # Data processing modules
+│   │   ├── loader.py                                # Data loading utilities
+│   │   ├── preprocessing.py                         # Main data Preprocessing pipeline
+│   │   └── quality_check.py                         # Data quality validation
+│   ├── models
+│   │   ├── lda_run.py                               # LDA for RQ2
+│   │   ├── log_log_efficiency_model.py              # Log-log Linear regression for outperformer detection
+│   │   ├── propensity_matching.py                   # Propensity score matching for RQ4
+│   │   ├── spec_model.py                            # Specification models for RQ3
+│   │   └── topic_labeling.py                        # Use Groq client to get a label
+│   ├── scripts
+│   │   └── _scripts_here.txt
+│   ├── utils
+│   │   ├── data_utils.py                            # General data manipulation utilities
+│   │   ├── general_utils.py                         # General helper functions
+│   │   ├── groq_client.py                           # Generic wrapper for Groq API
+│   │   ├── plots.py                                 # Visualization utilities
+│   │   └── text_utils.py                            # Text manipulation
+│   └── website_plots                                # Notebooks used to generate plots used in the data story
+│       ├── info.md
+│       ├── RQ1_plot_1.ipynb
+│       ├── RQ1_plot_2.ipynb
+│       ├── RQ3_game_logistic_regression_model.ipynb
+│       ├── RQ3_plots_data_story.ipynb
+│       ├── RQ3_plots.py
+│       ├── RQ4_plots_data_story.ipynb
+│       ├── structural_factors_affect.ipynb
+│       ├── sustainability_outperformers_vs_control.ipynb
+│       └── sustainability_test_channel.ipynb
+└── tests                                            # Testing and validation
+    └── _tests_here.txt                  
 ```
 
 ## How to execute the code
