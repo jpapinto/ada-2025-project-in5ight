@@ -58,7 +58,7 @@ Now let's walk into the boardroom.
 
 **Marcus**: Ghosts? Alex, please tell me you didn't stay up all night just to crack jokes. And where do you get your data anyway?
 
-**Alex**: I'm serious. I built this on *YouNiverse* — one of the *largest publicly available academic datasets* ever released on YouTube.  
+**Alex**: I'm serious. I built this on *YouNiverse*, one of the *largest publicly available academic datasets* ever released on YouTube.  
 We're talking about **136,000+ English-speaking channels**, **almost 73 million videos**, and multi-year histories of views, subscribers, and audience interaction.
 
 I've been staring at the data for the past week. Something with our engagement just wasn't adding up. Those subscribers, those views... for the big channels, they were just an illusion. We need to put our money into the **Quiet Outperformers**. They will give us the most engagement for every dollar spent.
@@ -173,6 +173,9 @@ Every dot in the upper cluster represents a channel performing well above its ex
     <b>Reaction efficiency:</b><br>
     At each time step, engagement efficiency is computed as the ratio between
     accumulated audience reactions and accumulated views:
+    <br><br>
+    <i>Reactions</i> refers to the total number of user interactions on a video,
+    defined as the sum of likes, dislikes, and comments recorded at crawl time.
 
     <br><br>
 
