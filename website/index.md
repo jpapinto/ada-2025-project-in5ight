@@ -342,7 +342,8 @@ demonstrate this.
             <br>
             I estimated this using a regularized <b>Logistic Regression</b>. Continuous covariates (Subscriber Count, Channel Age, Video Volume) were log-transformed to mitigate skew:
             <br><br>
-            $$\text{logit}(e(X)) = \beta_0 + \beta_1 \cdot \log(\text{subscribers_cc}) + \beta_2 \cdot \log(\text{channel_age_days}) + \beta_3 \cdot \log(\text{videos_cc}) + C(\text{category_cc})$$
+            $$\text{logit}(e(X)) = \beta_0 + \beta_1 \cdot \log_{10}(\text{subscribers_cc} + 1) + \beta_2 \cdot \log_{10}(\text{channel_age_days} + 1) + \beta_3 \cdot \log_{10}(\text{videos_cc} + 1) + C(\text{category_cc})
+$$
             <br>
         </li>
         <li><b>Exact Matching:</b> I enforced an exact match on <b>Content Category</b> to eliminate industry-specific bias (e.g., a "Gaming" Outperformer is only matched with a "Gaming" control).</li>
