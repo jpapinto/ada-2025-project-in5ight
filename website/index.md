@@ -276,200 +276,133 @@ These are reliable. Predictable. But crowded, and therefore more expensive.
 
 # _The Operating System of an Efficient Channel_
 
-The room had already stopped arguing about whether Outperformers exist.  
-Now the argument was sharper.
-
-**Leo**: Fine. Suppose we stop paying for “big.”  
-What do we actually *look for* when we pick channels?
+**Leo**: Fine. Suppose we stop paying for “big.” What do we actually *look for* when we pick channels?
 
 **Marcus**: Something we can screen for. Something that isn’t vibes.
 
 **Sarah**: And something that doesn’t reward chaos.
 
-Alex nodded, clicked once, and the screen changed.
+**Alex**: Then we stop judging channels by size and start judging them by structure. Since we already stripped out the scale effect earlier with the residual \\(\epsilon_c\\), we can finally ask the real question: what kind of channel design keeps landing above expectation?
 
-**Alex**: Then we stop judging channels by size and start judging them by structure.  
-And since we already stripped out the scale effect with the log-log baseline and the residual \\(\epsilon_c\\), we can finally ask the real question.
+**Diana**: More precise.
 
-**Diana**: Which is?
+**Alex**: Three fingerprints. Pace is the median weekly uploads over the last eight weeks. Consistency is how stable that upload rhythm is, scored from 0 to 1. Duration is the channel’s typical video length, and I model it using the logarithm of the duration so extreme outliers don’t dominate.
 
-**Alex**: What kind of channel design keeps landing above expectation.
+**Sarah**: *(leaning in)* You’re telling me those three explain why some channels punch above their weight?
 
-He didn’t present it like a checklist. He said it like a hiring rubric.
+**Alex**: I’m telling you they leave patterns you can’t unsee. First, I scanned the terrain with heatmaps. I binned channels by pairs of structural choices and plotted the median residual in each bin. If the relationship is nonlinear, it shows up immediately.
 
-**Alex**: How often they post. How predictably they show up. And how long their typical videos are.
-
-**Leo**: More precise?
-
-**Alex**: Pace is the median weekly uploads over the last eight weeks.  
-Consistency is how stable that upload rhythm is, scored from 0 to 1.  
-Duration is the channel’s median video length, modeled as \\(\log(\text{duration})\\) so the extremes don’t dominate.
-
-
-**Sarah**: (Leaning in) You’re telling me those three things explain why some channels punch above their weight?
-
-**Alex**: I’m telling you they leave fingerprints you can’t unsee.
-
-(Alex clicked again.)
-
-**Alex**: Before we run any regression, I want you to see the terrain.  
-So I binned channels by pairs of these structural choices and plotted the median residual in each bin.  
-If the relationship is nonlinear, this is where it shows up first.
+*(Alex clicking to the next slide. A heatmap appears showing the effect of pace, consisdtency and duration on residual for each tier)* 
 
 <div style="width:100%; height:920px;">
   <iframe 
-      src="assets/plots/maps.html"
+      src="assets/plots/rq3_recipe_maps.html"
       style="width:100%; height:100%; border:none; overflow:hidden;"
       scrolling="no">
   </iframe>
 </div>
 
-(Leo squinted at the bands of colour.)
+**Leo**: *(squinting at the screen)* That’s not random.
 
-**Leo**: That’s not random.
-
-**Alex**: No. And what’s scary is how similar it looks across small and mid channels.  
-It’s like the platform is enforcing the same physics at different scales.
-
-He pointed to the duration panels.
-
-**Alex**: The strongest signal concentrates at moderate to high \\(\log(\text{duration})\\), roughly the 6 to 7.5 region.  
-Channels whose typical video length sits down in the 4 to 5 range show up again and again in the underperforming zone.
+**Alex**: No. And it’s remarkably similar across small and mid channels. The strongest signal is duration. Efficiency clusters around moderate to longer typical video length, while channels built around very short typical durations show up again and again in the underperforming zone.
 
 **Diana**: So short videos are bad.
 
-**Alex**: Not universally. But channels built around very short median durations tend to land below expectation more often.
+**Alex**: Not universally, but channels built around very short median durations tend to land below expectation more often. The second pattern is the danger zone: high pace combined with low consistency. It’s not volume that hurts you, it’s volume without rhythm. High consistency is broadly associated with better residuals, even when pace is moderate to high.
 
-(Then Alex tapped the pace by consistency panel)
+**Marcus**: *(frowning)* But aren’t these things tangled? The disciplined creators probably do everything right at once.
 
-**Alex**: And here’s the part Sarah will appreciate.  
-The clearest danger zone is high pace combined with low consistency.  
-It’s not volume that hurts you. It’s volume without rhythm.
-
-(Sarah didn’t smile, but she stopped looking annoyed.)
-
-**Sarah**: So unpredictability is expensive.
-
-**Alex**: Exactly. And high consistency is broadly associated with better residuals, even when pace is moderate to high.
-
-
-**Marcus**: (Raising a hand) But aren’t these things all tangled together?  
-The disciplined creators probably do everything right at once.
-
-**Alex**: That’s what I expected too. So I checked, before trusting any regression.
+**Alex**: That’s what I expected too, so I checked before trusting any regression.
 
 <div style="border-left: 3px solid #432750; padding-left: 20px; font-size: 18px; margin-top: 10px;">
   <details>
-    <summary style="font-size: 18px; cursor: pointer;"><b>Methodology: correlation matrix and VIF (making sure the model can separate causes)</b></summary>
+    <summary style="font-size: 18px; cursor: pointer;"><b>Methodology: correlation matrix and VIF</b></summary>
     <br>
-
-    <b>Correlation matrix:</b> shows simple pairwise relationships between predictors.  
-    If two predictors have a large correlation, they tend to rise and fall together, and separating their effects becomes harder.
-
+    <b>Correlation matrix:</b> shows simple pairwise relationships between predictors. If two predictors move together strongly, it becomes harder to separate their effects.
     <br><br>
-
-    <b>VIF (Variance Inflation Factor):</b> goes further than correlation.  
-    Correlation only checks predictors two at a time. VIF asks a tougher question:  
-    “Can this predictor be almost reconstructed from all the others combined?”
-
+    <b>VIF (Variance Inflation Factor):</b> checks redundancy in a multivariate sense. It asks whether a predictor can be reconstructed from the others. If it can, its coefficient becomes unstable, standard errors inflate, and interpretation becomes unreliable.
     <br><br>
-
-    For each predictor \(x_j\), regress it on the remaining predictors and compute \(R_j^2\). Then:
-
-    \[
+    For each predictor \\(x_j\\), regress it on the remaining predictors, compute \\(R_j^2\\), and define:
+    \\[
       VIF_j = \frac{1}{1 - R_j^2}
-    \]
-
-    <b>How to read it:</b>  
-    If \(R_j^2\) is high, then \(x_j\) is redundant, meaning the model has trouble deciding whether changes in the outcome came from \(x_j\) or its neighbors.  
-    That redundancy inflates the variance of \(\hat\beta_j\), which widens confidence intervals and makes coefficients unstable across samples.
-
-    <br><br>
-
-    <b>Rule of thumb:</b>  
-    VIF near 1 means almost no redundancy.  
-    Larger VIF means the predictor overlaps with the others and its coefficient becomes harder to trust.
+    \\]
+    <b>Rule of thumb:</b> VIF near 1 means essentially no redundancy. Larger VIF means stronger overlap and less stable coefficients.
   </details>
 </div>
 
-<div style="width:100%; height:520px;">
+*(Alex clicking again. A correlation matrix appers for both tiers and a VIF table below it)*
+
+<div style="width:100%; height:450px;">
   <iframe 
-      src="assets/plots/corr.html"
+      src="assets/plots/rq3_correlation_matrices.html"
       style="width:100%; height:100%; border:none;">
   </iframe>
 </div>
 
-**Alex**: The correlations are tiny, roughly 0.04 to 0.11.  
-And VIF is essentially 1 across tiers.
+<div style="text-align:center; font-weight:700; font-size:20px; margin: 12px 0 8px 0;">
+  VIF by Tier
+</div>
 
-**Diana**: Meaning the model can actually tell the difference between "posting a lot," "posting predictably," and "making longer videos."
+<div style="width:100%; display:flex; justify-content:center; align-items:flex-start;">
+  <table style="border-collapse:collapse; text-align:center;">
+    <thead>
+      <tr>
+        <th style="border:1px solid #cccccc; padding:12px 20px;">tier</th>
+        <th style="border:1px solid #cccccc; padding:12px 20px;">pace (8w)</th>
+        <th style="border:1px solid #cccccc; padding:12px 20px;">consistency (8w)</th>
+        <th style="border:1px solid #cccccc; padding:12px 20px;">log(duration)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="border:1px solid #cccccc; padding:12px 20px;">small</td>
+        <td style="border:1px solid #cccccc; padding:12px 20px;">1.01</td>
+        <td style="border:1px solid #cccccc; padding:12px 20px;">1.01</td>
+        <td style="border:1px solid #cccccc; padding:12px 20px;">1.00</td>
+      </tr>
+      <tr>
+        <td style="border:1px solid #cccccc; padding:12px 20px;">mid</td>
+        <td style="border:1px solid #cccccc; padding:12px 20px;">1.01</td>
+        <td style="border:1px solid #cccccc; padding:12px 20px;">1.02</td>
+        <td style="border:1px solid #cccccc; padding:12px 20px;">1.01</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-**Alex**: Exactly. They behave like separate levers, not one bundle.
+
+**Alex**: The correlations are tiny, roughly 0.04 to 0.11, and the VIF values are basically 1 in both tiers.
 
 
-(Alex took a breath, like he was about to stop showing pictures and start showing verdicts.)
+**Diana**: *(nodding)* Good. Then quantify it.
 
-**Alex**: Now we quantify the relationships within each tier, holding the usual controls constant.  
-Same residual \\(\epsilon_c\\) from the baseline you already saw, now explained by structure.
-
-**Leo**: And you said you didn’t use ordinary regression?
-
-**Alex**: Right. I used Weighted Least Squares, WLS.
-
-**Marcus**: Why complicate it?
-
-**Alex**: Because not all channels give us equally reliable measurements.  
-Some channels have a long history of uploads in the window, others have only a handful.  
-If we treat them as equally precise, the model gets dragged around by noise.
-
-**Diana**: So WLS is basically “trust the channels with more evidence.”
-
-**Alex**: Exactly. Channels with more videos give a steadier estimate of \\(\epsilon_c\\), so they get more weight.  
-Channels with very few videos are down-weighted, because their measured residual can swing wildly from one lucky or unlucky upload.
-
-(Sarah tilted her head.)
-
-**Sarah**: So what is the model, exactly?
-
-**Alex**: The same linear structure, but estimated with weights.
+**Alex**: I did, within each tier, holding constant the usual differences across channels, like category, age, and posting intensity. And I used Weighted Least Squares. Channels with many uploads in the window give steadier measurements, while channels with only a few uploads are noisier, so the model gives more influence to the channels with more evidence.
 
 <div style="border-left: 3px solid #275043; padding-left: 20px; font-size: 18px; margin-top: 10px;">
   <details>
     <summary style="font-size: 18px; cursor: pointer;"><b>Methodology: Weighted Least Squares (WLS)</b></summary>
     <br>
-
-    <b>Why WLS?</b><br>
-    Some channels have many uploads in the lookback window, so their \(\epsilon_c\) is measured more precisely.  
-    Others have very few uploads, so their \(\epsilon_c\) can be noisy.  
-    WLS gives more influence to the channels with more reliable residual estimates.
-
+    <b>Idea:</b> estimate the same regression, but weight channels by how reliable their residual measurement is in the lookback window.
     <br><br>
-
     <b>Weighted regression:</b>
-
-    \[
-      \epsilon_c \;=\; \beta_0 \;+\; \beta_1\,\text{pace8}_c \;+\; \beta_2\,\text{cons8}_c \;+\; \beta_3\,\log(\text{duration}_c)
-      \;+\; \text{Category FE} \;+\; \log(\text{channel age})_c \;+\; u_c
-    \]
-
+    \\[
+      \epsilon_c \;=\; \beta_0 \;+\; \beta_1\,\text{pace8}_c \;+\; \beta_2\,\text{consistency8}_c \;+\; \beta_3\,\log(\text{duration}_c)
+      \;+\; \text{Category FE} \;+\; \log(\text{channel age})_c \;+\; \text{videos/day}_c \;+\; u_c
+    \\]
     <br>
-
-    <b>What WLS solves:</b><br>
-    WLS estimates \(\beta\) by minimizing a weighted version of squared error:
-    <br>
-    \[
+    <b>Estimation objective:</b>
+    \\[
       \min_{\beta}\sum_{c} w_c\left(\epsilon_c - X_c\beta\right)^2
-    \]
-
-    Here \(w_c\) increases with how much content we observed for the channel in the window, so higher-volume channels contribute more to the fit.
+    \\]
+    Here \\(w_c\\) increases with how much content we observed for the channel in the window, so higher-volume channels contribute more to the fit.
   </details>
 </div>
 
-**Leo**: So the “signal” channels speak louder than the “coin flip” channels.
+**Leo**: *(half-smiling)* So the “signal” channels speak louder than the “coin flip” channels.
 
-**Alex**: That’s the idea. It doesn’t change the story, it makes it harder for noisy channels to distort it.
+**Alex**: Exactly. First, here are the effect sizes you can feel: moving from a relatively low value to a relatively high value of each factor, translated back into percent change in efficiency.
 
-He didn’t re-argue the baseline. He just moved forward.
+*(Alex clicking to the next chart)*
 
 <div style="width:100%; height:450px;">
   <iframe 
@@ -478,23 +411,11 @@ He didn’t re-argue the baseline. He just moved forward.
   </iframe>
 </div>
 
+**Diana**: *(pointing at the bars)* Duration is huge.
 
-**Diana**: Duration is huge.
+**Alex**: Yes. Increasing typical duration is associated with a large uplift in efficiency in both tiers, and the uncertainty is clearly above zero. Consistency also shows a clear positive lift in both tiers. Pace is near zero in practical terms.
 
-**Alex**: Yes. Moving from the 25th percentile to the 75th percentile of \\(\log(\text{duration})\\) corresponds to a large uplift in efficiency in both tiers, and the uncertainty stays comfortably above zero.
-
-**Leo**: And consistency?
-
-**Alex**: Also strong. A clear positive lift in both tiers.  
-It’s not subtle, and it’s not fragile.
-
-(Marcus frowned.)
-
-**Marcus**: Pace is basically flat.
-
-**Alex**: That’s the uncomfortable part.  
-Posting more, by itself, doesn’t buy efficiency.  
-And the heatmaps already warned us why: when high pace comes without consistency, performance falls off a cliff.
+**Alex**: *(clicking again)* And for completeness, here are the coefficients with uncertainty. Same conclusion.
 
 <div style="width:100%; height:450px;">
   <iframe 
@@ -503,32 +424,11 @@ And the heatmaps already warned us why: when high pace comes without consistency
   </iframe>
 </div>
 
-(Sarah leaned forward at the coefficient chart.)
-
-**Sarah**: Pace looks slightly negative.
-
-**Alex**: It can be statistically significant. But the magnitude is tiny next to duration and consistency.  
-So the honest interpretation is: pace matters far less than people think, and if it matters at all, it only matters through the way it interacts with consistency.
-
-
-**Leo**: (Taping his pen) And small versus mid?
-
-**Alex**: Same playbook. The point estimates are close and the uncertainty overlaps heavily.  
-Structurally, small and mid channels respond the same way.
-
-Sarah wasn’t done.
-
-**Sarah**: And if you change the lookback window?
-
-Alex nodded.
-
-**Alex**: I did. Shorter and longer windows tell the same story.  
-Duration and consistency stay positive and large. Pace stays small.
+**Alex**: Pace can look slightly negative and sometimes statistically significant, but the magnitude is tiny next to duration and consistency. And the tier comparison is simple: the point estimates are close and the uncertainty overlaps heavily. I also reran the same setup with shorter and longer windows. The pattern doesn’t move.
 
 <div style="border-left: 3px solid #275043; padding-left: 20px; font-size: 18px; margin-top: 10px;">
   <details>
     <summary style="font-size: 18px; cursor: pointer;"><b>Robustness: 4-week and 12-week windows</b></summary>
-
     <br>
     <b>4-week window:</b>
     <div style="width:100%; height:450px; margin-top:10px;">
@@ -537,7 +437,6 @@ Duration and consistency stay positive and large. Pace stays small.
     <div style="width:100%; height:450px; margin-top:10px;">
       <iframe src="assets/plots/coefs_4.html" style="width:100%; height:100%; border:none;" scrolling="no"></iframe>
     </div>
-
     <br>
     <b>12-week window:</b>
     <div style="width:100%; height:450px; margin-top:10px;">
@@ -549,21 +448,14 @@ Duration and consistency stay positive and large. Pace stays small.
   </details>
 </div>
 
-Diana closed her laptop halfway, the way she did when she’d made up her mind.
+**Diana**: *(closing her laptop halfway)* So what do we do with this?
 
-**Diana**: So what do we do with this?
+**Alex**: We stop paying for “activity” and start paying for “structure.” We prioritize creators who show up predictably and whose typical content length supports deeper engagement. And when we see high pace paired with low consistency, we treat it as a warning sign, not a badge of productivity.
 
-Alex answered like he was rewriting the targeting policy in real time.
-
-**Alex**: We stop paying for “activity” and start paying for “structure.”  
-We screen for creators who show up predictably and whose typical content length supports deeper engagement.  
-And when we see high pace paired with low consistency, we treat it as a warning sign, not a badge of productivity.
-
-Leo finally nodded.
-
-**Leo**: So one sentence?
+**Leo**: *(leaning back)* One sentence.
 
 **Alex**: Efficiency doesn’t come from shouting more. It comes from showing up the same way, with content that gives viewers time to care.
+
 
 
 {% include _rq3_game.html %}
