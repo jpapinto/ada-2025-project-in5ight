@@ -28,7 +28,7 @@ mathjax: true
 
 **Marcus**: Ghosts? Alex, please tell me you didn't stay up all night just to crack jokes. And where do you get your data anyway?
 
-**Alex**: I’m serious. I built this on **[YouNiverse](https://arxiv.org/abs/2012.10378)** — one of the *largest publicly available academic datasets* ever released on YouTube.  
+**Alex**: I’m serious. I built this on *YouNiverse* — one of the *largest publicly available academic datasets* ever released on YouTube.  
 We’re talking **136,000+ English-speaking channels**, **almost 73 million videos**, and multi-year histories of views, subscribers, and audience interaction.
 
 I’ve been staring at the data for the past week. Something with our engagement just wasn't adding up. Those subscribers, those views... for the big channels, they were just an illusion. We need to put our money into **Outperformers**. They will give us the most engagement for every dollar spent.
@@ -167,19 +167,41 @@ I have some of the Outperformers right here, and I analyzed how their engagement
 **Alex**: Against their expected baseline, it’s clear they perform much better.
 And not just once. Some spike, sure, but many of these channels sustain high efficiency for years.
 
+
+
+
+
 **Marcus**: (Leaning back, looking less skeptical) Okay, Alex. I see the math. These 'Outperformers' have great engagement stats. But we can't just throw darts at a list of 2,000 random channels. 
 
-**Diana**: Exactly. Even if we believe in Outperformers, we still need to know where to look. What if we accidentally sponsor a flat-earth theorist or a channel that has nothing to do with our audience? We need control.
+**Leo**: Exactly. Even if we believe in Outperformers, we still need to know where to look. What if we accidentally sponsor a flat-earth theorist or a channel that has nothing to do with our audience? We need control.
 
-**Alex**: That’s the right question. And it turns out… categories matter more than we thought.
+
+
+<div style="display: flex; align-items: center;">
+  <img src="assets/img/leo_2.png" alt="Description of image" style="width: 200px; height:auto; margin-right: 50px; margin-bottom:20px; ">
+  <p style="flex: 1; margin-right: 20px; margin-left:20px; margin-top:30px;">
+    <strong>Leo</strong>: Exactly. Even if we believe in Outperformers, we still need to know where to look. What if we accidentally sponsor a flat-earth theorist or a channel that has nothing to do with our audience? We need control.
+
+    <br>
+    <br>
+    <br>
+    <strong>Alex</strong>: that’s the right question. And it turns out… categories matter more than we thought.
+    
+    <br>
+    <br>
+  </p>
+
+</div>
+
+
 
 ## _Where the Outperformers Live and Why It Matters_?
 
-**Alex**:  I started where everyone starts: YouTube’s official category system. Fifteen labels. “Gaming.” “Entertainment.” “People & Blogs.” They look neat. They’re also terrible. “People & Blogs” is a junk drawer. “Entertainment” mixes movie trailers, late-night clips, and personal vlogs. Two channels in the same category can behave completely differently.
+**Alex**:  I started where everyone starts: YouTube’s official category system. There are 15 labels, such as 'Gaming', 'Entertainment' and 'People & Blogs'. They look neat. They’re also terrible. “People & Blogs” is a junk drawer. “Entertainment” mixes movie trailers, late-night clips, and personal vlogs. Two channels in the same category can behave completely differently.
 
 So I ignored the labels YouTube gives us. Instead, I looked at the tags - the actual keywords creators use to describe their own videos. I processed millions of tags from our dataset and used a technique called Latent Dirichlet Allocation.
 
-**Diana**: (Raising an eyebrow) In English, Alex.
+**Leo**: (Raising an eyebrow) In English, Alex.
 
 **Alex**: Think of it as reverse-engineering the communities. I let the data tell me which videos belong together based on the words they use. Instead of 15 broad buckets, the model discovered 30 distinct micro-communities.
 
@@ -187,20 +209,20 @@ So I ignored the labels YouTube gives us. Instead, I looked at the tags - the ac
 
 <iframe src="assets/plots/cluster_map.html" style="width:100%; height:600px; border:none;"> </iframe>
 
-**Alex**: Once we had these communities, I asked a simple question: Is engagement efficiency the same everywhere? If attention behaves similarly across topics, categories wouldn’t matter.
+**Alex**: Once we had these communities, I asked a simple question: Is engagement efficiency the same everywhere? If attention behaved similarly across topics, categories wouldn’t matter.
 
 *[Alex points to a plot on the screen]*
 
-<iframe src="assets/plots/rq2_efficiency_by_topic.html" style="width:850px; height:820px; border:none;"> </iframe>
+<iframe src="assets/plots/rq2_efficiency_by_topic.html" style="width:850px; height:820px; border:none; align:center; padding-bottom: -100px;"> </iframe>
 
 **Alex**: Statistically, the answer is a clear no. Some communities naturally produce far more engagement per view than others. The baseline is different. An average channel in one community can outperform a strong channel in another, even before we talk about Outperformers.
 
-**Diana**: So the category sets the floor.
+**Leo**: So the category sets the floor.
 
 **Alex**: Exactly! Outperformers raise you above the floor, but the floor still matters.
 
  So at this point, you might think the strategy is obvious.
- Just take the communities with the highest baseline engagement and pour the budget there.
+ Just take the communities with the highest baseline engagement and pour the budget into them.
 
 *(He pauses)*
 
@@ -208,7 +230,7 @@ That would work, if performance were the only thing that mattered.
 But in the real world, performance attracts attention. And attention attracts competition.
 When a community consistently delivers strong engagement, brands notice. Budgets pile in. Creators raise their rates.
 
-**Diana**: So high engagement doesn’t stay cheap for long.
+**Leo**: So high engagement doesn’t stay cheap for long.
 
 **Alex**: Exactly. Efficiency creates value, but competition sets the price.
 
@@ -217,17 +239,17 @@ If Outperformers were just random accidents, we’d find them scattered evenly a
 In that case, categories wouldn’t constrain us. We could hunt anywhere and expect similar odds.
 But that’s not what the data shows.
 
-*(He clicked to show the next slide)*
+*(He clicks to show the next slide)*
 
 <iframe src="assets/plots/rq2_outperformer_proportion_by_topic.html" style="width:850px; height:820px; border:none;"> </iframe>
 
-**Alex**: Outperformers cluster. Some communities produce exceptional channels again and again Others almost never do, no matter how hard creators try.
+**Alex**: Outperformers cluster. Some communities produce exceptional channels again and again. Others almost never do, no matter how hard creators try.
 
 **Marcus**: So this isn’t just about where engagement is high. It’s about where excellence is repeatable.
 
 **Alex**: Exactly. If the market were already perfectly efficient, these two rankings would line up exactly. The most engaging communities would also be the ones packed with Outperformers.
 
-**Diana**: *(clicking the drop down menu with different sorting criterion)*
+**Leo**: *(clicking the drop down menu with different sorting criterion)*
 But they don’t.
 
 **Alex**: No, and that mismatch is where the strategy lives.
@@ -240,46 +262,201 @@ It gives us two paths, not one.
 **Alex**: First, the *Verified Winners*. Communities that rank high on engagement and are already dense with Outperformers. For example “Game & Gameplay” and “Comedy Vlogs”
 These are reliable. Predictable. But crowded, and therefore more expensive.
 
-**Marcus**: And the others?Like the  “Sports & Music”
+**Marcus**: And the others? Like “Sports & Music”?
 
 **Alex**: That’s the *Opportunity Gap*. Communities where engagement is strong, but Outperformers are still relatively rare. Less competition. Lower prices. More uncertainty, but far more upside.
 
 *(Alex looks around the room.)*
 
-**Alex**: There isn’t a single “best” strategy here. One path buys us stability. The other buys us leverage. The mistake isn’t choosing one over the other — it’s pretending they’re the same.
+**Alex**: There isn’t a single “best” strategy here. One path buys us stability. The other buys us leverage. The mistake isn’t choosing one over the other, it’s pretending they’re the same.
 
 *(The room is quiet. This time, thoughtful.)*
 
 
 
+# _The Operating System of an Efficient Channel_
+
+**Leo**: Fine. Suppose we stop paying for “big.” What do we actually *look for* when we pick channels?
+
+**Marcus**: Something we can screen for. Something that isn’t vibes.
+
+**Sarah**: And something that doesn’t reward chaos.
+
+**Alex**: Then we stop judging channels by size and start judging them by structure. Since we already stripped out the scale effect earlier with the residual \\(\epsilon_c\\), we can finally ask the real question: what kind of channel design keeps landing above expectation?
+
+**Diana**: More precise.
+
+**Alex**: Three fingerprints. Pace is the median weekly uploads over the last eight weeks. Consistency is how stable that upload rhythm is, scored from 0 to 1. Duration is the channel’s typical video length, and I model it using the logarithm of the duration so extreme outliers don’t dominate.
+
+**Sarah**: *(leaning in)* You’re telling me those three explain why some channels punch above their weight?
+
+**Alex**: I’m telling you they leave patterns you can’t unsee. First, I scanned the terrain with heatmaps. I binned channels by pairs of structural choices and plotted the median residual in each bin. If the relationship is nonlinear, it shows up immediately.
+
+*(Alex clicking to the next slide. A heatmap appears showing the effect of pace, consisdtency and duration on residual for each tier)* 
+
+<div style="width:100%; height:920px;">
+  <iframe 
+      src="assets/plots/rq3_recipe_maps.html"
+      style="width:100%; height:100%; border:none; overflow:hidden;"
+      scrolling="no">
+  </iframe>
+</div>
+
+**Leo**: *(squinting at the screen)* That’s not random.
+
+**Alex**: No. And it’s remarkably similar across small and mid channels. The strongest signal is duration. Efficiency clusters around moderate to longer typical video length, while channels built around very short typical durations show up again and again in the underperforming zone.
+
+**Diana**: So short videos are bad.
+
+**Alex**: Not universally, but channels built around very short median durations tend to land below expectation more often. The second pattern is the danger zone: high pace combined with low consistency. It’s not volume that hurts you, it’s volume without rhythm. High consistency is broadly associated with better residuals, even when pace is moderate to high.
+
+**Marcus**: *(frowning)* But aren’t these things tangled? The disciplined creators probably do everything right at once.
+
+**Alex**: That’s what I expected too, so I checked before trusting any regression.
+
+<div style="border-left: 3px solid #432750; padding-left: 20px; font-size: 18px; margin-top: 10px;">
+  <details>
+    <summary style="font-size: 18px; cursor: pointer;"><b>Methodology: correlation matrix and VIF</b></summary>
+    <br>
+    <b>Correlation matrix:</b> shows simple pairwise relationships between predictors. If two predictors move together strongly, it becomes harder to separate their effects.
+    <br><br>
+    <b>VIF (Variance Inflation Factor):</b> checks redundancy in a multivariate sense. It asks whether a predictor can be reconstructed from the others. If it can, its coefficient becomes unstable, standard errors inflate, and interpretation becomes unreliable.
+    <br><br>
+    For each predictor \\(x_j\\), regress it on the remaining predictors, compute \\(R_j^2\\), and define:
+    \\[
+      VIF_j = \frac{1}{1 - R_j^2}
+    \\]
+    <b>Rule of thumb:</b> VIF near 1 means essentially no redundancy. Larger VIF means stronger overlap and less stable coefficients.
+  </details>
+</div>
+
+*(Alex clicking again. A correlation matrix appers for both tiers and a VIF table below it)*
+
+<div style="width:100%; height:450px;">
+  <iframe 
+      src="assets/plots/rq3_correlation_matrices.html"
+      style="width:100%; height:100%; border:none;">
+  </iframe>
+</div>
+
+<div style="text-align:center; font-weight:700; font-size:20px; margin: 12px 0 8px 0;">
+  VIF by Tier
+</div>
+
+<div style="width:100%; display:flex; justify-content:center; align-items:flex-start;">
+  <table style="border-collapse:collapse; text-align:center;">
+    <thead>
+      <tr>
+        <th style="border:1px solid #cccccc; padding:12px 20px;">tier</th>
+        <th style="border:1px solid #cccccc; padding:12px 20px;">pace (8w)</th>
+        <th style="border:1px solid #cccccc; padding:12px 20px;">consistency (8w)</th>
+        <th style="border:1px solid #cccccc; padding:12px 20px;">log(duration)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="border:1px solid #cccccc; padding:12px 20px;">small</td>
+        <td style="border:1px solid #cccccc; padding:12px 20px;">1.01</td>
+        <td style="border:1px solid #cccccc; padding:12px 20px;">1.01</td>
+        <td style="border:1px solid #cccccc; padding:12px 20px;">1.00</td>
+      </tr>
+      <tr>
+        <td style="border:1px solid #cccccc; padding:12px 20px;">mid</td>
+        <td style="border:1px solid #cccccc; padding:12px 20px;">1.01</td>
+        <td style="border:1px solid #cccccc; padding:12px 20px;">1.02</td>
+        <td style="border:1px solid #cccccc; padding:12px 20px;">1.01</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 
-// Explain the Log modeling linear regression.
-// I think its related to the Poseidon distribution
-
-// Place for graphs
-
-// Showing how he found 2831 of these channels. 
+**Alex**: The correlations are tiny, roughly 0.04 to 0.11, and the VIF values are basically 1 in both tiers.
 
 
+**Diana**: *(nodding)* Good. Then quantify it.
+
+**Alex**: I did, within each tier, holding constant the usual differences across channels, like category, age, and posting intensity. And I used Weighted Least Squares. Channels with many uploads in the window give steadier measurements, while channels with only a few uploads are noisier, so the model gives more influence to the channels with more evidence.
+
+<div style="border-left: 3px solid #275043; padding-left: 20px; font-size: 18px; margin-top: 10px;">
+  <details>
+    <summary style="font-size: 18px; cursor: pointer;"><b>Methodology: Weighted Least Squares (WLS)</b></summary>
+    <br>
+    <b>Idea:</b> estimate the same regression, but weight channels by how reliable their residual measurement is in the lookback window.
+    <br><br>
+    <b>Weighted regression:</b>
+    \\[
+      \epsilon_c \;=\; \beta_0 \;+\; \beta_1\,\text{pace8}_c \;+\; \beta_2\,\text{consistency8}_c \;+\; \beta_3\,\log(\text{duration}_c)
+      \;+\; \text{Category FE} \;+\; \log(\text{channel age})_c \;+\; \text{videos/day}_c \;+\; u_c
+    \\]
+    <br>
+    <b>Estimation objective:</b>
+    \\[
+      \min_{\beta}\sum_{c} w_c\left(\epsilon_c - X_c\beta\right)^2
+    \\]
+    Here \\(w_c\\) increases with how much content we observed for the channel in the window, so higher-volume channels contribute more to the fit.
+  </details>
+</div>
+
+**Leo**: *(half-smiling)* So the “signal” channels speak louder than the “coin flip” channels.
+
+**Alex**: Exactly. First, here are the effect sizes you can feel: moving from a relatively low value to a relatively high value of each factor, translated back into percent change in efficiency.
+
+*(Alex clicking to the next chart)*
+
+<div style="width:100%; height:450px;">
+  <iframe 
+      src="assets/plots/effects.html"
+      style="width:100%; height:100%; border:none;">
+  </iframe>
+</div>
+
+**Diana**: *(pointing at the bars)* Duration is huge.
+
+**Alex**: Yes. Increasing typical duration is associated with a large uplift in efficiency in both tiers, and the uncertainty is clearly above zero. Consistency also shows a clear positive lift in both tiers. Pace is near zero in practical terms.
+
+**Alex**: *(clicking again)* And for completeness, here are the coefficients with uncertainty. Same conclusion.
+
+<div style="width:100%; height:450px;">
+  <iframe 
+      src="assets/plots/coefs.html"
+      style="width:100%; height:100%; border:none;">
+  </iframe>
+</div>
+
+**Alex**: Pace can look slightly negative and sometimes statistically significant, but the magnitude is tiny next to duration and consistency. And the tier comparison is simple: the point estimates are close and the uncertainty overlaps heavily. I also reran the same setup with shorter and longer windows. The pattern doesn’t move.
+
+<div style="border-left: 3px solid #275043; padding-left: 20px; font-size: 18px; margin-top: 10px;">
+  <details>
+    <summary style="font-size: 18px; cursor: pointer;"><b>Robustness: 4-week and 12-week windows</b></summary>
+    <br>
+    <b>4-week window:</b>
+    <div style="width:100%; height:450px; margin-top:10px;">
+      <iframe src="assets/plots/effects_4.html" style="width:100%; height:100%; border:none;" scrolling="no"></iframe>
+    </div>
+    <div style="width:100%; height:450px; margin-top:10px;">
+      <iframe src="assets/plots/coefs_4.html" style="width:100%; height:100%; border:none;" scrolling="no"></iframe>
+    </div>
+    <br>
+    <b>12-week window:</b>
+    <div style="width:100%; height:450px; margin-top:10px;">
+      <iframe src="assets/plots/effects_12.html" style="width:100%; height:100%; border:none;" scrolling="no"></iframe>
+    </div>
+    <div style="width:100%; height:450px; margin-top:10px;">
+      <iframe src="assets/plots/coefs_12.html" style="width:100%; height:100%; border:none;" scrolling="no"></iframe>
+    </div>
+  </details>
+</div>
+
+**Diana**: *(closing her laptop halfway)* So what do we do with this?
+
+**Alex**: We stop paying for “activity” and start paying for “structure.” We prioritize creators who show up predictably and whose typical content length supports deeper engagement. And when we see high pace paired with low consistency, we treat it as a warning sign, not a badge of productivity.
+
+**Leo**: *(leaning back)* One sentence.
+
+**Alex**: Efficiency doesn’t come from shouting more. It comes from showing up the same way, with content that gives viewers time to care.
 
 
-
-
-
-
-
-
-```
-Long, single-line code blocks should not wrap.
-demonstrate this.
-```
-
-
-
-
-
-# RQ3 Placeholder
 
 {% include _rq3_game.html %}
 
@@ -504,7 +681,48 @@ After traveling to the future in 2025 the outperformers we once knew are now gro
 
 <hr>
 
-# References
+# References and Tools
 
-- Youniverse Dataset
-- Here some references like Gemini AI
+<div class="references" style="margin-top:2rem; margin-bottom:2rem; color:#404040;">
+  <ul style="padding-left:1.5rem; margin:0;">
+    <li style="margin-bottom:0.75rem; line-height:1.5;">
+      <a href="https://github.com/epfl-dlab/YouNiverse"
+         target="_blank"
+         rel="noopener noreferrer"
+         style="color:#404040; text-decoration:none; font-weight:500; text-decoration: underline;">
+        YouNiverse Dataset
+      </a>
+      — Large-scale YouTube dataset used as the empirical foundation of this analysis, providing channel- and video-level metadata for studying engagement efficiency.
+    </li>
+
+    <li style="margin-bottom:0.75rem; line-height:1.5;">
+      <a href="https://ai.google.dev/gemini-api"
+         target="_blank"
+         rel="noopener noreferrer"
+         style="color:#404040; text-decoration:none; font-weight:500; text-decoration: underline;">
+        Google Gemini Nano Banana Pro
+      </a>
+      — Used for generating illustrations of characters.
+    </li>
+
+    <li style="margin-bottom:0.75rem; line-height:1.5;">
+      <a href="https://www.gimp.org/"
+         target="_blank"
+         rel="noopener noreferrer"
+         style="color:#404040; text-decoration:none; font-weight:500; text-decoration: underline;">
+        GIMP
+      </a>
+      — Open-source image editing tool used to refine and compose visual assets included in the story.
+    </li>
+
+    <li style="margin-bottom:0.75rem; line-height:1.5;">
+      <a href="https://plotly.com/python/"
+         target="_blank"
+         rel="noopener noreferrer"
+         style="color:#404040; text-decoration:none; font-weight:500; text-decoration: underline;">
+        Plotly
+      </a>
+      — Interactive visualization library used to create some of the dynamic plots.
+    </li>
+  </ul>
+</div>

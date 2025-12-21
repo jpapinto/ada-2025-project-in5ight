@@ -156,23 +156,56 @@ def load_all_datasets(subset_size=None, compressed_videos=False):
     return channels_df, videos_df, timeseries_df
 
 
-def load_all_raw_datasets(nrows=None):
+def load_raw_datasets(all=False, nrows=None, load_except=None, load_only=None):
     """
-    Load all raw datasets (unprocessed originals).
-
-    Args:
-        nrows (int, optional): Number of rows to read. Defaults to None (read all rows).
+    Load raw datasets (unprocessed originals).
 
     Returns:
-        tuple: Tuple containing channels, videos, videos_light, timeseries, and num_comments DataFrames.
+        tuple:
+        (channels_df,
+         videos_df or None,
+         videos_light_df,
+         timeseries_df,
+         num_comments_df)
     """
-    channels_df = load_data(RAW_DATASET_CHANNELS, nrows=nrows)
-    videos_df = load_feather(RAW_DATASET_VIDEO_METADATA_LIGHT, nrows=nrows)
-    videos_light_df = load_metadata_json(RAW_DATASET_VIDEO_METADATA, nrows=nrows)
-    timeseries_df = load_data(RAW_DATASET_TIMESERIES, nrows=nrows)
-    num_comments_df = load_data(RAW_DATASET_NUM_COMMENTS, nrows=nrows)
 
-    return channels_df, videos_df, videos_light_df, timeseries_df, num_comments_df
+    load_except = set(load_except or [])
+    load_only = set(load_only or [])
+
+    # Ordered dataset specification
+    specs = [
+        ("channels", lambda: load_data(RAW_DATASET_CHANNELS, nrows=nrows)),
+        ("videos", lambda: load_metadata_json(RAW_DATASET_VIDEO_METADATA, nrows=nrows)),
+        ("videos_light", lambda: load_feather(RAW_DATASET_VIDEO_METADATA_LIGHT, nrows=nrows)),
+        ("timeseries", lambda: load_data(RAW_DATASET_TIMESERIES, nrows=nrows)),
+        ("num_comments", lambda: load_data(RAW_DATASET_NUM_COMMENTS, nrows=nrows)),
+    ]
+
+    # heavy dataset safety
+    if not all:
+        load_except.add("videos")
+
+    results = {}
+
+    for name, loader in specs:
+        if load_only and name not in load_only:
+            results[name] = None
+            continue
+
+        if name in load_except:
+            results[name] = None
+            continue
+
+        results[name] = loader()
+
+    return (
+        results["channels"],
+        results["videos"],
+        results["videos_light"],
+        results["timeseries"],
+        results["num_comments"],
+    )
+
 
 
 
@@ -243,10 +276,10 @@ def iterate_videos_light_stream(path, window_size, start_chunk=0):
         if i < start_chunk:
             continue  # skip until desired chunk index
 
-        df_chunk = chunk.to_pandas()
+        df_chunk = chunk.to_pandas(split_blocks=True, self_destruct=True)
         total_chunks += 1
         yield df_chunk
-        print(f"++ Chunk {i:03d} | rows={len(df_chunk):,} | cumulative={i * window_size + len(df_chunk):,}")
+        #print(f"++ Chunk {i:03d} | rows={len(df_chunk):,} | cumulative={i * window_size + len(df_chunk):,}")
 
 
 
