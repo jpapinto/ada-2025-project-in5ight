@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import numpy as np
 
 # Detect environment (script vs. notebook)
 if "__file__" in globals():
@@ -10,6 +11,10 @@ else:
     ROOT_DIR = Path().resolve()
     while not (ROOT_DIR / "src").exists() and ROOT_DIR != ROOT_DIR.parent:
         ROOT_DIR = ROOT_DIR.parent
+
+
+# Seed for recreation
+np.random.seed(6)
 
 # Data directories
 DATA_DIR = os.path.join(ROOT_DIR, "data")
