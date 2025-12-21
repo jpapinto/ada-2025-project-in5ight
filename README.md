@@ -33,7 +33,7 @@ The source code for the data story website is located in the `website/` folder o
 ## Project Structure
 
 ```
-├── config.py                          # Configuration settings and parameters
+├── config.py                         # Configuration settings and parameters
 ├── results.ipynb                     # Main analysis notebook with all research questions
 ├── requirements.txt                  # Python dependencies
 ├── README.md                         # Project documentation
@@ -88,7 +88,7 @@ We aim to define and detect such channels, then compare their engagement efficie
 - RQ1 - How do we define and detect quiet outperformers while controlling for sampling bias and channel size?
 - RQ2 - Are quiet outperformers concentrated in particular content categories, or do their engagement efficiency patterns vary across categories?
 - RQ3 - Which content and strategy choices are statistically associated with higher efficiency within each size tier? Do these effects differ between short-form and long-form channels (based on average video duration)?
-- RQ4 - Do quiet outperformers exhibit more stable and consistent growth in weekly views and subscribers compared to non-outperforming channels with similar characteristics?
+- RQ4 - Do channels that currently exhibit exceptional engagement also show historically stronger or more stable growth patterns?
   
 ## Short description of the  Methods
 
