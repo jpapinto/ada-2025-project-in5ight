@@ -274,25 +274,6 @@ These are reliable. Predictable. But crowded, and therefore more expensive.
 
 
 
-
-
-
-
-
-
-
-
-```
-Long, single-line code blocks should not wrap.
-demonstrate this.
-```
-
-
-
-
-
-# RQ3 Placeholder
-
 # _The Operating System of an Efficient Channel_
 
 The room had already stopped arguing about whether Outperformers exist.  
