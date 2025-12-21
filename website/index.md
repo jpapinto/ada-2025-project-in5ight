@@ -28,7 +28,7 @@ mathjax: true
 
 **Marcus**: Ghosts? Alex, please tell me you didn't stay up all night just to crack jokes. And where do you get your data anyway?
 
-**Alex**: I’m serious. I built this on **[YouNiverse](https://arxiv.org/abs/2012.10378)** — one of the *largest publicly available academic datasets* ever released on YouTube.  
+**Alex**: I’m serious. I built this on *YouNiverse* — one of the *largest publicly available academic datasets* ever released on YouTube.  
 We’re talking **136,000+ English-speaking channels**, **almost 73 million videos**, and multi-year histories of views, subscribers, and audience interaction.
 
 I’ve been staring at the data for the past week. Something with our engagement just wasn't adding up. Those subscribers, those views... for the big channels, they were just an illusion. We need to put our money into **Outperformers**. They will give us the most engagement for every dollar spent.
@@ -516,7 +516,48 @@ After traveling to the future in 2025 the outperformers we once knew are now gro
 
 <hr>
 
-# References
+# References and Tools
 
-- Youniverse Dataset
-- Here some references like Gemini AI
+<div class="references" style="margin-top:2rem; margin-bottom:2rem; color:#404040;">
+  <ul style="padding-left:1.5rem; margin:0;">
+    <li style="margin-bottom:0.75rem; line-height:1.5;">
+      <a href="https://github.com/epfl-dlab/YouNiverse"
+         target="_blank"
+         rel="noopener noreferrer"
+         style="color:#404040; text-decoration:none; font-weight:500; text-decoration: underline;">
+        YouNiverse Dataset
+      </a>
+      — Large-scale YouTube dataset used as the empirical foundation of this analysis, providing channel- and video-level metadata for studying engagement efficiency.
+    </li>
+
+    <li style="margin-bottom:0.75rem; line-height:1.5;">
+      <a href="https://ai.google.dev/gemini-api"
+         target="_blank"
+         rel="noopener noreferrer"
+         style="color:#404040; text-decoration:none; font-weight:500; text-decoration: underline;">
+        Google Gemini Nano Banana Pro
+      </a>
+      — Used for generating illustrations of characters.
+    </li>
+
+    <li style="margin-bottom:0.75rem; line-height:1.5;">
+      <a href="https://www.gimp.org/"
+         target="_blank"
+         rel="noopener noreferrer"
+         style="color:#404040; text-decoration:none; font-weight:500; text-decoration: underline;">
+        GIMP
+      </a>
+      — Open-source image editing tool used to refine and compose visual assets included in the story.
+    </li>
+
+    <li style="margin-bottom:0.75rem; line-height:1.5;">
+      <a href="https://plotly.com/python/"
+         target="_blank"
+         rel="noopener noreferrer"
+         style="color:#404040; text-decoration:none; font-weight:500; text-decoration: underline;">
+        Plotly
+      </a>
+      — Interactive visualization library used to create some of the dynamic plots.
+    </li>
+  </ul>
+</div>
