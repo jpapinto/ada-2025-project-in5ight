@@ -58,7 +58,7 @@ Now let's walk into the boardroom.
 
 **Marcus**: Ghosts? Alex, please tell me you didn't stay up all night just to crack jokes. And where do you get your data anyway?
 
-**Alex**: I'm serious. I built this on *YouNiverse* — one of the *largest publicly available academic datasets* ever released on YouTube.  
+**Alex**: I'm serious. I built this on *YouNiverse*, one of the *largest publicly available academic datasets* ever released on YouTube.  
 We're talking about **136,000+ English-speaking channels**, **almost 73 million videos**, and multi-year histories of views, subscribers, and audience interaction.
 
 I've been staring at the data for the past week. Something with our engagement just wasn't adding up. Those subscribers, those views... for the big channels, they were just an illusion. We need to put our money into the **Quiet Outperformers**. They will give us the most engagement for every dollar spent.
@@ -173,6 +173,9 @@ Every dot in the upper cluster represents a channel performing well above its ex
     <b>Reaction efficiency:</b><br>
     At each time step, engagement efficiency is computed as the ratio between
     accumulated audience reactions and accumulated views:
+    <br><br>
+    <i>Reactions</i> refers to the total number of user interactions on a video,
+    defined as the sum of likes, dislikes, and comments recorded at crawl time.
 
     <br><br>
 
@@ -305,7 +308,20 @@ These are reliable. Predictable. But crowded, and therefore more expensive.
 
 **Marcus**: (leaning back) Wait. Even if we accept that these Quiet Outperformers exist, they're still just the ones who worked yesterday. That doesn't tell us who will still work when budgets scale, prices change, or new channels appear.
 
-**Sarah**: And it gives us nothing to audit or defend.
+
+<div style="display: flex; align-items: center;">
+  <p style="flex: 1; margin-right: 20px;">
+
+    <strong>Marcus</strong>: (leaning back) Wait. Even if we accept that these Quiet Outperformers exist, they're still just the ones who worked yesterday. That doesn't tell us who will still work when budgets scale, prices change, or new channels appear.
+
+    <br><br><br>
+    <strong>Sarah</strong>: And it gives us nothing to audit or defend.
+
+  </p>
+  <img src="assets/img/marcus_2.png" alt="Description of image" style="width: 200px; height:auto; margin-right: 50px; margin-left: 20px;">
+</div>
+
+
 
 **Alex**: Exactly. If engagement efficiency is real, it should leave fingerprints.
 Patterns we can screen for, even before a channel becomes famous.
