@@ -105,9 +105,10 @@ We test whether outperformers are concentrated in specific content types or show
 **RQ3 - Structural and Creative Factors**  
 We analyze whether video duration, posting frequency, and posting consistency are associated with size-adjusted engagement efficiency within each size tier. Efficiency is residualized from subscriber count using a log-log regression, and we estimate within-tier weighted least squares models with category fixed effects and basic controls. Regressions are weighted by each channel's video count, with HC3 robust standard errors. Statistical significance is assessed via p-values, and effect sizes are reported as predicted 25th-to-75th percentile changes in efficiency. Interaction terms test whether these relationships differ between short-form and long-form channels, defined by their average video duration.
 
-**RQ4 - Sustainability and Stability of Success**  
-Finally, we examine whether quiet outperformers maintain consistent growth in weekly views and subscribers compared to similar non-outperforming channels. Time-series volatility is quantified using the Coefficient of Variation for weekly changes. To mitigate selection bias, we apply Propensity Score Matching to pair each outperformer with a comparable control channel. Non-parametric tests such as the Mann-Whitney U test are used to compare stability across groups.
-
+**RQ4 - Sustainability and Growth Dynamics**  
+To answer this question, we compare the long-term growth dynamics of two groups: "Outperformers" (treated) and "non-Outperformers" (control). Unlike event-based analyses where treatment occurs at a specific time, our treatment is status-based: channels are classified as outperformers according to their engagement efficiency. Because outperformers are not randomly assigned and tend to differ in characteristics such as size, age, and category, a simple comparison would be biased. This selection bias introduces confounding, which we address using a quasi-causal inference framework based on Propensity Score Matching (PSM).
+Through this framework, we aim to isolate the effect of "engagement efficiency" on three dimensions of growth: weekly subscriber and view gains, frequency of stagnation periods, and video upload consistency.
+Finally, the Mann-Whitney U test, a non-parametric test, is used to compare growth dynamics across groups.
 
 ## Contribution
 
