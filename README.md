@@ -114,9 +114,13 @@ Finally, the Mann-Whitney U test, a non-parametric test, is used to compare grow
 
 - Jon Kuçi: Data loading and data processing pipeline. Sections 1–3 in results.ipynb. Research Question 1 in results.ipynb, along with the coding part of Research Question 2. Overall design and illustrations for the data story, and writing of the Research Question 1 section on the website.
 
+- Zhuo Diao: Overall design and structuring of the research questions. Research Question 2 in results.ipynb and data story website. Reviewed and validated methods and codes across the team to ensure correctness and consistency.
+
+- Yusif Askari: Research Question 3 in results.ipynb and data story website
+
 - João Pinto: Implemented Section 7 in results.ipynb, addressing Research Question 4 by comparing the growth dynamics of Outperformers versus Non-Outperformers. Authored the corresponding Research Question 4 section for the project website.
 
-// Put your contributions here
+- Fedor Chikhachev: Initial data loading and preprocessing. Construct the structure of data story website. Assisted with data visualization for final data story.
 
 
 
