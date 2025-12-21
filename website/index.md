@@ -175,7 +175,7 @@ And not just once. Some spike, sure, but many of these channels sustain high eff
 
 ## _Where the Outperformers Live and Why It Matters_?
 
-**Alex**:  I started where everyone starts: YouTube’s official category system. There are fifteen labels, such as 'Gaming', 'Entertainment' and 'People & Blogs'. They look neat. They’re also terrible. “People & Blogs” is a junk drawer. “Entertainment” mixes movie trailers, late-night clips, and personal vlogs. Two channels in the same category can behave completely differently.
+**Alex**:  I started where everyone starts: YouTube’s official category system. There are 15 labels, such as 'Gaming', 'Entertainment' and 'People & Blogs'. They look neat. They’re also terrible. “People & Blogs” is a junk drawer. “Entertainment” mixes movie trailers, late-night clips, and personal vlogs. Two channels in the same category can behave completely differently.
 
 So I ignored the labels YouTube gives us. Instead, I looked at the tags - the actual keywords creators use to describe their own videos. I processed millions of tags from our dataset and used a technique called Latent Dirichlet Allocation.
 
@@ -200,7 +200,7 @@ So I ignored the labels YouTube gives us. Instead, I looked at the tags - the ac
 **Alex**: Exactly! Outperformers raise you above the floor, but the floor still matters.
 
  So at this point, you might think the strategy is obvious.
- Just take the communities with the highest baseline engagement and pour the budget there.
+ Just take the communities with the highest baseline engagement and pour the budget into them.
 
 *(He pauses)*
 
@@ -217,7 +217,7 @@ If Outperformers were just random accidents, we’d find them scattered evenly a
 In that case, categories wouldn’t constrain us. We could hunt anywhere and expect similar odds.
 But that’s not what the data shows.
 
-*(He clicked to show the next slide)*
+*(He clicks to show the next slide)*
 
 <iframe src="assets/plots/rq2_outperformer_proportion_by_topic.html" style="width:850px; height:820px; border:none;"> </iframe>
 
