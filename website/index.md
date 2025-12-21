@@ -242,7 +242,7 @@ So I ignored the labels YouTube gives us. Instead, I looked at the tags: the act
 
 **Alex**: Once we had these communities, I asked a simple question: Is engagement efficiency the same everywhere? If attention behaved similarly across topics, categories wouldn’t matter.
 
-*[Alex points to a plot on the screen]*
+*(Alex points to a plot on the screen)*
 
 <iframe src="assets/plots/rq2_efficiency_by_topic.html" style="width:850px; height:820px; border:none; align:center; padding-bottom: -100px;"> </iframe>
 
@@ -303,27 +303,24 @@ These are reliable. Predictable. But crowded, and therefore more expensive.
 
 *(The room is quiet. This time, thoughtful.)*
 
+**Marcus**: (leaning back) Wait. Even if we accept that these Quiet Outperformers exist, they're still just the ones who worked yesterday. That doesn't tell us who will still work when budgets scale, prices change, or new channels appear.
 
+**Sarah**: And it gives us nothing to audit or defend.
 
-# _The Operating System of an Efficient Channel_
+**Alex**: Exactly. If engagement efficiency is real, it should leave fingerprints.
+Patterns we can screen for, even before a channel becomes famous.
 
-**Leo**: Fine. Suppose we stop paying for “big.” What do we actually *look for* when we pick channels?
+That's what I looked for next.
 
-**Marcus**: Something we can screen for. Something that isn’t vibes.
+# _What makes a channel efficient?_
 
-**Sarah**: And something that doesn’t reward chaos.
+**Alex**: I looked at three specific structural markers. Pace is the median weekly uploads over the last eight weeks. Consistency is how stable that upload rhythm is, scored from 0 to 1. Duration is the channel's typical video length, and I modeled it using the logarithm of the duration so extreme outliers don't skew the results.
 
-**Alex**: Then we stop judging channels by size and start judging them by structure. Since we already stripped out the scale effect earlier with the residual \\(\epsilon_c\\), we can finally ask the real question: what kind of channel design keeps landing above expectation?
+**Sarah**: *(leaning in)* You're telling me those three explain why some channels punch above their weight?
 
-**Diana**: More precise.
+**Alex**: I'm telling you they leave patterns you can't unsee. First, I scanned the terrain with heatmaps. I binned channels by pairs of structural choices and plotted the median residual in each bin. If the relationship were a simple straight line, the larger the value the better, then the whole map would just get brighter as you go up.
 
-**Alex**: Three fingerprints. Pace is the median weekly uploads over the last eight weeks. Consistency is how stable that upload rhythm is, scored from 0 to 1. Duration is the channel’s typical video length, and I model it using the logarithm of the duration so extreme outliers don’t dominate.
-
-**Sarah**: *(leaning in)* You’re telling me those three explain why some channels punch above their weight?
-
-**Alex**: I’m telling you they leave patterns you can’t unsee. First, I scanned the terrain with heatmaps. I binned channels by pairs of structural choices and plotted the median residual in each bin. If the relationship is nonlinear, it shows up immediately.
-
-*(Alex clicking to the next slide. A heatmap appears showing the effect of pace, consisdtency and duration on residual for each tier)* 
+*(Alex clicking to the next slide. A heatmap appears showing the effect of pace, consistency and duration on residual for each tier)* 
 
 <div style="width:100%; height:920px;">
   <iframe 
@@ -333,9 +330,9 @@ These are reliable. Predictable. But crowded, and therefore more expensive.
   </iframe>
 </div>
 
-**Leo**: *(squinting at the screen)* That’s not random.
+**Leo**: *(squinting at the screen)* But it's not and that's not random.
 
-**Alex**: No. And it’s remarkably similar across small and mid channels. The strongest signal is duration. Efficiency clusters around moderate to longer typical video length, while channels built around very short typical durations show up again and again in the underperforming zone.
+**Alex**: No. And it's remarkably similar across small and mid channels. The strongest signal is duration. Efficiency clusters around moderate to longer typical video length, while channels built around very short typical durations show up again and again in the underperforming zone.
 
 **Diana**: So short videos are bad.
 
