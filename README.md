@@ -25,7 +25,7 @@ uv pip install -r pip_requirements.txt
 
 ## Project Data Story
 
-Link to the data story weebsite: [Beyond Size](https://epfl-ada.github.io/ada-2025-project-in5ight/)<br>
+Link to the data story website: [Beyond Size](https://epfl-ada.github.io/ada-2025-project-in5ight/)<br>
 The website is built using *Beautiful Jekyll*.  
 The source code for the data story website is located in the `website/` folder on the `data_story` branch.
 
