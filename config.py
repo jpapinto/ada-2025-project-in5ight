@@ -20,6 +20,7 @@ np.random.seed(6)
 DATA_DIR = os.path.join(ROOT_DIR, "data")
 RAW_DATA_DIR = os.path.join(DATA_DIR, "raw")
 PROCESSED_DATA_DIR = os.path.join(DATA_DIR, "processed")
+CACHED_RESUTLS_DIR = os.path.join(DATA_DIR, "cached_results")
 
 # RAW Dataset Paths
 RAW_DATASET_CHANNELS = os.path.join(RAW_DATA_DIR, "df_channels_en.tsv.gz")
