@@ -666,7 +666,7 @@ $$
 
 **Marcus**: Wait, but look at the second column. Views. They get fewer views than the control group? That sounds like a bad deal.
 
-**Alex**: It’s actually the *best* deal. Remember, *we pay per impression* (CPM).
+**Alex**: It’s actually the *best* deal. Remember, *we pay per impression*.
 The 'Control' channels are chasing viral hits, high views (Column 2) but low subscriber conversion (Column 1). We pay for those views, but they don't stick.
 
 **Diana**: (Leaning in) Okay, so they convert better. But are they stable?
