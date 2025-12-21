@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Topic → Keyword Treemap (ECharts)</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        #chart {
+            width: 100%;
+            height: 100%;
+        }
+
+        textarea {
+            width: 100%;
+            height: 180px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+
+    <script>
+        // ===== 1) Put your CSV here (or fetch it) =====
+        // CSV will be loaded from an external file via fetch below.
+
+        const topicPalette = [
+            '#CC6677', // muted red
+            '#332288', // deep blue
+            '#DDCC77', // sand yellow
+            '#117733', // green
+            '#88CCEE', // light blue
+            '#882255', // burgundy
+            '#44AA99', // teal
+            '#999933', // olive
+            '#AA4499', // purple
+            '#DDDDDD'  // grey (often used for "other")
+        ];
+
+        // parse CSV
+        function parseCSV(text) {
+            const lines = text.trim().split(/\r?\n/);
+            const header = lines[0].split(",").map(s => s.trim());
+            return lines.slice(1).map(line => {
+                // NOTE: this simple split assumes no commas inside quoted fields.
+                const parts = line.split(",").map(s => s.trim());
+                const row = {};
+                header.forEach((h, i) => row[h] = parts[i]);
+                return row;
+            });
+        }
+
+        // Treemap hierarchical data structure
+        function buildTreemapData(rows) {
+            // group by topic_id or topic_label (topic_id safer)
+            const topics = new Map();
+
+            for (const r of rows) {
+                const topicId = r.topic_id;
+                const topicLabel = r.topic_label;
+                const keyword = r.keyword;
+
+                const countChannel = Number(r.count_channel);
+                const propOut = Number(r.prop_outperformer);
+                const prob = Number(r.probability);
+
+                if (!topics.has(topicId)) {
+                    topics.set(topicId, {
+                        name: topicLabel,
+                        // We’ll set the topic value explicitly to count_channel.
+                        // Children will sum to approx count_channel using prob*count_channel.
+                        value: countChannel,
+                        topic_id: topicId,
+                        count_channel: countChannel,
+                        prop_outperformer: propOut,
+                        children: []
+                    });
+                }
+
+                const topicNode = topics.get(topicId);
+
+                // Keyword rectangle value: probability-weighted count
+                // This makes keyword areas proportional AND consistent with topic area.
+                const kwValue = prob * topicNode.count_channel;
+
+                topicNode.children.push({
+                    name: keyword,
+                    value: kwValue,
+                    probability: prob,
+                    count_channel: topicNode.count_channel,
+                    prop_outperformer: topicNode.prop_outperformer,
+                    topic_label: topicNode.name,
+                    topic_id: topicNode.topic_id
+                });
+            }
+
+            // Optional: sort keywords within topic by value
+            for (const t of topics.values()) {
+                t.children.sort((a, b) => b.value - a.value);
+            }
+
+            // Return array for series.data
+            return Array.from(topics.values());
+        }
+
+        // ECharts initialization
+        const chart = echarts.init(document.getElementById("chart"));
+
+        // Load CSV from external file and render chart
+        fetch('topics.csv')
+            .then(res => res.text())
+            .then(csvText => {
+                const rows = parseCSV(csvText);
+                const treemapData = buildTreemapData(rows);
+
+                function getLevelOption() {
+                    return [
+                        // level 0 root (not shown in our data array case, but keep config harmless)
+                        {
+                            itemStyle: { borderWidth: 0, gapWidth: 3 },
+                            label: { show: false },
+                            upperLabel: { show: false }
+                        },
+                        // level 1: Topics (SHOW label)
+                        {
+                            itemStyle: { borderWidth: 3, gapWidth: 3 },
+                            label: {
+                                show: true,
+                                formatter: (p) => {
+                                    // show topic name + count
+                                    const d = p.data;
+                                    return `${d.name}\n${echarts.format.addCommas(d.count_channel)}`;
+                                },
+                                overflow: "truncate",
+                                fontSize: 13,
+                                fontWeight: 600
+                            },
+                            upperLabel: { show: true, height: 26 }
+                        },
+                        // level 2: Keywords (HIDE label initially)
+                        {
+                            itemStyle: { borderWidth: 1, gapWidth: 1 },
+                            label: { show: true },
+                            // optional: show keyword label on hover
+                            emphasis: {
+                                label: {
+                                    show: true,
+                                    formatter: (p) => p.name,
+                                    overflow: "truncate"
+                                }
+                            }
+                        }
+                    ];
+                }
+
+                const option = {
+                    color: topicPalette,
+                    title: {
+                        text: "Topics → Keywords Treemap",
+                        left: "center"
+                    },
+                    tooltip: {
+                        formatter: (info) => {
+                            const path = (info.treePathInfo || []).slice(1).map(n => n.name).join(" / ");
+                            const d = info.data || {};
+                            const isKeyword = (info.treePathInfo || []).length >= 3;
+
+                            const lines = [];
+                            lines.push(`<div style="font-weight:600;margin-bottom:4px">${echarts.format.encodeHTML(path || info.name)}</div>`);
+
+                            if (!isKeyword) {
+                                // Topic tooltip
+                                lines.push(`Samples (count_channel): <b>${echarts.format.addCommas(d.count_channel ?? info.value ?? 0)}</b>`);
+                                if (d.prop_outperformer != null) {
+                                    lines.push(`Share (prop_outperformer): <b>${(d.prop_outperformer * 100).toFixed(2)}%</b>`);
+                                }
+                            } else {
+                                if (d.probability != null) {
+                                    lines.push(`Keyword probability: <b>${(d.probability * 100).toFixed(2)}%</b>`);
+                                }
+                            }
+
+                            return lines.join("<br/>");
+                        }
+                    },
+                    series: [{
+                        name: "Topics",
+                        type: "treemap",
+
+                        data: treemapData,
+
+                        // Show only top-level initially; click to zoom into a topic
+                        leafDepth: 1,
+                        nodeClick: "zoomToNode",
+                        roam: true,
+                        breadcrumb: { show: true },
+
+                        // Avoid clutter from tiny rectangles
+                        visibleMin: 0.5,
+
+                        label: { show: true },
+                        upperLabel: { show: true, height: 26 },
+
+                        itemStyle: {
+                            borderColor: "#fff"
+                        },
+
+                        levels: getLevelOption()
+                    }]
+                };
+
+                chart.setOption(option);
+                option.series[0].colorMappingBy = 'index';
+                window.addEventListener("resize", () => chart.resize());
+
+            })
+            .catch(err => {
+                console.error('Failed to load topics.csv', err);
+                const el = document.getElementById('chart');
+                if (el) el.innerText = 'Failed to load topics.csv';
+            });
+
+    </script>
+</body>
+
+</html>

@@ -185,7 +185,7 @@ So I ignored the labels YouTube gives us. Instead, I looked at the tags - the ac
 
 *[Alex clicks next. The screen displays the LDA Topic Cluster Map.]*
 
-(Fedor needs to put the plot here)
+<iframe src="assets/plots/cluster_map.html" style="width:100%; height:600px; border:none;"> </iframe>
 
 **Alex**: Once we had these communities, I asked a simple question: Is engagement efficiency the same everywhere? If attention behaves similarly across topics, categories wouldn’t matter.
 
