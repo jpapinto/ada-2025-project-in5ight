@@ -175,7 +175,7 @@ And not just once. Some spike, sure, but many of these channels sustain high eff
 
 ## _Where the Outperformers Live and Why It Matters_?
 
-**Alex**:  I started where everyone starts: YouTube’s official category system. Fifteen labels. “Gaming.” “Entertainment.” “People & Blogs.” They look neat. They’re also terrible. “People & Blogs” is a junk drawer. “Entertainment” mixes movie trailers, late-night clips, and personal vlogs. Two channels in the same category can behave completely differently.
+**Alex**:  I started where everyone starts: YouTube’s official category system. There are fifteen labels, such as 'Gaming', 'Entertainment' and 'People & Blogs'. They look neat. They’re also terrible. “People & Blogs” is a junk drawer. “Entertainment” mixes movie trailers, late-night clips, and personal vlogs. Two channels in the same category can behave completely differently.
 
 So I ignored the labels YouTube gives us. Instead, I looked at the tags - the actual keywords creators use to describe their own videos. I processed millions of tags from our dataset and used a technique called Latent Dirichlet Allocation.
 
@@ -221,7 +221,7 @@ But that’s not what the data shows.
 
 <iframe src="assets/plots/rq2_outperformer_proportion_by_topic.html" style="width:850px; height:820px; border:none;"> </iframe>
 
-**Alex**: Outperformers cluster. Some communities produce exceptional channels again and again Others almost never do, no matter how hard creators try.
+**Alex**: Outperformers cluster. Some communities produce exceptional channels again and again. Others almost never do, no matter how hard creators try.
 
 **Marcus**: So this isn’t just about where engagement is high. It’s about where excellence is repeatable.
 
