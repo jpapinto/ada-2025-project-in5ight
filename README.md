@@ -23,7 +23,7 @@ We aim to define and detect such channels, then compare their engagement efficie
 
 Our analysis combines statistical modeling and tests, clustering, and time-series analysis to identify and explain YouTube channels that achieve unusually high engagement relative to their size. Each research question builds on a standardized dataset where engagement efficiency is defined as *(likes + dislikes + comments) / views* and normalized for channel size through regression-based bias correction. Channels with large positive residuals are labeled as *quiet outperformers*.
 
-*Detailed data descriptions, exploratory statistics, and detailed methods with math details can be found in the `results.ipynb` notebook.*
+*Detailed data descriptions, exploratory statistics, and detailed methods can be found in the `results.ipynb` notebook.*
 
 **RQ1 - Detection of Quiet Outperformers**  
 We first construct a size-adjusted efficiency measure to control for the natural relationship between engagement and subscriber base. This is done using a log-log OLS regression between engagement efficiency and subscriber count, where residuals capture deviation from the expected engagement level. Channels with high residuals are classified as quiet outperformers. 
@@ -87,19 +87,19 @@ Finally, the Mann-Whitney U test, a non-parametric test, is used to compare grow
 │   │   ├── preprocessing.py                         # Main data Preprocessing pipeline
 │   │   └── quality_check.py                         # Data quality validation
 │   ├── models
-│   │   ├── lda_run.py
+│   │   ├── lda_run.py                               # LDA for RQ2
 │   │   ├── log_log_efficiency_model.py              # Log-log Linear regression for outperformer detection
 │   │   ├── propensity_matching.py                   # Propensity score matching for RQ4
 │   │   ├── spec_model.py                            # Specification models for RQ3
-│   │   └── topic_labeling.py
+│   │   └── topic_labeling.py                        # Use Groq client to get a label
 │   ├── scripts
 │   │   └── _scripts_here.txt
 │   ├── utils
 │   │   ├── data_utils.py                            # General data manipulation utilities
 │   │   ├── general_utils.py                         # General helper functions
-│   │   ├── groq_client.py
+│   │   ├── groq_client.py                           # Generic wrapper for Groq API
 │   │   ├── plots.py                                 # Visualization utilities
-│   │   └── text_utils.py
+│   │   └── text_utils.py                            # Text manipulation
 │   └── website_plots                                # Notebooks used to generate plots used in the data story
 │       ├── info.md
 │       ├── RQ1_plot_1.ipynb
