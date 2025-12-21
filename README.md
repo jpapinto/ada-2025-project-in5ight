@@ -107,9 +107,7 @@ Finally, the Mann-Whitney U test, a non-parametric test, is used to compare grow
 │       ├── RQ3_game_logistic_regression_model.ipynb  # Logistic Regression model for the prediction game
 │       ├── RQ3_plots_data_story.ipynb
 │       ├── RQ3_plots.py
-│       └── RQ4_plots_data_story.ipynb
-└── tests                                            # Testing and validation
-    └── _tests_here.txt                  
+│       └── RQ4_plots_data_story.ipynb           
 ```
 
 ## How to execute the code
