@@ -306,8 +306,6 @@ These are reliable. Predictable. But crowded, and therefore more expensive.
 
 *(The room is quiet. This time, thoughtful.)*
 
-**Marcus**: (leaning back) Wait. Even if we accept that these Quiet Outperformers exist, they're still just the ones who worked yesterday. That doesn't tell us who will still work when budgets scale, prices change, or new channels appear.
-
 
 <div style="display: flex; align-items: center;">
   <p style="flex: 1; margin-right: 20px;">
@@ -328,7 +326,7 @@ Patterns we can screen for, even before a channel becomes famous.
 
 That's what I looked for next.
 
-# _What makes a channel efficient?_
+# _What characterizes efficient channels?_
 
 **Alex**: I looked at three specific structural markers. Pace is the median weekly uploads over the last eight weeks. Consistency is how stable that upload rhythm is, scored from 0 to 1. Duration is the channel's typical video length, and I modeled it using the logarithm of the duration so extreme outliers don't skew the results.
 
