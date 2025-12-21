@@ -4,6 +4,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.patheffects as patheffects
 from matplotlib.lines import Line2D
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+from matplotlib.colors import TwoSlopeNorm
 
 
 
@@ -570,4 +572,713 @@ def plot_growth_trajectory(
     plt.axvline(x=160, color='gray', linestyle=':', alpha=0.5)
     
     plt.tight_layout()
+    plt.show()
+
+
+def pretty_name(v: str) -> str:
+    """
+    Converts internal variable names into nicer, human-readable labels for plots and tables.
+
+    Notes:
+        - 'log_duration' is displayed as 'log(duration)'.
+        - Variables like 'pace8_median' become 'pace (8w)'.
+        - Variables like 'cons8_median' become 'consistency (8w)'.
+        - Unrecognized names are returned unchanged.
+
+    Args:
+        v (str): Variable name.
+
+    Returns:
+        str: A prettified label suitable for plot axes and table headers.
+    """
+    # nicer labels in plots
+    if v == "log_duration":
+        return "log(duration)"
+    if v.startswith("pace") and v.endswith("_median"):
+        w = v.replace("pace", "").replace("_median", "")
+        return f"pace ({w}w)"
+    if v.startswith("cons") and v.endswith("_median"):
+        w = v.replace("cons", "").replace("_median", "")
+        return f"consistency ({w}w)"
+    return v
+
+
+def _prep_struct_cols(
+    d: pd.DataFrame,
+    pace_col: str,
+    cons_col: str,
+    duration_col: str = "duration_median",
+):
+    d = d.copy().replace([np.inf, -np.inf], np.nan)
+    d["log_duration"] = np.log(pd.to_numeric(d[duration_col], errors="coerce").where(d[duration_col] > 0))
+
+    cols = [pace_col, cons_col, "log_duration"]
+    X = (
+        d[cols]
+        .astype(float)
+        .replace([np.inf, -np.inf], np.nan)
+        .dropna()
+    )
+    return X, cols
+
+
+def _compute_vif_series(X: pd.DataFrame) -> pd.Series:
+    X = X.replace([np.inf, -np.inf], np.nan).dropna()
+    if X.empty or len(X) < 5:
+        return pd.Series({c: np.nan for c in X.columns})
+
+    Xv = X.assign(const=1.0)
+    vifs = {}
+    for i, c in enumerate(Xv.columns):
+        if c == "const":
+            continue
+        vifs[c] = float(variance_inflation_factor(Xv.values, i))
+    return pd.Series(vifs)
+
+
+def vif_table_small_mid(
+    small_df: pd.DataFrame,
+    mid_df: pd.DataFrame,
+    pace_col: str,
+    cons_col: str,
+    duration_col: str = "duration_median",
+) -> pd.DataFrame:
+    """
+    Computes a Small vs Mid VIF table for structural predictors (pace, consistency, log_duration).
+
+    Notes:
+        - Builds log_duration as log(duration_col) for duration_col > 0, else NaN.
+        - Drops rows with NaNs/infs in any of the structural predictors before VIF computation.
+        - If there are fewer than 5 usable rows for a tier, VIFs are returned as NaN for that tier.
+        - Output columns are renamed using pretty_name for readability.
+
+        Internal helper definitions used here:
+            _prep_struct_cols(d, pace_col, cons_col, duration_col):
+                Returns (X, cols) where X is the cleaned numeric design matrix containing
+                [pace_col, cons_col, log_duration], and cols is the list of column names.
+            _compute_vif_series(X):
+                Returns a Series mapping column name -> VIF, computed by adding a constant and
+                using variance_inflation_factor. Returns NaNs if X is too small.
+
+    Args:
+        small_df (pd.DataFrame): Data for the Small tier.
+        mid_df (pd.DataFrame): Data for the Mid tier.
+        pace_col (str): Column name for posting pace predictor.
+        cons_col (str): Column name for posting consistency predictor.
+        duration_col (str): Column name for duration used to compute log_duration.
+            Defaults to 'duration_median'.
+
+    Returns:
+        pd.DataFrame: A 2-row table indexed by tier with VIF values for each structural predictor.
+    """
+    rows = []
+    for tier, d in [("small", small_df), ("mid", mid_df)]:
+        X, cols = _prep_struct_cols(d, pace_col, cons_col, duration_col)
+        vif = _compute_vif_series(X)
+        rows.append(pd.Series(vif, name=tier))
+
+    out = pd.DataFrame(rows)
+    out = out.rename(columns={c: pretty_name(c) for c in out.columns})
+    return out
+
+
+def _pval_stars(p: float) -> str:
+    if p is None or (isinstance(p, float) and not np.isfinite(p)):
+        return ""
+    if p < 0.001:
+        return "***"
+    if p < 0.01:
+        return "**"
+    if p < 0.05:
+        return "*"
+    return ""
+
+
+def _bin_edges_global(s: pd.Series, bins: int = 8, q_low: float = 0.02, q_high: float = 0.98) -> np.ndarray:
+    s = pd.to_numeric(s, errors="coerce").dropna()
+    if s.empty:
+        return np.array([0.0, 1.0])
+
+    lo = float(s.quantile(q_low))
+    hi = float(s.quantile(q_high))
+    if not np.isfinite(lo) or not np.isfinite(hi) or hi <= lo:
+        lo = float(s.min())
+        hi = float(s.max())
+        if not np.isfinite(lo) or not np.isfinite(hi) or hi <= lo:
+            return np.array([0.0, 1.0])
+
+    edges = np.unique(np.linspace(lo, hi, bins + 1))
+    if len(edges) < 3:
+        edges = np.unique(np.linspace(float(s.min()), float(s.max()), bins + 1))
+    return edges
+
+
+def _centers_and_ranges(edges: np.ndarray):
+    centers = (edges[:-1] + edges[1:]) / 2.0
+    ranges = list(zip(edges[:-1], edges[1:]))
+    return centers, ranges
+
+
+def _full_categories_from_edges(edges: np.ndarray):
+    centers, _ = _centers_and_ranges(edges)
+    return pd.cut(pd.Series(centers), bins=edges, include_lowest=True).astype("category").cat.categories
+
+
+def _grid_fixed_edges(df: pd.DataFrame, x: str, y: str, z: str, x_edges: np.ndarray, y_edges: np.ndarray):
+    d = df[[x, y, z]].copy()
+    d[x] = pd.to_numeric(d[x], errors="coerce")
+    d[y] = pd.to_numeric(d[y], errors="coerce")
+    d[z] = pd.to_numeric(d[z], errors="coerce")
+    d = d.dropna()
+
+    if d.empty:
+        return None
+
+    x_centers, x_ranges = _centers_and_ranges(x_edges)
+    y_centers, y_ranges = _centers_and_ranges(y_edges)
+
+    d["xbin"] = pd.cut(d[x], bins=x_edges, include_lowest=True)
+    d["ybin"] = pd.cut(d[y], bins=y_edges, include_lowest=True)
+
+    full_x = _full_categories_from_edges(x_edges)
+    full_y = _full_categories_from_edges(y_edges)
+
+    # >>> observed=True to silence the warning and match future default
+    grid = d.pivot_table(index="ybin", columns="xbin", values=z, aggfunc="median", observed=True)
+    cnt  = d.pivot_table(index="ybin", columns="xbin", values=z, aggfunc="size",   observed=True)
+
+    grid = grid.reindex(index=full_y, columns=full_x)
+    cnt  = cnt.reindex(index=full_y, columns=full_x)
+
+    Z = grid.values.astype(float)
+    N = cnt.values.astype(float)
+
+    # flip so y increases bottom -> top visually
+    Z = Z[::-1, :]
+    N = N[::-1, :]
+    y_centers = y_centers[::-1]
+    y_ranges = y_ranges[::-1]
+
+    return Z, N, x_centers, y_centers, x_ranges, y_ranges
+
+
+def plot_corr_small_mid(
+    small_df,
+    mid_df,
+    pace_col: str,
+    cons_col: str,
+    duration_col: str = "duration_median",
+    cmap="coolwarm",
+):
+    """
+    Plots absolute correlation heatmaps of structural predictors for Small and Mid tiers.
+
+    Notes:
+        - Computes log_duration as log(duration_col) for duration_col > 0, else NaN.
+        - Drops rows with NaNs/infs in [pace_col, cons_col, log_duration] before computing correlations.
+        - Displays absolute correlations in [0, 1].
+        - Produces two side-by-side heatmaps with a shared colorbar.
+
+    Args:
+        small_df (pd.DataFrame): Data for the Small tier.
+        mid_df (pd.DataFrame): Data for the Mid tier.
+        pace_col (str): Column name for posting pace predictor.
+        cons_col (str): Column name for posting consistency predictor.
+        duration_col (str): Column name for duration used to compute log_duration.
+            Defaults to 'duration_median'.
+        cmap: Matplotlib colormap passed to seaborn. Defaults to 'coolwarm'.
+
+    Returns:
+        None: Displays the plot via matplotlib.
+    """
+    Xs, cols = _prep_struct_cols(small_df, pace_col, cons_col, duration_col)
+    Xm, _ = _prep_struct_cols(mid_df, pace_col, cons_col, duration_col)
+
+    corr_s = Xs.corr().abs()
+    corr_m = Xm.corr().abs()
+
+    labels = [pretty_name(c) for c in cols]
+
+    fig, axes = plt.subplots(1, 2, figsize=(11.5, 4.5), constrained_layout=True)
+
+    # shared colorbar axis
+    cbar_ax = fig.add_axes([0.92, 0.18, 0.02, 0.64])
+
+    for ax, (title, corr, show_cbar) in zip(
+        axes,
+        [("Small Tier", corr_s, True), ("Mid Tier", corr_m, False)],
+    ):
+        sns.heatmap(
+            corr.values,
+            ax=ax,
+            vmin=0,
+            vmax=1,
+            cmap=cmap,
+            annot=True,
+            fmt=".2f",
+            square=True,
+            linewidths=0.5,
+            xticklabels=labels,
+            yticklabels=labels,
+            cbar=show_cbar,
+            cbar_ax=cbar_ax if show_cbar else None,
+        )
+        ax.set_title(title)
+        ax.tick_params(axis="x", rotation=30)
+        ax.tick_params(axis="y", rotation=0)
+
+    fig.suptitle("Correlations (absolute) by tier", y=1.02)
+    plt.show()
+
+
+def plot_effects_bars(
+    effects_df: pd.DataFrame,
+    tier_order=("small", "mid"),
+    var_order=("log_duration", "cons8_median", "pace8_median"),
+    eff_col="%ΔE_p25->p75",
+    lo_col="%ΔE_CI_low",
+    hi_col="%ΔE_CI_high",
+    whisker_color="0.45",  # gray
+    palette=['#332288', '#CC6677'],
+):
+    """
+    Plots grouped horizontal bars of p25->p75 effects with asymmetric confidence intervals.
+
+    Notes:
+        - Expects effects_df to contain one row per (tier, var) with effect and CI columns.
+        - Filters to tiers in tier_order (if present) and vars in var_order (if present).
+          If none match, falls back to sorting unique tiers/vars found in the data.
+        - Builds a wide table by pivoting on ['var'] x ['tier'] using the first value per cell.
+        - Uses a deterministic mapping tier -> color from the provided palette.
+
+    Args:
+        effects_df (pd.DataFrame): Effect table with columns including:
+            'tier', 'var', eff_col, lo_col, hi_col.
+        tier_order (tuple): Preferred ordering of tiers in the plot. Defaults to ('small', 'mid').
+        var_order (tuple): Preferred ordering of variables in the plot.
+            Defaults to ('log_duration', 'cons8_median', 'pace8_median').
+        eff_col (str): Column name for the point estimate. Defaults to '%ΔE_p25->p75'.
+        lo_col (str): Column name for the lower CI bound. Defaults to '%ΔE_CI_low'.
+        hi_col (str): Column name for the upper CI bound. Defaults to '%ΔE_CI_high'.
+        whisker_color (str): Matplotlib color for CI whiskers. Defaults to '0.45'.
+        palette (list): List of colors used for tiers in order. Defaults to two colors.
+
+    Returns:
+        None: Displays the plot via matplotlib.
+    """
+    df = effects_df.copy()
+    if df.empty:
+        print("[warn] effects_df is empty")
+        return
+
+    df["tier"] = df["tier"].astype(str)
+    tiers = [t for t in tier_order if t in set(df["tier"])]
+    if not tiers:
+        tiers = sorted(df["tier"].unique())
+
+    df["var"] = df["var"].astype(str)
+    vars_keep = [v for v in var_order if v in set(df["var"])]
+    if not vars_keep:
+        vars_keep = sorted(df["var"].unique())
+
+    df = df[df["tier"].isin(tiers) & df["var"].isin(vars_keep)].copy()
+    if df.empty:
+        print("[warn] no rows after filtering")
+        return
+
+    wide = df.pivot_table(index="var", columns="tier", values=eff_col, aggfunc="first").reindex(vars_keep)
+    lo = df.pivot_table(index="var", columns="tier", values=lo_col, aggfunc="first").reindex(vars_keep)
+    hi = df.pivot_table(index="var", columns="tier", values=hi_col, aggfunc="first").reindex(vars_keep)
+
+    y = np.arange(len(vars_keep))
+    bar_h = 0.35
+    offsets = np.linspace(-bar_h / 2, bar_h / 2, num=len(tiers))
+
+    sns.set_theme(style="whitegrid")
+    fig, ax = plt.subplots(figsize=(11.5, 4.6))
+    ax.axvline(0, linewidth=1, color="0.6")
+
+    # map tier -> color deterministically
+    tier_colors = {t: palette[i % len(palette)] for i, t in enumerate(tiers)}
+
+    for j, tier in enumerate(tiers):
+        vals = wide[tier].to_numpy(dtype=float)
+        lo_vals = lo[tier].to_numpy(dtype=float)
+        hi_vals = hi[tier].to_numpy(dtype=float)
+
+        yy = y + offsets[j]
+        ax.barh(
+            yy, vals,
+            height=bar_h / max(len(tiers), 1) * 1.8,
+            label=tier,
+            alpha=0.90,
+            color=tier_colors[tier],
+        )
+
+        xerr_low = vals - lo_vals
+        xerr_hi = hi_vals - vals
+        ax.errorbar(
+            vals, yy,
+            xerr=[xerr_low, xerr_hi],
+            fmt="none",
+            ecolor=whisker_color,
+            linewidth=2,
+            capsize=4,
+        )
+
+    ax.set_yticks(y)
+    ax.set_yticklabels([pretty_name(v) for v in vars_keep])
+    ax.set_xlabel("% change in efficiency")
+    ax.set_title("Structural factor effects by tier (p25 → p75, back-translated)")
+    ax.legend(title="tier", frameon=False)
+    ax.grid(True, axis="x", linewidth=0.8, alpha=0.25)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+
+    all_lo = df[lo_col].to_numpy(dtype=float)
+    all_hi = df[hi_col].to_numpy(dtype=float)
+    xmin = float(np.nanmin(all_lo))
+    xmax = float(np.nanmax(all_hi))
+    pad = 0.10 * (xmax - xmin if xmax > xmin else 1.0)
+    ax.set_xlim(xmin - pad, xmax + pad)
+
+    plt.tight_layout()
+    plt.show()
+
+
+def plot_coef_bars(
+    coefs_df: pd.DataFrame,
+    tier_order=("small", "mid"),
+    var_order=("log_duration", "cons8_median", "pace8_median"),
+    whisker_color="0.45",  # gray
+    palette=['#332288', '#CC6677'],
+):
+    """
+    Plots grouped horizontal bars of coefficients with 95% CI whiskers and p-value stars.
+
+    Notes:
+        - Computes CI as beta ± 1.96 * se.
+        - P-value stars are assigned using:
+            p < 0.001: '***', p < 0.01: '**', p < 0.05: '*', else ''.
+        - Filters to tiers in tier_order (if present) and vars in var_order (if present).
+          If none match, falls back to sorting unique tiers/vars found in the data.
+        - Uses a deterministic mapping tier -> color from the provided palette.
+
+        Internal helper definition used here:
+            _pval_stars(p):
+                Returns '', '*', '**', or '***' based on p-value thresholds above.
+
+    Args:
+        coefs_df (pd.DataFrame): Coefficient table with columns including:
+            'tier', 'var', 'beta', 'se', 'pval'.
+        tier_order (tuple): Preferred ordering of tiers in the plot. Defaults to ('small', 'mid').
+        var_order (tuple): Preferred ordering of variables in the plot.
+            Defaults to ('log_duration', 'cons8_median', 'pace8_median').
+        whisker_color (str): Matplotlib color for CI whiskers. Defaults to '0.45'.
+        palette (list): List of colors used for tiers in order. Defaults to two colors.
+
+    Returns:
+        None: Displays the plot via matplotlib.
+    """
+    df = coefs_df.copy()
+    if df.empty:
+        print("[warn] coefs_df is empty")
+        return
+
+    df["tier"] = df["tier"].astype(str)
+    tiers = [t for t in tier_order if t in set(df["tier"])]
+    if not tiers:
+        tiers = sorted(df["tier"].unique())
+
+    df["var"] = df["var"].astype(str)
+    vars_keep = [v for v in var_order if v in set(df["var"])]
+    if not vars_keep:
+        vars_keep = sorted(df["var"].unique())
+
+    df = df[df["tier"].isin(tiers) & df["var"].isin(vars_keep)].copy()
+    if df.empty:
+        print("[warn] no rows after filtering")
+        return
+
+    df["ci_low"] = df["beta"] - 1.96 * df["se"]
+    df["ci_high"] = df["beta"] + 1.96 * df["se"]
+    df["stars"] = df["pval"].apply(_pval_stars)
+
+    wide = df.pivot_table(index="var", columns="tier", values="beta", aggfunc="first").reindex(vars_keep)
+    lo = df.pivot_table(index="var", columns="tier", values="ci_low", aggfunc="first").reindex(vars_keep)
+    hi = df.pivot_table(index="var", columns="tier", values="ci_high", aggfunc="first").reindex(vars_keep)
+    stars = df.pivot_table(index="var", columns="tier", values="stars", aggfunc="first").reindex(vars_keep)
+
+    y = np.arange(len(vars_keep))
+    bar_h = 0.35
+    offsets = np.linspace(-bar_h / 2, bar_h / 2, num=len(tiers))
+
+    xmin = float(np.nanmin(df["ci_low"].to_numpy(dtype=float)))
+    xmax = float(np.nanmax(df["ci_high"].to_numpy(dtype=float)))
+    xrng = (xmax - xmin) if xmax > xmin else 1.0
+    xpad = 0.30 * xrng
+    dx = 0.06 * xrng
+
+    sns.set_theme(style="whitegrid")
+    fig, ax = plt.subplots(figsize=(11.5, 4.6))
+    ax.axvline(0, linewidth=1, color="0.6")
+
+    tier_colors = {t: palette[i % len(palette)] for i, t in enumerate(tiers)}
+
+    for j, tier in enumerate(tiers):
+        vals = wide[tier].to_numpy(dtype=float)
+        lo_vals = lo[tier].to_numpy(dtype=float)
+        hi_vals = hi[tier].to_numpy(dtype=float)
+        st = stars[tier].to_numpy()
+
+        yy = y + offsets[j]
+        ax.barh(
+            yy, vals,
+            height=bar_h / max(len(tiers), 1) * 1.8,
+            label=tier,
+            alpha=0.90,
+            color=tier_colors[tier],
+        )
+
+        xerr_low = vals - lo_vals
+        xerr_hi = hi_vals - vals
+        ax.errorbar(
+            vals, yy,
+            xerr=[xerr_low, xerr_hi],
+            fmt="none",
+            ecolor=whisker_color,
+            linewidth=2,
+            capsize=4,
+        )
+
+        yshift = 0.06 * (bar_h / max(len(tiers), 1) * 1.8)
+        for yi, hi_i, star in zip(yy, hi_vals, st):
+            if isinstance(star, str) and star:
+                ax.text(hi_i + dx, yi + yshift, star, va="center", ha="left", fontsize=12)
+
+    ax.set_yticks(y)
+    ax.set_yticklabels([pretty_name(v) for v in vars_keep])
+    ax.set_xlabel("coefficient (HC3 95% CI)")
+    ax.set_title("WLS coefficients by tier (HC3)  (* p<0.05, ** p<0.01, *** p<0.001)")
+    ax.legend(title="tier", frameon=False)
+    ax.grid(True, axis="x", linewidth=0.8, alpha=0.25)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+
+    ax.set_xlim(xmin - xpad, xmax + xpad)
+    plt.tight_layout()
+    plt.show()
+
+
+def plot_recipe_maps_3x2(
+    small_df: pd.DataFrame,
+    mid_df: pd.DataFrame,
+    pairs=(
+        ("cons8_median", "log_duration", "Consistency × Duration"),
+        ("pace8_median", "log_duration", "Pace × Duration"),
+        ("pace8_median", "cons8_median", "Pace × Consistency"),
+    ),
+    z_col: str = "residual",
+    bins: int = 8,
+    min_cell_n: int = 8,
+    low_opacity: float = 0.30,
+    q_low: float = 0.02,
+    q_high: float = 0.98,
+    scale_q: float | None = 0.98,
+    title: str = "Heatmaps of efficiency residuals by structural factor pairs",
+    cmap="coolwarm",
+):
+    """
+    Plots 3x2 heatmaps of median z_col values over binned structural-factor pairs for Small and Mid tiers.
+
+    Notes:
+        - Uses global bin edges across both tiers so that grids align between Small and Mid.
+        - For each (x, y) pair and tier, computes the median z_col per (xbin, ybin) cell.
+        - Cells with 0 < N < min_cell_n are drawn with reduced opacity, while cells with N >= min_cell_n
+          are drawn at full opacity.
+        - Color scaling is symmetric around 0 (TwoSlopeNorm), using either:
+            - max absolute value over reliable cells (scale_q is None), or
+            - the scale_q quantile of absolute values over reliable cells (default 0.98).
+        - Tick labels show bin centers (every second tick) for readability.
+
+        Internal helper definitions used here:
+            _bin_edges_global(s, bins, q_low, q_high):
+                Computes bin edges using [q_low, q_high] quantiles with fallbacks to min/max.
+            _centers_and_ranges(edges):
+                Returns (centers, ranges) for successive edge pairs.
+            _full_categories_from_edges(edges):
+                Returns the full pd.CategoricalIndex produced by cutting bin centers with edges.
+            _grid_fixed_edges(df, x, y, z, x_edges, y_edges):
+                Returns (Z, N, x_centers, y_centers, x_ranges, y_ranges) where:
+                    Z is the median grid, N is the count grid, and centers/ranges describe bins.
+                Returns None if the tier data has no usable rows after numeric coercion and dropna.
+
+    Args:
+        small_df (pd.DataFrame): Data for the Small tier.
+        mid_df (pd.DataFrame): Data for the Mid tier.
+        pairs (tuple): Sequence of (x_col, y_col, label) specifying feature pairs and display label.
+        z_col (str): Column name for the value aggregated into heatmap cells. Defaults to 'residual'.
+        bins (int): Number of bins per axis. Defaults to 8.
+        min_cell_n (int): Minimum per-cell count to treat a cell as reliable (full opacity).
+            Defaults to 8.
+        low_opacity (float): Alpha used for low-count cells. Defaults to 0.30.
+        q_low (float): Lower quantile used for global binning. Defaults to 0.02.
+        q_high (float): Upper quantile used for global binning. Defaults to 0.98.
+        scale_q (float | None): Quantile of |z| over reliable cells used to set symmetric color limits.
+            If None, uses the max |z| over reliable cells. Defaults to 0.98.
+        title (str): Figure title.
+        cmap: Matplotlib colormap passed to seaborn. Defaults to 'coolwarm'.
+
+    Returns:
+        None: Displays the plot via matplotlib.
+    """
+    # validate
+    for dname, d in [("small_df", small_df), ("mid_df", mid_df)]:
+        if z_col not in d.columns:
+            raise KeyError(f"{dname} missing required column: {z_col}")
+    for x, y, _ in pairs:
+        for dname, d in [("small_df", small_df), ("mid_df", mid_df)]:
+            if x not in d.columns or y not in d.columns:
+                raise KeyError(f"{dname} missing feature columns: {x}, {y}")
+
+    sns.set_theme(style="white")
+
+    tiers = [("small", small_df), ("mid", mid_df)]
+
+    # global bin edges across tiers so grids align
+    all_df = pd.concat([small_df, mid_df], ignore_index=True)
+    feats = sorted(set([x for x, _, _ in pairs] + [y for _, y, _ in pairs]))
+    edges = {f: _bin_edges_global(all_df[f], bins=bins, q_low=q_low, q_high=q_high) for f in feats}
+
+    # precompute grids + global scale from reliable cells
+    grids = {}
+    reliable_vals = []
+    for tier_name, d in tiers:
+        for x, y, pair_title in pairs:
+            out = _grid_fixed_edges(d, x, y, z_col, edges[x], edges[y])
+            grids[(tier_name, pair_title)] = out
+            if out is None:
+                continue
+            Z, N, *_ = out
+            Zr = np.where(N >= min_cell_n, Z, np.nan) if (min_cell_n and min_cell_n > 1) else Z
+            v = Zr[np.isfinite(Zr)]
+            if v.size:
+                reliable_vals.append(v)
+
+    if not reliable_vals:
+        zmin, zmax = -0.1, 0.1
+    else:
+        vv = np.concatenate(reliable_vals)
+        a = np.abs(vv)
+        m = float(np.nanmax(a)) if scale_q is None else float(np.nanquantile(a, scale_q))
+        if not np.isfinite(m) or m <= 0:
+            m = 0.1
+        zmin, zmax = -m, m
+
+    norm = TwoSlopeNorm(vmin=zmin, vcenter=0.0, vmax=zmax)
+
+    fig, axes = plt.subplots(len(pairs), 2, figsize=(11.2, 9.6))
+
+    fig.subplots_adjust(
+        left=0.08,
+        right=0.86,
+        top=0.92,
+        bottom=0.12,
+        wspace=0.08,
+        hspace=0.42,
+    )
+
+    for r, (x, y, pair_title) in enumerate(pairs):
+        for c, (tier_name, _) in enumerate(tiers):
+            ax = axes[r, c]
+            out = grids.get((tier_name, pair_title))
+
+            x_label = pretty_name(x)
+            y_label = pretty_name(y)
+
+            if out is None:
+                ax.set_title(f"{tier_name.title()} tier" if r == 0 else "")
+                ax.set_xlabel(x_label)
+                ax.set_ylabel(y_label)
+                ax.text(0.5, 0.5, "no data", ha="center", va="center", transform=ax.transAxes)
+                continue
+
+            Z, N, x_centers, y_centers, *_ = out
+
+            if min_cell_n and min_cell_n > 1:
+                Z_hi = np.where((N >= min_cell_n) & np.isfinite(Z), Z, np.nan)
+                Z_lo = np.where((N > 0) & (N < min_cell_n) & np.isfinite(Z), Z, np.nan)
+            else:
+                Z_hi = Z.copy()
+                Z_lo = np.full_like(Z, np.nan)
+
+            x_pos = np.arange(len(x_centers))
+            y_pos = np.arange(len(y_centers))
+
+            x_keep = np.arange(0, len(x_centers), 2, dtype=int)
+            y_keep = np.arange(0, len(y_centers), 2, dtype=int)
+
+            xticks = x_pos[x_keep]
+            yticks = y_pos[y_keep]
+
+            xticklabels = [f"{x_centers[i]:.2f}" for i in x_keep]
+            yticklabels = [f"{y_centers[i]:.2f}" for i in y_keep]
+
+            sns.heatmap(
+                Z_hi,
+                ax=ax,
+                cmap=cmap,
+                norm=norm,
+                cbar=False,
+                square=True,
+                xticklabels=False,
+                yticklabels=False,
+                linewidths=0.0,
+            )
+
+            if np.isfinite(Z_lo).any():
+                sns.heatmap(
+                    Z_lo,
+                    ax=ax,
+                    cmap=cmap,
+                    norm=norm,
+                    cbar=False,
+                    square=True,
+                    xticklabels=False,
+                    yticklabels=False,
+                    linewidths=0.0,
+                    alpha=low_opacity,
+                )
+
+            if r == 0:
+                ax.set_title(f"{tier_name.title()} tier")
+
+            ax.set_xlabel(x_label, labelpad=6)
+            ax.set_ylabel(y_label, labelpad=6)
+
+            ax.set_xticks(xticks + 0.5)
+            ax.set_yticks(yticks + 0.5)
+            ax.set_xticklabels(xticklabels, rotation=45, ha="right")
+            ax.set_yticklabels(yticklabels, rotation=45, ha="right")
+
+            if c == 1:
+                ax.annotate(
+                    pair_title,
+                    xy=(1.06, 0.5),
+                    xycoords="axes fraction",
+                    rotation=-90,
+                    va="center",
+                    ha="left",
+                    fontsize=13,
+                    fontweight="bold",
+                )
+
+    # shared colorbar
+    cax = fig.add_axes([0.88, 0.18, 0.025, 0.64])
+    sm = plt.cm.ScalarMappable(norm=norm, cmap=cmap)
+    sm.set_array([])
+    cbar = fig.colorbar(sm, cax=cax)
+    cbar.set_label(f"{z_col}\n0 = as expected")
+
+    fig.suptitle(title, fontsize=16)
     plt.show()
