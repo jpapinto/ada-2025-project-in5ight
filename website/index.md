@@ -167,11 +167,33 @@ I have some of the Outperformers right here, and I analyzed how their engagement
 **Alex**: Against their expected baseline, it’s clear they perform much better.
 And not just once. Some spike, sure, but many of these channels sustain high efficiency for years.
 
+
+
+
+
 **Marcus**: (Leaning back, looking less skeptical) Okay, Alex. I see the math. These 'Outperformers' have great engagement stats. But we can't just throw darts at a list of 2,000 random channels. 
 
-**Diana**: Exactly. Even if we believe in Outperformers, we still need to know where to look. What if we accidentally sponsor a flat-earth theorist or a channel that has nothing to do with our audience? We need control.
+**Leo**: Exactly. Even if we believe in Outperformers, we still need to know where to look. What if we accidentally sponsor a flat-earth theorist or a channel that has nothing to do with our audience? We need control.
 
-**Alex**: That’s the right question. And it turns out… categories matter more than we thought.
+
+
+<div style="display: flex; align-items: center;">
+  <img src="assets/img/leo_2.png" alt="Description of image" style="width: 200px; height:auto; margin-right: 50px; margin-bottom:20px; ">
+  <p style="flex: 1; margin-right: 20px; margin-left:20px; margin-top:30px;">
+    <strong>Leo</strong>: Exactly. Even if we believe in Outperformers, we still need to know where to look. What if we accidentally sponsor a flat-earth theorist or a channel that has nothing to do with our audience? We need control.
+
+    <br>
+    <br>
+    <br>
+    <strong>Alex</strong>: that’s the right question. And it turns out… categories matter more than we thought.
+    
+    <br>
+    <br>
+  </p>
+
+</div>
+
+
 
 ## _Where the Outperformers Live and Why It Matters_?
 
@@ -179,7 +201,7 @@ And not just once. Some spike, sure, but many of these channels sustain high eff
 
 So I ignored the labels YouTube gives us. Instead, I looked at the tags - the actual keywords creators use to describe their own videos. I processed millions of tags from our dataset and used a technique called Latent Dirichlet Allocation.
 
-**Diana**: (Raising an eyebrow) In English, Alex.
+**Leo**: (Raising an eyebrow) In English, Alex.
 
 **Alex**: Think of it as reverse-engineering the communities. I let the data tell me which videos belong together based on the words they use. Instead of 15 broad buckets, the model discovered 30 distinct micro-communities.
 
@@ -195,7 +217,7 @@ So I ignored the labels YouTube gives us. Instead, I looked at the tags - the ac
 
 **Alex**: Statistically, the answer is a clear no. Some communities naturally produce far more engagement per view than others. The baseline is different. An average channel in one community can outperform a strong channel in another, even before we talk about Outperformers.
 
-**Diana**: So the category sets the floor.
+**Leo**: So the category sets the floor.
 
 **Alex**: Exactly! Outperformers raise you above the floor, but the floor still matters.
 
@@ -208,7 +230,7 @@ That would work, if performance were the only thing that mattered.
 But in the real world, performance attracts attention. And attention attracts competition.
 When a community consistently delivers strong engagement, brands notice. Budgets pile in. Creators raise their rates.
 
-**Diana**: So high engagement doesn’t stay cheap for long.
+**Leo**: So high engagement doesn’t stay cheap for long.
 
 **Alex**: Exactly. Efficiency creates value, but competition sets the price.
 
@@ -227,7 +249,7 @@ But that’s not what the data shows.
 
 **Alex**: Exactly. If the market were already perfectly efficient, these two rankings would line up exactly. The most engaging communities would also be the ones packed with Outperformers.
 
-**Diana**: *(clicking the drop down menu with different sorting criterion)*
+**Leo**: *(clicking the drop down menu with different sorting criterion)*
 But they don’t.
 
 **Alex**: No, and that mismatch is where the strategy lives.
@@ -250,16 +272,6 @@ These are reliable. Predictable. But crowded, and therefore more expensive.
 
 *(The room is quiet. This time, thoughtful.)*
 
-
-
-
-
-// Explain the Log modeling linear regression.
-// I think its related to the Poseidon distribution
-
-// Place for graphs
-
-// Showing how he found 2831 of these channels. 
 
 
 
