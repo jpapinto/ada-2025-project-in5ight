@@ -3,6 +3,7 @@
 ## Project Data Story
 
 Link to the data story website: [Beyond Size](https://epfl-ada.github.io/ada-2025-project-in5ight/)<br>
+The notebooks used to generate the Plotly plots for the data story website can be found in the `src/website_plots/` folder.
 The source code for the data story website is located in the `website/` folder on the `data_story` branch.
 
 ## Abstract
