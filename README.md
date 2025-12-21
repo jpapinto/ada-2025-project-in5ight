@@ -146,13 +146,14 @@ uv pip install -r requirements.txt
 
 ### 5. Download Data
 
-Download the [YouNiverse dataset](https://zenodo.org/records/4650046). specifically the **5 files** listed below, and place them inside the `data/raw/` folder:
+Download the [YouNiverse dataset](https://zenodo.org/records/4650046). specifically the **6 files** listed below, and place them inside the `data/raw/` folder:
 
 * `df_channels_en.tsv.gz`
 * `df_timeseries_en.tsv.gz`
 * `num_comments.tsv.gz`
 * `yt_metadata_en.jsonl.gz`
 * `yt_metadata_helper.feather`
+* `num_comments.tsv.gz`
 
 ### 6. Run the analysis
 
