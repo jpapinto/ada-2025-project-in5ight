@@ -125,7 +125,6 @@ def multi_word_coherence_experiment(k_values, corpus, dictionary, df_clean):
     training_times = []
 
     for k in k_values:
-        print(f"Training LDA with k={k} topics...\n")
         
         start_time = time.time()
         
@@ -152,7 +151,6 @@ def multi_word_coherence_experiment(k_values, corpus, dictionary, df_clean):
         coherence = coherence_model.get_coherence()
         coherence_scores.append(coherence)
         
-        print(f"Coherence: {coherence:.4f} | Time: {elapsed/60:.1f} min")
 
     # Results summary
     results_df = pd.DataFrame({
