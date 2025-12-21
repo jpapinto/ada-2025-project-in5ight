@@ -240,13 +240,13 @@ It gives us two paths, not one.
 **Alex**: First, the *Verified Winners*. Communities that rank high on engagement and are already dense with Outperformers. For example “Game & Gameplay” and “Comedy Vlogs”
 These are reliable. Predictable. But crowded, and therefore more expensive.
 
-**Marcus**: And the others?Like the  “Sports & Music”
+**Marcus**: And the others? Like “Sports & Music”?
 
 **Alex**: That’s the *Opportunity Gap*. Communities where engagement is strong, but Outperformers are still relatively rare. Less competition. Lower prices. More uncertainty, but far more upside.
 
 *(Alex looks around the room.)*
 
-**Alex**: There isn’t a single “best” strategy here. One path buys us stability. The other buys us leverage. The mistake isn’t choosing one over the other — it’s pretending they’re the same.
+**Alex**: There isn’t a single “best” strategy here. One path buys us stability. The other buys us leverage. The mistake isn’t choosing one over the other, it’s pretending they’re the same.
 
 *(The room is quiet. This time, thoughtful.)*
 
